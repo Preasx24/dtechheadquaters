@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Host Finder - D-TECH Headquarters</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        header {
+            text-align: center;
+            background-color: #34495e;
+            color: white;
+            padding: 20px 0;
+        }
+
+        header img {
+            width: 120px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            letter-spacing: 1px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .content-section {
+            background-color: white;
+            padding: 40px 20px;
+            margin: 20px auto;
+            max-width: 1200px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-section h2 {
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            color: #f39c12;
+            font-weight: bold;
+        }
+
+        .content-description {
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 1.1em;
+            line-height: 1.7;
+            background-color: rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .section-link {
+            margin: 20px 0;
+            padding: 15px 30px;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            display: inline-block;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-link:hover {
+            background-color: #16a085;
+            transform: translateY(-3px);
+        }
+
+        footer {
+            text-align: center;
+            background-color: #34495e;
+            color: white;
+            padding: 15px 0;
+            margin-top: 40px;
+            font-size: 1em;
+        }
+
+        footer a {
+            color: #f39c12;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="dtech-logo.png" alt="D-TECH Logo">
+    <h1>Host Finder - D-TECH Headquarters</h1>
+</header>
+
+<!-- Options for Host Types -->
+<div class="content-section">
+    <h2>Host Finder Options</h2>
+    <div class="content-description">
+        <p>Select an option below to explore the hosts for different network providers:</p>
+        <a href="status-codes.html" class="section-link">1. Status Codes Explained</a><br>
+        <a href="mtn-hosts.html" class="section-link">2. MTN Hosts</a><br>
+        <a href="vodacom-hosts.html" class="section-link">3. Vodacom Hosts</a><br>
+        <a href="telkom-hosts.html" class="section-link">4. Telkom Hosts</a><br>
+        <a href="cell-c-hosts.html" class="section-link">5. Cell C Hosts</a><br>
+        <a href="testing-methods.html" class="section-link">6. Testing Methods (SSH, V2Ray, WebSocket)</a>
+    </div>
+</div>
+
+<div class="content-section">
+    <h2>What Are Zero-Rated Hosts?</h2>
+    <div class="content-description">
+        <p>Zero-rated hosts are websites and services that offer free access to users without consuming any data from their mobile data plans. These hosts are typically provided by mobile network operators such as MTN, Vodacom, Telkom, and Cell C. By leveraging zero-rated hosts, you can access certain content or services without worrying about data usage.</p>
+        
+        <p>Our Host Finder tool helps you discover these zero-rated hosts and test them to make sure they are providing the intended free access. We also show how to retrieve headers, test the hosts for SSH, WebSocket (Port 443), and V2Ray, as well as methods for creating accounts with these services.</p>
+        
+        <p>Here are some simple steps on how you can test and create accounts with these hosts:</p>
+        <ul>
+            <li>Test host headers using command-line tools like <code>curl</code> or <code>wget</code>.</li>
+            <li>Use WebSocket testing for more advanced connections that require secure tunneling (Port 443).</li>
+            <li>Create V2Ray and SSH accounts for advanced tunneling and free internet access.</li>
+            <li>Explore alternative methods like using VPNs to route traffic via zero-rated hosts.</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2024 <a href="https://github.com/Preasx24/dtechheadquaters" target="_blank">D-TECH Headquarters</a>. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
