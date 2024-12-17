@@ -1,1 +1,121 @@
-h
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Know Your HTTP Status Codes</title>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QFCETX7516"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-QFCETX7516');
+    </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('theme.png');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-top: 40px;
+            margin-bottom: 10px;
+        }
+
+        .status-group {
+            margin-bottom: 40px;
+        }
+
+        .status-code {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+
+        .status-description {
+            font-size: 1.1em;
+            color: #ddd;
+        }
+
+        .group-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Know Your HTTP Status Codes</h1>
+        <p>Understand the meaning behind each HTTP status code below.</p>
+
+        <div class="status-group">
+            <div class="group-title">1xx: Informational Responses</div>
+            <div class="status-code"><strong>100 Continue:</strong> The server has received the request headers and the client can continue sending the request body.</div>
+            <div class="status-code"><strong>101 Switching Protocols:</strong> The server agrees to switch to the protocol requested by the client (e.g., WebSocket).</div>
+            <div class="status-code"><strong>102 Processing:</strong> The server has received and is processing the request but has not completed it.</div>
+        </div>
+
+        <div class="status-group">
+            <div class="group-title">2xx: Success</div>
+            <div class="status-code"><strong>200 OK:</strong> The request was successful, and the server has returned the requested data.</div>
+            <div class="status-code"><strong>201 Created:</strong> The request was successful, and a new resource was created (e.g., after a POST request).</div>
+            <div class="status-code"><strong>202 Accepted:</strong> The request has been accepted for processing, but it's not completed yet.</div>
+            <div class="status-code"><strong>204 No Content:</strong> The request was successful, but there's no content to send in the response.</div>
+        </div>
+
+        <div class="status-group">
+            <div class="group-title">3xx: Redirection</div>
+            <div class="status-code"><strong>301 Moved Permanently:</strong> The resource has been permanently moved to a new URL.</div>
+            <div class="status-code"><strong>302 Found:</strong> The resource has temporarily moved to a different URL.</div>
+            <div class="status-code"><strong>304 Not Modified:</strong> The resource has not been modified since the last request (used for caching).</div>
+            <div class="status-code"><strong>307 Temporary Redirect:</strong> Similar to 302, but the method (GET/POST) must remain the same.</div>
+            <div class="status-code"><strong>308 Permanent Redirect:</strong> Similar to 301, but the method must remain the same.</div>
+        </div>
+
+        <div class="status-group">
+            <div class="group-title">4xx: Client Errors</div>
+            <div class="status-code"><strong>400 Bad Request:</strong> The server cannot process the request due to invalid syntax.</div>
+            <div class="status-code"><strong>401 Unauthorized:</strong> Authentication is required to access the resource.</div>
+            <div class="status-code"><strong>403 Forbidden:</strong> The client is not allowed to access the resource.</div>
+            <div class="status-code"><strong>404 Not Found:</strong> The requested resource could not be found.</div>
+            <div class="status-code"><strong>405 Method Not Allowed:</strong> The HTTP method (e.g., GET, POST) is not allowed for the resource.</div>
+            <div class="status-code"><strong>408 Request Timeout:</strong> The server timed out waiting for the client's request.</div>
+            <div class="status-code"><strong>429 Too Many Requests:</strong> The client has sent too many requests in a given amount of time.</div>
+        </div>
+
+        <div class="status-group">
+            <div class="group-title">5xx: Server Errors</div>
+            <div class="status-code"><strong>500 Internal Server Error:</strong> A generic error indicating the server encountered an unexpected condition.</div>
+            <div class="status-code"><strong>501 Not Implemented:</strong> The server does not support the functionality required to fulfill the request.</div>
+            <div class="status-code"><strong>502 Bad Gateway:</strong> The server received an invalid response from an upstream server.</div>
+            <div class="status-code"><strong>503 Service Unavailable:</strong> The server is currently unavailable (e.g., overloaded or under maintenance).</div>
+            <div class="status-code"><strong>504 Gateway Timeout:</strong> The server did not receive a timely response from an upstream server.</div>
+            <div class="status-code"><strong>505 HTTP Version Not Supported:</strong> The server does not support the HTTP version used in the request.</div>
+        </div>
+    </div>
+</body>
+</html>
