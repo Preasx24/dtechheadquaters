@@ -28,7 +28,7 @@
             padding: 0;
             background-color: #f8f9fa;
             color: #333;
-            min-height: 100vh;
+            min-height: 120vh; /* Increased height to elongate the page */
             display: flex;
             flex-direction: column;
         }
@@ -37,23 +37,23 @@
             text-align: center;
             background-color: #2c3e50;
             color: white;
-            padding: 50px 5%; /* Added padding for responsiveness */
+            padding: 60px 5%; /* Increased padding to elongate header */
             flex-shrink: 0;
         }
 
         header img {
-            max-width: 100%; /* Ensures the logo scales dynamically */
+            max-width: 100%;
             height: auto;
         }
 
         header h1 {
-            margin: 20px 0;
-            font-size: 2.5em;
+            margin: 25px 0;
+            font-size: 2.8em; /* Slightly increased font size */
         }
 
         header p {
-            font-size: 1.2em;
-            margin: 10px 0;
+            font-size: 1.3em; /* Slightly increased font size for readability */
+            margin: 15px 0;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
@@ -61,20 +61,20 @@
 
         nav {
             text-align: center;
-            margin: 20px auto;
+            margin: 30px auto; /* Added spacing to spread navigation out */
             flex-grow: 1;
-            padding: 10px;
+            padding: 20px; /* Increased padding */
         }
 
         nav a {
             display: inline-block;
-            margin: 10px;
-            padding: 15px 20px;
-            font-size: 1em;
+            margin: 15px; /* Increased spacing between links */
+            padding: 18px 25px; /* Increased padding for larger clickable area */
+            font-size: 1.1em; /* Slightly increased font size */
             color: white;
             background-color: #2c3e50;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 7px; /* Rounded corners for a polished look */
             transition: background-color 0.3s;
         }
 
@@ -86,11 +86,30 @@
             text-align: center;
             background-color: #2c3e50;
             color: white;
-            padding: 15px 5%;
+            padding: 20px 5%; /* Slightly increased padding */
             flex-shrink: 0;
         }
 
         @media screen and (max-width: 768px) {
+            header h1 {
+                font-size: 2.2em;
+            }
+
+            header p {
+                font-size: 1.1em;
+            }
+
+            nav a {
+                padding: 15px 20px;
+                font-size: 1em;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            header {
+                padding: 40px 5%; /* Slightly less padding on smaller devices */
+            }
+
             header h1 {
                 font-size: 2em;
             }
@@ -100,27 +119,8 @@
             }
 
             nav a {
-                padding: 10px 15px;
+                padding: 12px 18px; /* Adjust link padding for smaller screens */
                 font-size: 0.9em;
-            }
-        }
-
-        @media screen and (max-width: 480px) {
-            header {
-                padding: 30px 5%;
-            }
-
-            header h1 {
-                font-size: 1.8em;
-            }
-
-            header p {
-                font-size: 0.9em;
-            }
-
-            nav a {
-                padding: 8px 12px;
-                font-size: 0.8em;
             }
         }
     </style>
