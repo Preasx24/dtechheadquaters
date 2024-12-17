@@ -26,7 +26,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: url('theme.png') no-repeat center center/cover;
+            background-color: #f8f9fa;
             color: #333;
             min-height: 100vh;
             display: flex;
@@ -35,29 +35,34 @@
 
         header {
             text-align: center;
-            background: url('dtech-logo.png') no-repeat center center/cover;
+            background: url('dtech-logo.png') no-repeat center center/contain;
             color: white;
+            height: 250px; /* Fixed height to ensure full display */
             padding: 50px 5%;
             flex-shrink: 0;
         }
 
         header h1 {
-            margin: 20px 0;
+            margin-top: 140px; /* Push text below the image */
             font-size: 2.5em;
         }
 
         header p {
             font-size: 1.2em;
-            margin: 10px 0;
+            margin: 10px auto;
             max-width: 80%;
-            margin-left: auto;
-            margin-right: auto;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            text-align: center;
+            background: url('theme.png') no-repeat center center/cover;
+            padding: 50px 5%;
         }
 
         nav {
             text-align: center;
             margin: 30px auto;
-            flex-grow: 1;
         }
 
         nav a {
@@ -82,7 +87,6 @@
             background-color: #2c3e50;
             color: white;
             padding: 20px 5%;
-            margin-top: 20px;
         }
 
         footer a {
@@ -114,9 +118,11 @@
         @media screen and (max-width: 480px) {
             header {
                 padding: 40px 5%;
+                height: 200px;
             }
 
             header h1 {
+                margin-top: 100px; /* Adjust text placement for smaller screens */
                 font-size: 1.8em;
             }
 
@@ -135,20 +141,22 @@
 
 <header>
     <h1>Welcome to D-TECH Headquarters</h1>
-    <p>Explore our tools, projects, and cutting-edge resources. Whether you're looking to test your skills or explore new digital frontiers, D-TECH provides the resources and community for your growth.</p>
+    <p>Explore our tools, projects, and cutting-edge resources.</p>
 </header>
 
-<nav>
-    <a href="about.html">About Us</a>
-    <a href="bot-updates.html">Bot Updates</a>
-    <a href="files.html">Our Files</a>
-    <a href="youtube.html">Our YouTube</a>
-    <a href="telegram.html">Our Telegram</a>
-    <a href="faqs.html">FAQs</a>
-    <a href="giveaway.html">Giveaways</a>
-    <a href="host-finder.html">Host Finder</a>
-    <a href="etc.html">Etc</a>
-</nav>
+<div class="main-content">
+    <nav>
+        <a href="about.html">About Us</a>
+        <a href="bot-updates.html">Bot Updates</a>
+        <a href="files.html">Our Files</a>
+        <a href="youtube.html">Our YouTube</a>
+        <a href="telegram.html">Our Telegram</a>
+        <a href="faqs.html">FAQs</a>
+        <a href="giveaway.html">Giveaways</a>
+        <a href="host-finder.html">Host Finder</a>
+        <a href="etc.html">Etc</a>
+    </nav>
+</div>
 
 <footer>
     <p>&copy; 2024 D-TECH Headquarters. All rights reserved.</p>
