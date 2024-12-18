@@ -3,101 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IP Geolocation</title>
-
+    <title>IP Geolocation - D-TECH Tools</title>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-QFCETX7516"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-
         gtag('config', 'G-QFCETX7516');
     </script>
-
     <style>
         body {
             font-family: 'Arial', sans-serif;
             background-color: #181818;
             color: #d1d1d1;
             margin: 0;
-            padding: 20px;
-        }
-        header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        h1 {
-            color: #00ff00;
-            font-size: 2em;
+            padding: 0;
         }
         .container {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .output {
-            font-size: 1.2em;
-            margin: 20px 0;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
             background-color: #282828;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            text-align: center;
             color: #00ff00;
+        }
+        input[type="text"] {
+            width: 100%;
             padding: 10px;
+            margin: 10px 0;
             border: 2px solid #00ff00;
             border-radius: 5px;
-            white-space: pre-wrap;
-            text-align: left;
+            background-color: #333333;
+            color: #ffffff;
         }
         button {
-            padding: 10px 20px;
-            font-size: 1em;
+            width: 100%;
+            padding: 10px;
             background-color: #00ff00;
-            color: #000;
+            color: #000000;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            font-size: 1em;
         }
         button:hover {
             background-color: #ff6600;
         }
+        .output {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #333333;
+            border-radius: 5px;
+        }
+        .error {
+            color: #ff6600;
+        }
     </style>
 </head>
 <body>
-    <header>
-        <h1>IP Geolocation</h1>
-    </header>
-
     <div class="container">
-        <button onclick="getIPGeolocation()">Get IP Geolocation</button>
-        <div class="output" id="geoOutput">Click "Get IP Geolocation" to view your location details.</div>
+        <h1>IP Geolocation</h1>
+        <input type="text" id="ipInput" placeholder="Enter an IP address" />
+        <button onclick="getGeolocation()">Get Geolocation</button>
+        <div id="output" class="output"></div>
     </div>
 
     <script>
-        function getIPGeolocation() {
-            const outputElement = document.getElementById('geoOutput');
-            outputElement.textContent = "Fetching geolocation data, please wait...";
+        async function getGeolocation() {
+            const ip = document.getElementById('ipInput').value.trim();
+            const outputDiv = document.getElementById('output');
 
-            fetch('https://ip-api.com/json/')
-                .then(response => response.json())
-                .then(data => {
-                    const locationInfo = `
-IP Address: ${data.query}
-Country: ${data.country} (${data.countryCode})
-Region: ${data.regionName}
-City: ${data.city}
-ZIP Code: ${data.zip}
-Latitude: ${data.lat}
-Longitude: ${data.lon}
-Time Zone: ${data.timezone}
-ISP: ${data.isp}
-Organization: ${data.org}
+            if (!ip) {
+                outputDiv.innerHTML = '<p class="error">Please enter a valid IP address.</p>';
+                return;
+            }
+
+            try {
+                const response = await fetch(`https://ipapi.co/${ip}/json/`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch geolocation data.');
+                }
+
+                const data = await response.json();
+
+                if (data.error) {
+                    outputDiv.innerHTML = `<p class="error">${data.reason}</p>`;
+                } else {
+                    outputDiv.innerHTML = `
+                        <p><strong>IP Address:</strong> ${data.ip}</p>
+                        <p><strong>City:</strong> ${data.city}</p>
+                        <p><strong>Region:</strong> ${data.region}</p>
+                        <p><strong>Country:</strong> ${data.country_name}</p>
+                        <p><strong>Postal Code:</strong> ${data.postal}</p>
+                        <p><strong>Latitude:</strong> ${data.latitude}</p>
+                        <p><strong>Longitude:</strong> ${data.longitude}</p>
+                        <p><strong>Timezone:</strong> ${data.timezone}</p>
+                        <p><strong>ISP:</strong> ${data.org}</p>
                     `;
-
-                    outputElement.textContent = locationInfo;
-                })
-                .catch(error => {
-                    outputElement.textContent = `Error fetching geolocation data: ${error}`;
-                });
+                }
+            } catch (error) {
+                outputDiv.innerHTML = `<p class="error">Error: Unable to retrieve geolocation data.</p>`;
+            }
         }
     </script>
 </body>
