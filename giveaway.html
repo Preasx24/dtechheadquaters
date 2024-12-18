@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>D-TECH Firebase Integration</title>
+
+    <!-- Firebase SDK CDN -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+
+    <!-- Optional: You can also include Firestore, Realtime Database, etc., if you're using them -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script> -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script> -->
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('theme.png') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            text-align: center;
+            padding-top: 50px;
+        }
+        h1 {
+            font-size: 3em;
+        }
+        .form-container {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            margin: 0 auto;
+        }
+        input[type="text"], input[type="password"], input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #444;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>D-TECH Firebase Integration</h1>
+        
+        <!-- Sign Up Form -->
+        <div class="form-container">
+            <h2>Sign Up</h2>
+            <input type="email" id="signup-email" placeholder="Email" required>
+            <input type="password" id="signup-password" placeholder="Password" required>
+            <button onclick="signUp()">Sign Up</button>
+        </div>
+
+        <div class="form-container">
+            <h2>Sign In</h2>
+            <input type="email" id="signin-email" placeholder="Email" required>
+            <input type="password" id="signin-password" placeholder="Password" required>
+            <button onclick="signIn()">Sign In</button>
+        </div>
+    </div>
+
+    <!-- Firebase SDK Initialization -->
+    <script>
+        // Your Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyCck1-_nHBsIPI6Fazjge6zLeMj1vpe5oY",
+            authDomain: "dtech-3f596.firebaseapp.com",
+            projectId: "dtech-3f596",
+            storageBucket: "dtech-3f596.appspot.com",
+            messagingSenderId: "112830705909",
+            appId: "1:112830705909:web:d80f969f19c54f4a3195bc",
+            measurementId: "G-912R31BXC7"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const analytics = firebase.analytics();
+        const auth = firebase.auth();
+
+        // Sign Up function
+        function signUp() {
+            const email = document.getElementById("signup-email").value;
+            const password = document.getElementById("signup-password").value;
+
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    alert("User signed up successfully!");
+                })
+                .catch((error) => {
+                    alert("Error: " + error.message);
+                });
+        }
+
+        // Sign In function
+        function signIn() {
+            const email = document.getElementById("signin-email").value;
+            const password = document.getElementById("signin-password").value;
+
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    alert("User signed in successfully!");
+                })
+                .catch((error) => {
+                    alert("Error: " + error.message);
+                });
+        }
+    </script>
+
+</body>
+</html>
