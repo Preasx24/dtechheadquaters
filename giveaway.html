@@ -3,163 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D-TECH Authentication</title>
-    
-    <!-- Firebase SDK (version 9) -->
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
-
+    <title>D-Tech Sign Up & Sign In</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #121212;
-            color: white;
-            text-align: center;
-            padding-top: 20px;
-        }
-        header {
-            background-color: #333;
             padding: 20px;
+            background-color: #f2f2f2;
         }
-        h1 {
-            font-size: 2.5em;
-            margin: 0;
-        }
-        .container {
+        .form-container {
             max-width: 400px;
-            margin: 30px auto;
+            margin: 0 auto;
             padding: 20px;
-            background-color: #444;
-            border-radius: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        input {
+        input[type="email"], input[type="password"] {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
+            border-radius: 4px;
+            border: 1px solid #ddd;
         }
         button {
             width: 100%;
             padding: 10px;
-            background-color: #555;
+            background-color: #007bff;
             color: white;
             border: none;
-            cursor: pointer;
+            border-radius: 4px;
         }
         button:hover {
-            background-color: #777;
+            background-color: #0056b3;
         }
-        .toggle-link {
-            color: #ddd;
-            text-decoration: none;
-        }
-        .toggle-link:hover {
-            text-decoration: underline;
-        }
-        .message {
-            color: green;
-            margin-top: 20px;
-        }
-        .error {
-            color: red;
-            margin-top: 20px;
+        p {
+            text-align: center;
         }
     </style>
 </head>
 <body>
-
-<header>
-    <h1>D-TECH Authentication</h1>
-</header>
-
-<div class="container">
-    <!-- Sign-In Form -->
-    <div id="signin-form">
-        <h2>Sign In</h2>
-        <input type="email" id="signin-email" placeholder="Email" required>
-        <input type="password" id="signin-password" placeholder="Password" required>
-        <button onclick="signIn()">Sign In</button>
-        <p>Don't have an account? <a href="#" class="toggle-link" onclick="toggleForms()">Sign Up here</a></p>
-    </div>
-
-    <!-- Sign-Up Form -->
-    <div id="signup-form" style="display:none;">
+    <div class="form-container">
         <h2>Sign Up</h2>
-        <input type="email" id="signup-email" placeholder="Email" required>
-        <input type="password" id="signup-password" placeholder="Password" required>
-        <button onclick="signUp()">Sign Up</button>
-        <p>Already have an account? <a href="#" class="toggle-link" onclick="toggleForms()">Sign In here</a></p>
+        <form id="signup-form">
+            <input type="email" id="signup-email" placeholder="Email" required><br>
+            <input type="password" id="signup-password" placeholder="Password" required><br>
+            <button type="submit">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="#" id="show-signin">Sign In</a></p>
     </div>
 
-    <!-- Message Display -->
-    <div id="message" class="message" style="display:none;"></div>
-    <div id="error-message" class="error" style="display:none;"></div>
-</div>
+    <div class="form-container" id="signin-form-container" style="display:none;">
+        <h2>Sign In</h2>
+        <form id="signin-form">
+            <input type="email" id="signin-email" placeholder="Email" required><br>
+            <input type="password" id="signin-password" placeholder="Password" required><br>
+            <button type="submit">Sign In</button>
+        </form>
+        <p>Don't have an account? <a href="#" id="show-signup">Sign Up</a></p>
+    </div>
 
-<!-- Firebase SDK Initialization -->
-<script>
-    // Firebase Configuration
-    const firebaseConfig = {
-        apiKey: "AIzaSyCck1-_nHBsIPI6Fazjge6zLeMj1vpe5oY",
-        authDomain: "dtech-3f596.firebaseapp.com",
-        projectId: "dtech-3f596",
-        storageBucket: "dtech-3f596.firebasestorage.app",
-        messagingSenderId: "112830705909",
-        appId: "1:112830705909:web:d80f969f19c54f4a3195bc",
-        measurementId: "G-912R31BXC7"
-    };
+    <script>
+        const signupForm = document.getElementById('signup-form');
+        const signinForm = document.getElementById('signin-form');
+        const signupEmail = document.getElementById('signup-email');
+        const signupPassword = document.getElementById('signup-password');
+        const signinEmail = document.getElementById('signin-email');
+        const signinPassword = document.getElementById('signin-password');
 
-    // Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
+        // Handle sign-up form submission
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = signupEmail.value;
+            const password = signupPassword.value;
 
-    // Toggle Forms between Sign-In and Sign-Up
-    function toggleForms() {
-        const signInForm = document.getElementById('signin-form');
-        const signUpForm = document.getElementById('signup-form');
-        signInForm.style.display = (signInForm.style.display === 'none' ? 'block' : 'none');
-        signUpForm.style.display = (signUpForm.style.display === 'none' ? 'block' : 'none');
-        document.getElementById('message').style.display = 'none';
-        document.getElementById('error-message').style.display = 'none';
-    }
-
-    // Sign-Up Function
-    function signUp() {
-        const email = document.getElementById('signup-email').value;
-        const password = document.getElementById('signup-password').value;
-
-        auth.createUserWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                // Successful Sign-Up
-                const user = userCredential.user;
-                document.getElementById('message').style.display = 'block';
-                document.getElementById('message').textContent = 'Sign-Up successful! Please log in.';
-                toggleForms();
-            })
-            .catch((error) => {
-                document.getElementById('error-message').style.display = 'block';
-                document.getElementById('error-message').textContent = error.message;
+            const response = await fetch('http://127.0.0.1:5000/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
             });
-    }
+            const result = await response.json();
+            alert(result.message);
+        });
 
-    // Sign-In Function
-    function signIn() {
-        const email = document.getElementById('signin-email').value;
-        const password = document.getElementById('signin-password').value;
+        // Handle sign-in form submission
+        signinForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = signinEmail.value;
+            const password = signinPassword.value;
 
-        auth.signInWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                // Successful Sign-In
-                const user = userCredential.user;
-                alert("Welcome, " + user.email);
-            })
-            .catch((error) => {
-                document.getElementById('error-message').style.display = 'block';
-                document.getElementById('error-message').textContent = error.message;
+            const response = await fetch('http://127.0.0.1:5000/signin', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
             });
-    }
-</script>
+            const result = await response.json();
+            alert(result.message);
+        });
 
+        // Show Sign In Form
+        document.getElementById('show-signin').addEventListener('click', () => {
+            document.querySelector('.form-container').style.display = 'none';
+            document.getElementById('signin-form-container').style.display = 'block';
+        });
+
+        // Show Sign Up Form
+        document.getElementById('show-signup').addEventListener('click', () => {
+            document.getElementById('signin-form-container').style.display = 'none';
+            document.querySelector('.form-container').style.display = 'block';
+        });
+    </script>
 </body>
 </html>
