@@ -3,201 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D-TECH - ETC Page</title>
+    <title>D-TECH Tools</title>
     <style>
-        /* General Reset and Basic Styling */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #1a1a1a;
+            font-family: Arial, sans-serif;
+            background-color: #121212;
             color: #fff;
             text-align: center;
-            transition: background-color 0.5s, color 0.5s;
-        }
-
-        header {
-            padding: 30px;
-            background-color: #333;
-            border-bottom: 2px solid #00FF00;
-        }
-
-        header h1 {
-            font-size: 3em;
-            color: #00FF00;
-            text-shadow: 2px 2px 5px rgba(0, 255, 0, 0.5);
-        }
-
-        header p {
-            font-size: 1.2em;
-            color: #fff;
-        }
-
-        h2 {
-            color: #00FF00;
-            margin-bottom: 15px;
-            font-size: 1.8em;
-        }
-
-        /* Menu Styles */
-        .container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            padding: 40px;
-        }
-
-        .menu-card {
-            background-color: #222;
             padding: 20px;
-            border-radius: 10px;
-            border: 2px solid #00FF00;
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
         }
-
-        .menu-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.8);
+        h1 {
+            font-size: 2em;
+            color: #00ff00;
+            text-transform: uppercase;
         }
-
-        .menu-card h3 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-            color: #00FF00;
-        }
-
-        .menu-card p {
-            color: #fff;
-        }
-
-        /* Button Style */
-        .button {
-            background-color: #00FF00;
-            border: none;
-            padding: 10px 20px;
+        .option {
+            margin: 15px;
+            padding: 15px;
+            background-color: #333;
+            border: 2px solid #00ff00;
+            border-radius: 8px;
             font-size: 1.2em;
-            cursor: pointer;
-            border-radius: 5px;
             transition: background-color 0.3s;
         }
-
-        .button:hover {
-            background-color: #00CC00;
+        .option:hover {
+            background-color: #444;
         }
-
-        footer {
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+        .option a {
+            color: #00ff00;
+            text-decoration: none;
         }
-
-        /* Light Mode Styles */
-        body.light-mode {
-            background-color: #fff;
-            color: #333;
+        .option a:hover {
+            color: #ff6600;
         }
-
-        body.light-mode header {
-            background-color: #f4f4f4;
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-
-        body.light-mode .button {
-            background-color: #333;
-            color: #fff;
+        .next-page {
+            margin-top: 30px;
+            padding: 12px 20px;
+            background-color: #00ff00;
+            color: #000;
+            font-size: 1.2em;
+            text-decoration: none;
+            border-radius: 8px;
         }
-
+        .next-page:hover {
+            background-color: #ff6600;
+        }
     </style>
 </head>
 <body>
-
-    <header>
-        <h1>D-TECH - ETC Page</h1>
-        <p>The central hub for all D-TECH tools and features.</p>
-    </header>
-
+    <h1>D-TECH Tools</h1>
     <div class="container">
-        <!-- Speed Test Link -->
-        <a href="speed.html" class="menu-card">
-            <h3>🚀 Speed Test</h3>
-            <p>Test your internet speed in real-time.</p>
-            <button class="button">Go to Speed Test</button>
-        </a>
+        <div class="option">
+            <a href="speed_test.html">Speed Test</a>
+        </div>
+        <div class="option">
+            <a href="device_info.html">Device Info</a>
+        </div>
+        <div class="option">
+            <a href="password_generator.html">Password Generator</a>
+        </div>
+        <div class="option">
+            <a href="network_analyzer.html">Network Analyzer</a>
+        </div>
+        <div class="option">
+            <a href="system_monitor.html">System Monitor</a>
+        </div>
+        <div class="option">
+            <a href="ip_geolocation.html">IP Geolocation</a>
+        </div>
+        <div class="option">
+            <a href="qr_code_generator.html">QR Code Generator</a>
+        </div>
+        <div class="option">
+            <a href="weather_checker.html">Weather Checker</a>
+        </div>
+        <div class="option">
+            <a href="morse_code_converter.html">Morse Code Converter</a>
+        </div>
 
-        <!-- Device Info Link -->
-        <a href="device-info.html" class="menu-card">
-            <h3>💻 Device Info</h3>
-            <p>Check your device specifications and system info.</p>
-            <button class="button">Go to Device Info</button>
-        </a>
-
-        <!-- Password Generator Link -->
-        <a href="password-generator.html" class="menu-card">
-            <h3>🔐 Secure Password Generator</h3>
-            <p>Generate a strong, random password.</p>
-            <button class="button">Go to Password Generator</button>
-        </a>
-
-        <!-- Quote Generator Link -->
-        <a href="quote-generator.html" class="menu-card">
-            <h3>💬 Random Quote Generator</h3>
-            <p>Get a new inspiring quote every time.</p>
-            <button class="button">Go to Quote Generator</button>
-        </a>
-
-        <!-- Light/Dark Mode Link -->
-        <a href="theme-toggle.html" class="menu-card">
-            <h3>🌙 Light/Dark Mode</h3>
-            <p>Switch between light and dark modes.</p>
-            <button class="button">Go to Mode Toggle</button>
-        </a>
-
-        <!-- VPN Auto-Connect Link -->
-        <a href="vpn-auto-connect.html" class="menu-card">
-            <h3>🌐 VPN Auto-Connect</h3>
-            <p>Automatically connect to the best VPN server.</p>
-            <button class="button">Go to VPN Auto-Connect</button>
-        </a>
-
-        <!-- Anonymous Web Browser Link -->
-        <a href="anonymous-browser.html" class="menu-card">
-            <h3>🕵️ Anonymous Web Browser</h3>
-            <p>Browse the internet securely and anonymously.</p>
-            <button class="button">Go to Web Browser</button>
-        </a>
-
-        <!-- SSH Auto-Connect Link -->
-        <a href="ssh-auto-connect.html" class="menu-card">
-            <h3>🔒 SSH Auto-Connect</h3>
-            <p>Auto-connect to SSH servers for secure communication.</p>
-            <button class="button">Go to SSH Auto-Connect</button>
-        </a>
-
-        <!-- Network Analyzer Link -->
-        <a href="network-analyzer.html" class="menu-card">
-            <h3>📡 Network Analyzer</h3>
-            <p>Analyze your network for performance and issues.</p>
-            <button class="button">Go to Network Analyzer</button>
-        </a>
+        <!-- Next Page Option -->
+        <a href="next_page.html" class="next-page">Next Page</a>
     </div>
-
-    <footer>
-        <p>Powered by D-TECH. Stay ahead of the curve.</p>
-    </footer>
-
-    <script>
-        // Toggle Light/Dark Mode (if implemented later)
-        function toggleTheme() {
-            document.body.classList.toggle('light-mode');
-        }
-    </script>
-
 </body>
 </html>
