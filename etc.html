@@ -3,206 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comprehensive Device Information</title>
+    <title>D-TECH Tools</title>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-QFCETX7516"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-QFCETX7516');
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-QFCETX7516');
     </script>
 
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            background-color: #181818;
+            color: #d1d1d1;
+            margin: 0;
+            padding: 0;
         }
-        #device-info-container {
-            background-color: white;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 80%;
-            max-width: 800px;
-            margin: 0 auto;
+        header {
+            background-color: #111111;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        }
+        header img {
+            width: 150px;
+            height: auto;
         }
         h1 {
-            color: #333;
-        }
-        .device-info {
-            font-size: 18px;
+            font-size: 2.5em;
+            color: #00ff00;
             margin: 10px 0;
-            font-weight: bold;
+            text-transform: uppercase;
         }
-        .info-label {
-            color: #888;
+        h2 {
+            color: #ffffff;
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 30px;
+        }
+        .option {
+            margin: 15px;
+            padding: 20px;
+            background-color: #282828;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            width: 300px;
+            transition: background-color 0.3s, transform 0.3s;
+            text-align: center;
+            cursor: pointer;
+        }
+        .option:hover {
+            background-color: #333333;
+            transform: scale(1.05);
+        }
+        .option a {
+            color: #00ff00;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: color 0.3s;
+        }
+        .option a:hover {
+            color: #ff6600;
+        }
+        .next-page {
+            margin-top: 30px;
+            padding: 15px 30px;
+            background-color: #00ff00;
+            color: #000000;
+            font-size: 1.3em;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+        }
+        .next-page:hover {
+            background-color: #ff6600;
         }
     </style>
 </head>
 <body>
+    <header>
+        <!-- Replace "theme.png" with the actual path to your logo image -->
+        <img src="dtech-logo.png" alt="D-TECH Logo">
+        <h1>D-TECH Tools</h1>
+        <h2>Your ultimate toolkit for tech solutions</h2>
+    </header>
 
-<div id="device-info-container">
-    <h1>Comprehensive Device Information</h1>
-    <div id="device-info"></div>
-</div>
+    <div class="container">
+        <div class="option">
+            <a href="speed_test.html">Speed Test</a>
+        </div>
+        <div class="option">
+            <a href="device_info.html">Device Info</a>
+        </div>
+        <div class="option">
+            <a href="password_generator.html">Password Generator</a>
+        </div>
+        <div class="option">
+            <a href="network_analyzer.html">Network Analyzer</a>
+        </div>
+        <div class="option">
+            <a href="system_monitor.html">System Monitor</a>
+        </div>
+        <div class="option">
+            <a href="ip_geolocation.html">IP Geolocation</a>
+        </div>
+        <div class="option">
+            <a href="qr_code_generator.html">QR Code Generator</a>
+        </div>
+        <div class="option">
+            <a href="weather_checker.html">Weather Checker</a>
+        </div>
+        <div class="option">
+            <a href="morse_code_converter.html">Morse Code Converter</a>
+        </div>
 
-<script>
-    function getDeviceInfo() {
-        // Basic device information
-        const userAgent = navigator.userAgent;
-        const platform = navigator.platform;
-        const language = navigator.language;
-        const screenWidth = screen.width;
-        const screenHeight = screen.height;
-        const colorDepth = screen.colorDepth;
-        const deviceMemory = navigator.deviceMemory || "Not available";
-        const userAgentData = navigator.userAgentData ? navigator.userAgentData : null;
-        
-        // Network information
-        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-        const networkType = connection ? connection.effectiveType : "Not available";
-        const downlink = connection ? connection.downlink : "Not available";
-
-        // Battery information
-        const batteryPromise = navigator.getBattery ? navigator.getBattery() : null;
-
-        // Geolocation information (if allowed)
-        let geoLocation = "Not available";
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(position => {
-                geoLocation = `${position.coords.latitude}, ${position.coords.longitude}`;
-                updateDeviceInfo();
-            });
-        }
-
-        // Performance information
-        const cpuCores = navigator.hardwareConcurrency || "Not available";
-        const availableMemory = navigator.deviceMemory || "Not available";
-        
-        // LocalStorage and SessionStorage usage
-        const localStorageUsed = JSON.stringify(localStorage).length;
-        const sessionStorageUsed = JSON.stringify(sessionStorage).length;
-
-        // Font info - Test available fonts by comparing canvas width with different fonts
-        const fontTest = testFonts();
-
-        // Time Zone Info
-        const timeZone = new Date().getTimezoneOffset();
-
-        // Device Type (Mobile/Desktop)
-        const deviceType = /Mobi|Android/i.test(userAgent) ? "Mobile" : "Desktop";
-
-        // Touch Support
-        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-        // Cookies Enabled Status
-        const cookiesEnabled = navigator.cookieEnabled ? "Yes" : "No";
-
-        // WebGL Renderer Info (GPU)
-        const webglInfo = getWebGLInfo();
-
-        // WebRTC IP Info
-        const rtcIP = getWebRTCIP();
-
-        // Display Device Info
-        let deviceInfoHtml = `
-            <div class="device-info"><span class="info-label">Browser:</span> ${getBrowserInfo(userAgent)}</div>
-            <div class="device-info"><span class="info-label">Operating System:</span> ${getOSInfo(userAgent)}</div>
-            <div class="device-info"><span class="info-label">Platform:</span> ${platform}</div>
-            <div class="device-info"><span class="info-label">Language:</span> ${language}</div>
-            <div class="device-info"><span class="info-label">Screen Resolution:</span> ${screenWidth} x ${screenHeight}</div>
-            <div class="device-info"><span class="info-label">Color Depth:</span> ${colorDepth} bits</div>
-            <div class="device-info"><span class="info-label">Device Memory:</span> ${deviceMemory} GB</div>
-            <div class="device-info"><span class="info-label">Network Type:</span> ${networkType}</div>
-            <div class="device-info"><span class="info-label">Downlink Speed:</span> ${downlink} Mbps</div>
-            <div class="device-info"><span class="info-label">CPU Cores:</span> ${cpuCores}</div>
-            <div class="device-info"><span class="info-label">Available Memory:</span> ${availableMemory} GB</div>
-            <div class="device-info"><span class="info-label">LocalStorage Used:</span> ${localStorageUsed} bytes</div>
-            <div class="device-info"><span class="info-label">SessionStorage Used:</span> ${sessionStorageUsed} bytes</div>
-            <div class="device-info"><span class="info-label">Geolocation:</span> ${geoLocation}</div>
-            <div class="device-info"><span class="info-label">Font Support:</span> ${fontTest}</div>
-            <div class="device-info"><span class="info-label">Time Zone Offset:</span> UTC ${timeZone / 60}</div>
-            <div class="device-info"><span class="info-label">Device Type:</span> ${deviceType}</div>
-            <div class="device-info"><span class="info-label">Touch Support:</span> ${isTouchDevice ? "Yes" : "No"}</div>
-            <div class="device-info"><span class="info-label">Cookies Enabled:</span> ${cookiesEnabled}</div>
-            <div class="device-info"><span class="info-label">WebGL Renderer:</span> ${webglInfo}</div>
-            <div class="device-info"><span class="info-label">WebRTC IP:</span> ${rtcIP}</div>
-        `;
-
-        // Battery info update if available
-        if (batteryPromise) {
-            batteryPromise.then(battery => {
-                deviceInfoHtml += `
-                    <div class="device-info"><span class="info-label">Battery Level:</span> ${(battery.level * 100).toFixed(2)}%</div>
-                    <div class="device-info"><span class="info-label">Charging:</span> ${battery.charging ? "Yes" : "No"}</div>
-                `;
-                updateDeviceInfo();
-            });
-        }
-
-        // Append device info to the HTML
-        function updateDeviceInfo() {
-            document.getElementById("device-info").innerHTML = deviceInfoHtml;
-        }
-        
-        updateDeviceInfo();
-    }
-
-    // Browser and OS Information Detection
-    function getBrowserInfo(userAgent) {
-        if (userAgent.includes("Chrome")) return "Google Chrome";
-        if (userAgent.includes("Firefox")) return "Mozilla Firefox";
-        if (userAgent.includes("Safari")) return "Apple Safari";
-        if (userAgent.includes("Edge")) return "Microsoft Edge";
-        return "Unknown Browser";
-    }
-
-    function getOSInfo(userAgent) {
-        if (userAgent.includes("Windows")) return "Windows";
-        if (userAgent.includes("Mac")) return "MacOS";
-        if (userAgent.includes("Linux")) return "Linux";
-        if (userAgent.includes("Android")) return "Android";
-        if (userAgent.includes("iPhone")) return "iOS";
-        return "Unknown OS";
-    }
-
-    // Font Test using Canvas
-    function testFonts() {
-        const fontList = ['Arial', 'Courier New', 'Georgia', 'Times New Roman', 'Verdana'];
-        let fontsAvailable = [];
-        fontList.forEach(font => {
-            const canvas = document.createElement('canvas');
-            const context = canvas.getContext('2d');
-            context.font = `12px ${font}`;
-            const width = context.measureText('a').width;
-            if (width) fontsAvailable.push(font);
-        });
-        return fontsAvailable.join(", ") || "No fonts detected";
-    }
-
-    // WebGL Info (GPU)
-    function getWebGLInfo() {
-        const canvas = document.createElement('canvas');
-        const gl = canvas.getContext('webgl');
-        if (!gl) return "WebGL not supported";
-        const renderer = gl.getParameter(gl.RENDERER);
-        const vendor = gl.getParameter(gl.VENDOR);
-        return `${renderer} by ${vendor}`;
-    }
-
-    // WebRTC IP Info
-    function getWebRTCIP() {
-        let ip = "Not available";
-        const pc = new RTCPeerConnection({iceServers: []});
-        pc.createDataChannel("");
-        pc.createOffer().then(offer => pc.setLocalDescription(offer));
-        pc.onicecandidate = function(event) {
-            if (event.candidate) {
-                ip = event.candidate.candidate.split(" ")[4]; // IP extraction
-                updateDeviceInfo();
-            }
-        };
+        <!-- Next Page Option -->
+        <a href="next_page.html" class="next-page">Next Page</a>
+    </div>
+</body>
+</html>
