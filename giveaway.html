@@ -5,9 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>D-TECH Authentication</title>
 
-    <!-- Firebase SDK CDN -->
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+    <!-- Firebase SDK v9+ (Modular Firebase SDK) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyCck1-_nHBsIPI6Fazjge6zLeMj1vpe5oY",
+          authDomain: "dtech-3f596.firebaseapp.com",
+          projectId: "dtech-3f596",
+          storageBucket: "dtech-3f596.firebasestorage.app",
+          messagingSenderId: "112830705909",
+          appId: "1:112830705909:web:d80f969f19c54f4a3195bc",
+          measurementId: "G-912R31BXC7"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Toggle between sign-in and sign-up forms
+        function toggleForms() {
+            const signInForm = document.getElementById('signin-form');
+            const signUpForm = document.getElementById('signup-form');
+            signInForm.style.display = (signInForm.style.display === 'none' ? 'block' : 'none');
+            signUpForm.style.display = (signUpForm.style.display === 'none' ? 'block' : 'none');
+            document.getElementById('message').style.display = 'none';
+            document.getElementById('error-message').style.display = 'none';
+        }
+
+        // Sign up user
+        function signUp() {
+            const email = document.getElementById("signup-email").value;
+            const password = document.getElementById("signup-password").value;
+
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Successful sign-up
+                    const user = userCredential.user;
+                    document.getElementById('message').style.display = 'block';
+                    document.getElementById('message').innerText = 'Sign-up successful! Please log in.';
+                    toggleForms();
+                })
+                .catch((error) => {
+                    // Show error message
+                    document.getElementById('error-message').style.display = 'block';
+                    document.getElementById('error-message').innerText = 'Error: ' + error.message;
+                });
+        }
+
+        // Sign in user
+        function signIn() {
+            const email = document.getElementById("signin-email").value;
+            const password = document.getElementById("signin-password").value;
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Successful sign-in
+                    const user = userCredential.user;
+                    alert("Welcome " + user.email + "!");
+                })
+                .catch((error) => {
+                    // Show error message
+                    document.getElementById('error-message').style.display = 'block';
+                    document.getElementById('error-message').innerText = 'Error: ' + error.message;
+                });
+        }
+    </script>
 
     <style>
         body {
@@ -124,71 +189,6 @@
         <p>Error occurred! Please try again.</p>
     </div>
 </div>
-
-<script>
-// Firebase configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyCck1-_nHBsIPI6Fazjge6zLeMj1vpe5oY",
-    authDomain: "dtech-3f596.firebaseapp.com",
-    projectId: "dtech-3f596",
-    storageBucket: "dtech-3f596.appspot.com",
-    messagingSenderId: "112830705909",
-    appId: "1:112830705909:web:d80f969f19c54f4a3195bc",
-    measurementId: "G-912R31BXC7"
-};
-
-// Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-
-// Toggle between sign in and sign up forms
-function toggleForms() {
-    const signInForm = document.getElementById('signin-form');
-    const signUpForm = document.getElementById('signup-form');
-    signInForm.style.display = (signInForm.style.display === 'none' ? 'block' : 'none');
-    signUpForm.style.display = (signUpForm.style.display === 'none' ? 'block' : 'none');
-    document.getElementById('message').style.display = 'none';
-    document.getElementById('error-message').style.display = 'none';
-}
-
-// Sign up user
-function signUp() {
-    const email = document.getElementById("signup-email").value;
-    const password = document.getElementById("signup-password").value;
-
-    auth.createUserWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-            // Successful sign-up
-            const user = userCredential.user;
-            document.getElementById('message').style.display = 'block';
-            document.getElementById('message').innerText = 'Sign-up successful! Please log in.';
-            toggleForms();
-        })
-        .catch((error) => {
-            // Show error message
-            document.getElementById('error-message').style.display = 'block';
-            document.getElementById('error-message').innerText = 'Error: ' + error.message;
-        });
-}
-
-// Sign in user
-function signIn() {
-    const email = document.getElementById("signin-email").value;
-    const password = document.getElementById("signin-password").value;
-
-    auth.signInWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-            // Successful sign-in
-            const user = userCredential.user;
-            alert("Welcome " + user.email + "!");
-        })
-        .catch((error) => {
-            // Show error message
-            document.getElementById('error-message').style.display = 'block';
-            document.getElementById('error-message').innerText = 'Error: ' + error.message;
-        });
-}
-</script>
 
 </body>
 </html>
