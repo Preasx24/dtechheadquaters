@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D-TECH - ETC Page</title>
+    <style>
+        /* Reset some styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+            text-align: center;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        header {
+            padding: 30px;
+            background-color: #333;
+            border-bottom: 2px solid #00FF00;
+        }
+
+        header h1 {
+            font-size: 3em;
+            color: #00FF00;
+            text-shadow: 2px 2px 5px rgba(0, 255, 0, 0.5);
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: #fff;
+        }
+
+        h2 {
+            color: #00FF00;
+            margin-bottom: 15px;
+        }
+
+        /* Card styles */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            padding: 40px;
+        }
+
+        .card {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #00FF00;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.8);
+        }
+
+        button {
+            background-color: #00FF00;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #00CC00;
+        }
+
+        /* Dark/Light Mode Styles */
+        body.light-mode {
+            background-color: #fff;
+            color: #333;
+        }
+
+        body.light-mode header {
+            background-color: #f4f4f4;
+        }
+
+        body.light-mode button {
+            background-color: #333;
+            color: #fff;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>D-TECH - Additional Tools</h1>
+        <p>Your futuristic tech hub for everything cool and useful.</p>
+    </header>
+
+    <div class="container">
+        <section class="card" id="speed-test">
+            <h2>🚀 Speed Test</h2>
+            <p>Test your internet speed in real-time!</p>
+            <button onclick="startSpeedTest()">Start Speed Test</button>
+            <div id="speed-result"></div>
+        </section>
+
+        <section class="card" id="device-info">
+            <h2>💻 Device Info</h2>
+            <p>Check your device specifications and system info.</p>
+            <button onclick="showDeviceInfo()">Show Device Info</button>
+            <div id="device-details"></div>
+        </section>
+
+        <section class="card" id="password-gen">
+            <h2>🔐 Secure Password Generator</h2>
+            <p>Generate a strong, random password.</p>
+            <button onclick="generatePassword()">Generate Password</button>
+            <div id="generated-password"></div>
+        </section>
+
+        <section class="card" id="quote-gen">
+            <h2>💬 Random Quote Generator</h2>
+            <p>Get a new inspiring quote every time.</p>
+            <button onclick="getQuote()">Get Quote</button>
+            <div id="quote"></div>
+        </section>
+
+        <section class="card" id="light-dark-toggle">
+            <h2>🌙 Light/Dark Mode Toggle</h2>
+            <p>Switch between light and dark modes.</p>
+            <button onclick="toggleTheme()">Toggle Mode</button>
+        </section>
+    </div>
+
+    <footer>
+        <p>Powered by D-TECH. Stay ahead of the curve.</p>
+    </footer>
+
+    <script>
+        // Toggle Light/Dark Mode
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+        }
+
+        // Speed Test (Example: Basic Simulation)
+        function startSpeedTest() {
+            const resultDiv = document.getElementById("speed-result");
+            resultDiv.innerHTML = "<p>Running test...</p>";
+            setTimeout(() => {
+                resultDiv.innerHTML = "<p>Download Speed: 150 Mbps</p><p>Upload Speed: 50 Mbps</p><p>Ping: 20 ms</p>";
+            }, 2000);
+        }
+
+        // Show Device Information
+        function showDeviceInfo() {
+            const deviceDetailsDiv = document.getElementById("device-details");
+            deviceDetailsDiv.innerHTML = "<p>Loading device information...</p>";
+            setTimeout(() => {
+                deviceDetailsDiv.innerHTML = `<p>OS: Windows 10</p><p>CPU: Intel Core i7</p><p>RAM: 16 GB</p>`;
+            }, 1500);
+        }
+
+        // Generate a Secure Password
+        function generatePassword() {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
+            let password = "";
+            for (let i = 0; i < 16; i++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            document.getElementById("generated-password").innerHTML = `<p>${password}</p>`;
+        }
+
+        // Fetch Random Quote
+        function getQuote() {
+            const quotes = [
+                "The only limit to our realization of tomorrow is our doubts of today.",
+                "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+                "Do what you can, with what you have, where you are."
+            ];
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById("quote").innerHTML = `<p>${randomQuote}</p>`;
+        }
+    </script>
+
+</body>
+</html>
