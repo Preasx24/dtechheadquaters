@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>D-TECH - ETC Page</title>
     <style>
-        /* Reset some styles */
+        /* General Reset and Basic Styling */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Body styles */
         body {
             font-family: 'Arial', sans-serif;
             background-color: #1a1a1a;
@@ -41,30 +40,43 @@
         h2 {
             color: #00FF00;
             margin-bottom: 15px;
+            font-size: 1.8em;
         }
 
-        /* Card styles */
+        /* Menu Styles */
         .container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
             padding: 40px;
         }
 
-        .card {
+        .menu-card {
             background-color: #222;
             padding: 20px;
             border-radius: 10px;
             border: 2px solid #00FF00;
             transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
         }
 
-        .card:hover {
+        .menu-card:hover {
             transform: scale(1.05);
             box-shadow: 0 0 15px rgba(0, 255, 0, 0.8);
         }
 
-        button {
+        .menu-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #00FF00;
+        }
+
+        .menu-card p {
+            color: #fff;
+        }
+
+        /* Button Style */
+        .button {
             background-color: #00FF00;
             border: none;
             padding: 10px 20px;
@@ -74,23 +86,8 @@
             transition: background-color 0.3s;
         }
 
-        button:hover {
+        .button:hover {
             background-color: #00CC00;
-        }
-
-        /* Dark/Light Mode Styles */
-        body.light-mode {
-            background-color: #fff;
-            color: #333;
-        }
-
-        body.light-mode header {
-            background-color: #f4f4f4;
-        }
-
-        body.light-mode button {
-            background-color: #333;
-            color: #fff;
         }
 
         footer {
@@ -101,49 +98,94 @@
             bottom: 0;
             width: 100%;
         }
+
+        /* Light Mode Styles */
+        body.light-mode {
+            background-color: #fff;
+            color: #333;
+        }
+
+        body.light-mode header {
+            background-color: #f4f4f4;
+        }
+
+        body.light-mode .button {
+            background-color: #333;
+            color: #fff;
+        }
+
     </style>
 </head>
 <body>
 
     <header>
-        <h1>D-TECH - Additional Tools</h1>
-        <p>Your futuristic tech hub for everything cool and useful.</p>
+        <h1>D-TECH - ETC Page</h1>
+        <p>The central hub for all D-TECH tools and features.</p>
     </header>
 
     <div class="container">
-        <section class="card" id="speed-test">
-            <h2>🚀 Speed Test</h2>
-            <p>Test your internet speed in real-time!</p>
-            <button onclick="startSpeedTest()">Start Speed Test</button>
-            <div id="speed-result"></div>
-        </section>
+        <!-- Speed Test Link -->
+        <a href="speed.html" class="menu-card">
+            <h3>🚀 Speed Test</h3>
+            <p>Test your internet speed in real-time.</p>
+            <button class="button">Go to Speed Test</button>
+        </a>
 
-        <section class="card" id="device-info">
-            <h2>💻 Device Info</h2>
+        <!-- Device Info Link -->
+        <a href="device-info.html" class="menu-card">
+            <h3>💻 Device Info</h3>
             <p>Check your device specifications and system info.</p>
-            <button onclick="showDeviceInfo()">Show Device Info</button>
-            <div id="device-details"></div>
-        </section>
+            <button class="button">Go to Device Info</button>
+        </a>
 
-        <section class="card" id="password-gen">
-            <h2>🔐 Secure Password Generator</h2>
+        <!-- Password Generator Link -->
+        <a href="password-generator.html" class="menu-card">
+            <h3>🔐 Secure Password Generator</h3>
             <p>Generate a strong, random password.</p>
-            <button onclick="generatePassword()">Generate Password</button>
-            <div id="generated-password"></div>
-        </section>
+            <button class="button">Go to Password Generator</button>
+        </a>
 
-        <section class="card" id="quote-gen">
-            <h2>💬 Random Quote Generator</h2>
+        <!-- Quote Generator Link -->
+        <a href="quote-generator.html" class="menu-card">
+            <h3>💬 Random Quote Generator</h3>
             <p>Get a new inspiring quote every time.</p>
-            <button onclick="getQuote()">Get Quote</button>
-            <div id="quote"></div>
-        </section>
+            <button class="button">Go to Quote Generator</button>
+        </a>
 
-        <section class="card" id="light-dark-toggle">
-            <h2>🌙 Light/Dark Mode Toggle</h2>
+        <!-- Light/Dark Mode Link -->
+        <a href="theme-toggle.html" class="menu-card">
+            <h3>🌙 Light/Dark Mode</h3>
             <p>Switch between light and dark modes.</p>
-            <button onclick="toggleTheme()">Toggle Mode</button>
-        </section>
+            <button class="button">Go to Mode Toggle</button>
+        </a>
+
+        <!-- VPN Auto-Connect Link -->
+        <a href="vpn-auto-connect.html" class="menu-card">
+            <h3>🌐 VPN Auto-Connect</h3>
+            <p>Automatically connect to the best VPN server.</p>
+            <button class="button">Go to VPN Auto-Connect</button>
+        </a>
+
+        <!-- Anonymous Web Browser Link -->
+        <a href="anonymous-browser.html" class="menu-card">
+            <h3>🕵️ Anonymous Web Browser</h3>
+            <p>Browse the internet securely and anonymously.</p>
+            <button class="button">Go to Web Browser</button>
+        </a>
+
+        <!-- SSH Auto-Connect Link -->
+        <a href="ssh-auto-connect.html" class="menu-card">
+            <h3>🔒 SSH Auto-Connect</h3>
+            <p>Auto-connect to SSH servers for secure communication.</p>
+            <button class="button">Go to SSH Auto-Connect</button>
+        </a>
+
+        <!-- Network Analyzer Link -->
+        <a href="network-analyzer.html" class="menu-card">
+            <h3>📡 Network Analyzer</h3>
+            <p>Analyze your network for performance and issues.</p>
+            <button class="button">Go to Network Analyzer</button>
+        </a>
     </div>
 
     <footer>
@@ -151,48 +193,9 @@
     </footer>
 
     <script>
-        // Toggle Light/Dark Mode
+        // Toggle Light/Dark Mode (if implemented later)
         function toggleTheme() {
             document.body.classList.toggle('light-mode');
-        }
-
-        // Speed Test (Example: Basic Simulation)
-        function startSpeedTest() {
-            const resultDiv = document.getElementById("speed-result");
-            resultDiv.innerHTML = "<p>Running test...</p>";
-            setTimeout(() => {
-                resultDiv.innerHTML = "<p>Download Speed: 150 Mbps</p><p>Upload Speed: 50 Mbps</p><p>Ping: 20 ms</p>";
-            }, 2000);
-        }
-
-        // Show Device Information
-        function showDeviceInfo() {
-            const deviceDetailsDiv = document.getElementById("device-details");
-            deviceDetailsDiv.innerHTML = "<p>Loading device information...</p>";
-            setTimeout(() => {
-                deviceDetailsDiv.innerHTML = `<p>OS: Windows 10</p><p>CPU: Intel Core i7</p><p>RAM: 16 GB</p>`;
-            }, 1500);
-        }
-
-        // Generate a Secure Password
-        function generatePassword() {
-            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
-            let password = "";
-            for (let i = 0; i < 16; i++) {
-                password += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            document.getElementById("generated-password").innerHTML = `<p>${password}</p>`;
-        }
-
-        // Fetch Random Quote
-        function getQuote() {
-            const quotes = [
-                "The only limit to our realization of tomorrow is our doubts of today.",
-                "Success is not final, failure is not fatal: It is the courage to continue that counts.",
-                "Do what you can, with what you have, where you are."
-            ];
-            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-            document.getElementById("quote").innerHTML = `<p>${randomQuote}</p>`;
         }
     </script>
 
