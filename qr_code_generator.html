@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QFCETX7516"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-QFCETX7516');
+    </script>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #181818;
+            color: #d1d1d1;
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #00ff00;
+            font-size: 2em;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        input {
+            width: 80%;
+            padding: 10px;
+            font-size: 1em;
+            margin-bottom: 20px;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            background-color: #282828;
+            color: #d1d1d1;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #00ff00;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #ff6600;
+        }
+        .output {
+            margin-top: 20px;
+        }
+        img {
+            margin-top: 10px;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>QR Code Generator</h1>
+    </header>
+
+    <div class="container">
+        <input type="text" id="qrInput" placeholder="Enter text or URL to generate QR code" />
+        <button onclick="generateQRCode()">Generate QR Code</button>
+        <div class="output" id="qrOutput"></div>
+    </div>
+
+    <script>
+        function generateQRCode() {
+            const qrInput = document.getElementById('qrInput').value;
+            const qrOutput = document.getElementById('qrOutput');
+
+            if (!qrInput.trim()) {
+                qrOutput.innerHTML = '<p style="color: #ff0000;">Please enter valid text or a URL.</p>';
+                return;
+            }
+
+            const qrCodeURL = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrInput)}`;
+
+            qrOutput.innerHTML = `
+                <p>Your QR Code:</p>
+                <img src="${qrCodeURL}" alt="Generated QR Code">
+            `;
+        }
+    </script>
+</body>
+</html>
