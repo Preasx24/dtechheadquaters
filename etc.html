@@ -6,49 +6,72 @@
     <title>D-TECH Tools</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: #fff;
+            font-family: 'Arial', sans-serif;
+            background-color: #181818;
+            color: #d1d1d1;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #111111;
+            padding: 20px 0;
             text-align: center;
-            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        }
+        header img {
+            width: 150px;
+            height: auto;
         }
         h1 {
-            font-size: 2em;
+            font-size: 2.5em;
             color: #00ff00;
+            margin: 10px 0;
             text-transform: uppercase;
         }
-        .option {
-            margin: 15px;
-            padding: 15px;
-            background-color: #333;
-            border: 2px solid #00ff00;
-            border-radius: 8px;
-            font-size: 1.2em;
-            transition: background-color 0.3s;
-        }
-        .option:hover {
-            background-color: #444;
-        }
-        .option a {
-            color: #00ff00;
-            text-decoration: none;
-        }
-        .option a:hover {
-            color: #ff6600;
+        h2 {
+            color: #ffffff;
+            font-size: 1.5em;
+            margin: 10px 0;
         }
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
+            margin: 30px;
+        }
+        .option {
+            margin: 15px;
+            padding: 20px;
+            background-color: #282828;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            width: 300px;
+            transition: background-color 0.3s, transform 0.3s;
+            text-align: center;
+            cursor: pointer;
+        }
+        .option:hover {
+            background-color: #333333;
+            transform: scale(1.05);
+        }
+        .option a {
+            color: #00ff00;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: color 0.3s;
+        }
+        .option a:hover {
+            color: #ff6600;
         }
         .next-page {
             margin-top: 30px;
-            padding: 12px 20px;
+            padding: 15px 30px;
             background-color: #00ff00;
-            color: #000;
-            font-size: 1.2em;
+            color: #000000;
+            font-size: 1.3em;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 10px;
+            transition: background-color 0.3s;
         }
         .next-page:hover {
             background-color: #ff6600;
@@ -56,7 +79,13 @@
     </style>
 </head>
 <body>
-    <h1>D-TECH Tools</h1>
+    <header>
+        <!-- Replace "theme.png" with the actual path to your logo image -->
+        <img src="theme.png" alt="D-TECH Logo">
+        <h1>D-TECH Tools</h1>
+        <h2>Your ultimate toolkit for tech solutions</h2>
+    </header>
+
     <div class="container">
         <div class="option">
             <a href="speed_test.html">Speed Test</a>
