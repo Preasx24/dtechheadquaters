@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Geolocation</title>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QFCETX7516"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-QFCETX7516');
+    </script>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #181818;
+            color: #d1d1d1;
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #00ff00;
+            font-size: 2em;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .output {
+            font-size: 1.2em;
+            margin: 20px 0;
+            background-color: #282828;
+            color: #00ff00;
+            padding: 10px;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            text-align: left;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #00ff00;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #ff6600;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>IP Geolocation</h1>
+    </header>
+
+    <div class="container">
+        <button onclick="getIPGeolocation()">Get IP Geolocation</button>
+        <div class="output" id="geoOutput">Click "Get IP Geolocation" to view your location details.</div>
+    </div>
+
+    <script>
+        function getIPGeolocation() {
+            const outputElement = document.getElementById('geoOutput');
+            outputElement.textContent = "Fetching geolocation data, please wait...";
+
+            fetch('https://ip-api.com/json/')
+                .then(response => response.json())
+                .then(data => {
+                    const locationInfo = `
+IP Address: ${data.query}
+Country: ${data.country} (${data.countryCode})
+Region: ${data.regionName}
+City: ${data.city}
+ZIP Code: ${data.zip}
+Latitude: ${data.lat}
+Longitude: ${data.lon}
+Time Zone: ${data.timezone}
+ISP: ${data.isp}
+Organization: ${data.org}
+                    `;
+
+                    outputElement.textContent = locationInfo;
+                })
+                .catch(error => {
+                    outputElement.textContent = `Error fetching geolocation data: ${error}`;
+                });
+        }
+    </script>
+</body>
+</html>
