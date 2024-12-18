@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D-TECH Speed Test</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #181818;
+            color: #d1d1d1;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #111111;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        }
+        header img {
+            width: 150px;
+            height: auto;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #00ff00;
+            margin: 10px 0;
+            text-transform: uppercase;
+        }
+        h2 {
+            color: #ffffff;
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 30px;
+        }
+        .result {
+            margin: 20px;
+            padding: 20px;
+            background-color: #282828;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+        }
+        .result p {
+            font-size: 1.2em;
+        }
+        .start-button {
+            padding: 15px 30px;
+            background-color: #00ff00;
+            color: #000000;
+            font-size: 1.2em;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+        .start-button:hover {
+            background-color: #ff6600;
+        }
+        .loading {
+            font-size: 1.2em;
+            color: #ff6600;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="theme.png" alt="D-TECH Logo">
+        <h1>Speed Test</h1>
+        <h2>Check Your Internet Speed</h2>
+    </header>
+
+    <div class="container">
+        <!-- Button to start the speed test -->
+        <button class="start-button" id="startTestButton">Start Test</button>
+
+        <!-- Result Display -->
+        <div class="result" id="resultDisplay" style="display: none;">
+            <p>Download Speed: <span id="downloadSpeed">--</span> Mbps</p>
+        </div>
+
+        <!-- Loading message -->
+        <p class="loading" id="loadingMessage" style="display: none;">Testing in Progress...</p>
+    </div>
+
+    <script>
+        document.getElementById("startTestButton").addEventListener("click", startSpeedTest);
+
+        function startSpeedTest() {
+            // Hide the start button and show the loading message
+            document.getElementById("startTestButton").style.display = "none";
+            document.getElementById("loadingMessage").style.display = "block";
+
+            // Use the Fast.com API to get the speed data
+            fetch('https://api.fast.com/netflix-speedtest')
+                .then(response => response.json())
+                .then(data => {
+                    const download = (data.download / 1024 / 1024).toFixed(2); // Convert bytes to Mbps
+
+                    // Show the results
+                    document.getElementById("downloadSpeed").innerText = download;
+
+                    // Show the results and hide the loading message
+                    document.getElementById("resultDisplay").style.display = "block";
+                    document.getElementById("loadingMessage").style.display = "none";
+                })
+                .catch(error => {
+                    console.error('Error fetching speed data:', error);
+                    alert('Error fetching speed data.');
+                });
+        }
+    </script>
+</body>
+</html>
