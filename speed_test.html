@@ -44,10 +44,6 @@
             font-size: 18px;
             color: #888;
         }
-        #speed-container p {
-            font-size: 16px;
-            color: #666;
-        }
     </style>
 </head>
 <body>
@@ -68,36 +64,26 @@
         document.getElementById('download-time').style.display = 'none';
 
         try {
-            // Fetch the data from the Fast.com API with additional headers to avoid CORS issues
-            const response = await fetch('https://api.fast.com/netflix/speedtest?https=true', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Cache-Control': 'no-cache'
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
+            // Fetch the speed data from the OpenSpeedTest API
+            const response = await fetch('https://www.openspeedtest.com/api/v1/speedtest');
             const data = await response.json();
-            const downloadSpeedKbps = data.download; // Kbps
 
-            // Convert to Mbps
-            const downloadSpeedMbps = (downloadSpeedKbps / 1000).toFixed(2);
+            if (response.ok) {
+                const downloadSpeedMbps = data.downloadSpeed;
 
-            // Calculate estimated download time for 1GB
-            const downloadTime = (1000 / downloadSpeedMbps).toFixed(2); // Time for 1GB in seconds
+                // Calculate estimated download time for 1GB
+                const downloadTime = (1000 / downloadSpeedMbps).toFixed(2); // Time for 1GB in seconds
 
-            // Hide loading and display results
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('download-speed').textContent = `Download Speed: ${downloadSpeedMbps} Mbps`;
-            document.getElementById('download-time').textContent = `Estimated time to download 1GB: ${downloadTime} seconds`;
+                // Hide loading and display results
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('download-speed').textContent = `Download Speed: ${downloadSpeedMbps} Mbps`;
+                document.getElementById('download-time').textContent = `Estimated time to download 1GB: ${downloadTime} seconds`;
 
-            document.getElementById('download-speed').style.display = 'block';
-            document.getElementById('download-time').style.display = 'block';
+                document.getElementById('download-speed').style.display = 'block';
+                document.getElementById('download-time').style.display = 'block';
+            } else {
+                throw new Error('Failed to retrieve speed test data');
+            }
         } catch (error) {
             document.getElementById('loading').style.display = 'none';
             document.getElementById('download-speed').style.display = 'none';
