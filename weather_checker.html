@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Checker - D-TECH Tools</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QFCETX7516"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-QFCETX7516');
+    </script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #181818;
+            color: #d1d1d1;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #282828;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            text-align: center;
+            color: #00ff00;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            background-color: #333333;
+            color: #ffffff;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #00ff00;
+            color: #000000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        button:hover {
+            background-color: #ff6600;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #333333;
+            border-radius: 5px;
+        }
+        .error {
+            color: #ff6600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Weather Checker</h1>
+        <input type="text" id="cityInput" placeholder="Enter city name" />
+        <button onclick="getWeather()">Get Weather</button>
+        <div id="output" class="output"></div>
+    </div>
+
+    <script>
+        async function getWeather() {
+            const city = document.getElementById('cityInput').value.trim();
+            const outputDiv = document.getElementById('output');
+
+            if (!city) {
+                outputDiv.innerHTML = '<p class="error">Please enter a valid city name.</p>';
+                return;
+            }
+
+            const apiKey = '90cfaed4eb0de507220963d3a9c32f28'; // Using your provided API key
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch weather data.');
+                }
+
+                const data = await response.json();
+
+                if (data.cod !== 200) {
+                    outputDiv.innerHTML = `<p class="error">Error: ${data.message}</p>`;
+                } else {
+                    outputDiv.innerHTML = `
+                        <p><strong>City:</strong> ${data.name}</p>
+                        <p><strong>Temperature:</strong> ${data.main.temp}°C</p>
+                        <p><strong>Weather:</strong> ${data.weather[0].description}</p>
+                        <p><strong>Humidity:</strong> ${data.main.humidity}%</p>
+                        <p><strong>Wind Speed:</strong> ${data.wind.speed} m/s</p>
+                    `;
+                }
+            } catch (error) {
+                outputDiv.innerHTML = `<p class="error">Error: Unable to retrieve weather data.</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
