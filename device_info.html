@@ -77,6 +77,27 @@
         const localStorageUsed = JSON.stringify(localStorage).length;
         const sessionStorageUsed = JSON.stringify(sessionStorage).length;
 
+        // Font info - Test available fonts by comparing canvas width with different fonts
+        const fontTest = testFonts();
+
+        // Time Zone Info
+        const timeZone = new Date().getTimezoneOffset();
+
+        // Device Type (Mobile/Desktop)
+        const deviceType = /Mobi|Android/i.test(userAgent) ? "Mobile" : "Desktop";
+
+        // Touch Support
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+        // Cookies Enabled Status
+        const cookiesEnabled = navigator.cookieEnabled ? "Yes" : "No";
+
+        // WebGL Renderer Info (GPU)
+        const webglInfo = getWebGLInfo();
+
+        // WebRTC IP Info
+        const rtcIP = getWebRTCIP();
+
         // Display Device Info
         let deviceInfoHtml = `
             <div class="device-info"><span class="info-label">Browser:</span> ${getBrowserInfo(userAgent)}</div>
@@ -93,6 +114,13 @@
             <div class="device-info"><span class="info-label">LocalStorage Used:</span> ${localStorageUsed} bytes</div>
             <div class="device-info"><span class="info-label">SessionStorage Used:</span> ${sessionStorageUsed} bytes</div>
             <div class="device-info"><span class="info-label">Geolocation:</span> ${geoLocation}</div>
+            <div class="device-info"><span class="info-label">Font Support:</span> ${fontTest}</div>
+            <div class="device-info"><span class="info-label">Time Zone Offset:</span> UTC ${timeZone / 60}</div>
+            <div class="device-info"><span class="info-label">Device Type:</span> ${deviceType}</div>
+            <div class="device-info"><span class="info-label">Touch Support:</span> ${isTouchDevice ? "Yes" : "No"}</div>
+            <div class="device-info"><span class="info-label">Cookies Enabled:</span> ${cookiesEnabled}</div>
+            <div class="device-info"><span class="info-label">WebGL Renderer:</span> ${webglInfo}</div>
+            <div class="device-info"><span class="info-label">WebRTC IP:</span> ${rtcIP}</div>
         `;
 
         // Battery info update if available
@@ -130,6 +158,45 @@
         if (userAgent.includes("Android")) return "Android";
         if (userAgent.includes("iPhone")) return "iOS";
         return "Unknown OS";
+    }
+
+    // Font Test using Canvas
+    function testFonts() {
+        const fontList = ['Arial', 'Courier New', 'Georgia', 'Times New Roman', 'Verdana'];
+        let fontsAvailable = [];
+        fontList.forEach(font => {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            context.font = `12px ${font}`;
+            const width = context.measureText('a').width;
+            if (width) fontsAvailable.push(font);
+        });
+        return fontsAvailable.join(", ") || "No fonts detected";
+    }
+
+    // WebGL Info (GPU)
+    function getWebGLInfo() {
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl');
+        if (!gl) return "WebGL not supported";
+        const renderer = gl.getParameter(gl.RENDERER);
+        const vendor = gl.getParameter(gl.VENDOR);
+        return `${renderer} by ${vendor}`;
+    }
+
+    // WebRTC IP Info
+    function getWebRTCIP() {
+        let ip = "Not available";
+        const pc = new RTCPeerConnection({iceServers: []});
+        pc.createDataChannel("");
+        pc.createOffer().then(offer => pc.setLocalDescription(offer));
+        pc.onicecandidate = function(event) {
+            if (event.candidate) {
+                ip = event.candidate.candidate.split(" ")[4]; // IP extraction
+                updateDeviceInfo();
+            }
+        };
+        return ip;
     }
 
     // Call the function to display all device information
