@@ -7,7 +7,6 @@
 
     <!-- Firebase SDK CDN -->
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
 
     <style>
@@ -82,6 +81,12 @@
             color: #28a745;
             margin-top: 20px;
         }
+
+        .error {
+            font-size: 1.2em;
+            color: #e74c3c;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -113,6 +118,11 @@
     <div id="message" class="message" style="display:none;">
         <p>Success! Please log in.</p>
     </div>
+
+    <!-- Error message -->
+    <div id="error-message" class="error" style="display:none;">
+        <p>Error occurred! Please try again.</p>
+    </div>
 </div>
 
 <script>
@@ -137,8 +147,8 @@ function toggleForms() {
     const signUpForm = document.getElementById('signup-form');
     signInForm.style.display = (signInForm.style.display === 'none' ? 'block' : 'none');
     signUpForm.style.display = (signUpForm.style.display === 'none' ? 'block' : 'none');
-    const message = document.getElementById('message');
-    message.style.display = 'none';
+    document.getElementById('message').style.display = 'none';
+    document.getElementById('error-message').style.display = 'none';
 }
 
 // Sign up user
@@ -155,7 +165,9 @@ function signUp() {
             toggleForms();
         })
         .catch((error) => {
-            alert("Error: " + error.message);
+            // Show error message
+            document.getElementById('error-message').style.display = 'block';
+            document.getElementById('error-message').innerText = 'Error: ' + error.message;
         });
 }
 
@@ -171,7 +183,9 @@ function signIn() {
             alert("Welcome " + user.email + "!");
         })
         .catch((error) => {
-            alert("Error: " + error.message);
+            // Show error message
+            document.getElementById('error-message').style.display = 'block';
+            document.getElementById('error-message').innerText = 'Error: ' + error.message;
         });
 }
 </script>
