@@ -6,79 +6,93 @@
     <title>D-TECH Tools - Advanced</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #181818;
-            color: #d1d1d1;
+            font-family: 'Verdana', sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #ffffff;
             margin: 0;
             padding: 0;
         }
         header {
-            background-color: #111111;
-            padding: 20px 0;
+            background-color: #162a2e;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            padding: 20px 0;
+            border-bottom: 2px solid #00ff00;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
         header img {
-            width: 150px;
+            width: 120px;
             height: auto;
         }
-        h1 {
-            font-size: 2.5em;
+        header h1 {
+            font-size: 2.2em;
+            margin: 10px 0;
             color: #00ff00;
-            margin: 10px 0;
-            text-transform: uppercase;
         }
-        h2 {
-            color: #ffffff;
-            font-size: 1.5em;
-            margin: 10px 0;
+        header p {
+            font-size: 1.1em;
+            color: #d1d1d1;
         }
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 30px;
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        .option {
-            margin: 15px;
-            padding: 20px;
-            background-color: #282828;
-            border: 2px solid #00ff00;
+        .tool-card {
+            background-color: #1a3d40;
+            border: 1px solid #00ff00;
             border-radius: 10px;
-            width: 300px;
-            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             text-align: center;
-            cursor: pointer;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .option:hover {
-            background-color: #333333;
+        .tool-card:hover {
             transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 255, 0, 0.6);
         }
-        .option a {
+        .tool-card h2 {
+            font-size: 1.4em;
+            margin: 10px 0;
             color: #00ff00;
-            text-decoration: none;
-            font-size: 1.2em;
-            transition: color 0.3s;
         }
-        .option a:hover {
-            color: #ff6600;
+        .tool-card p {
+            font-size: 1em;
+            color: #d1d1d1;
+            margin-bottom: 15px;
+        }
+        .tool-card a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #00ff00;
+            color: #000000;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        .tool-card a:hover {
+            background-color: #ff6600;
         }
         .navigation {
-            margin-top: 30px;
             display: flex;
             justify-content: space-between;
-            width: 80%;
+            margin: 30px auto;
+            max-width: 1200px;
         }
         .navigation a {
             padding: 15px 30px;
             background-color: #00ff00;
             color: #000000;
-            font-size: 1.3em;
+            font-size: 1.2em;
             text-decoration: none;
             border-radius: 10px;
             transition: background-color 0.3s;
             text-align: center;
-            width: 45%;
         }
         .navigation a:hover {
             background-color: #ff6600;
@@ -97,40 +111,60 @@
 <body>
     <header>
         <img src="theme.png" alt="D-TECH Logo">
-        <h1>D-TECH Tools</h1>
-        <h2>Advanced Tools for Tech Enthusiasts</h2>
+        <h1>D-TECH Advanced Tools</h1>
+        <p>Push the limits of your tech knowledge with these powerful tools</p>
     </header>
 
-    <div class="container">
-        <div class="option">
-            <a href="port_scanner.html">Port Scanner</a>
+    <div class="grid-container">
+        <div class="tool-card">
+            <h2>Port Scanner</h2>
+            <p>Scan open ports and test network vulnerabilities.</p>
+            <a href="port_scanner.html">Open Tool</a>
         </div>
-        <div class="option">
-            <a href="dns_lookup.html">DNS Lookup Tool</a>
+        <div class="tool-card">
+            <h2>DNS Lookup</h2>
+            <p>Fetch DNS records and analyze domain information.</p>
+            <a href="dns_lookup.html">Open Tool</a>
         </div>
-        <div class="option">
-            <a href="hash_tool.html">Hash Generator & Cracker</a>
+        <div class="tool-card">
+            <h2>Hash Tool</h2>
+            <p>Generate and crack cryptographic hashes.</p>
+            <a href="hash_tool.html">Open Tool</a>
         </div>
-        <div class="option">
-            <a href="encryption_tool.html">Encryption & Decryption</a>
+        <div class="tool-card">
+            <h2>Encryption Tool</h2>
+            <p>Encrypt or decrypt sensitive data securely.</p>
+            <a href="encryption_tool.html">Open Tool</a>
         </div>
-        <div class="option">
-            <a href="reverse_ip_lookup.html">Reverse IP Lookup</a>
+        <div class="tool-card">
+            <h2>Reverse IP Lookup</h2>
+            <p>Trace websites hosted on a given IP address.</p>
+            <a href="reverse_ip_lookup.html">Open Tool</a>
         </div>
-        <div class="option">
-            <a href="ping_traceroute.html">Ping & Traceroute</a>
+        <div class="tool-card">
+            <h2>Ping & Traceroute</h2>
+            <p>Analyze network paths and latency issues.</p>
+            <a href="ping_traceroute.html">Open Tool</a>
         </div>
-        <div class="option">
-            <a href="mac_lookup.html">MAC Address Lookup</a>
+        <div class="tool-card">
+            <h2>MAC Lookup</h2>
+            <p>Find the manufacturer details for a MAC address.</p>
+            <a href="mac_lookup.html">Open Tool</a>
         </div>
-        <div class="option">
-            <a href="ocr_tool.html">Image to Text (OCR)</a>
+        <div class="tool-card">
+            <h2>Image to Text</h2>
+            <p>Convert images into editable text with OCR technology.</p>
+            <a href="ocr_tool.html">Open Tool</a>
         </div>
-        <div class="option">
-            <a href="json_formatter.html">JSON Formatter</a>
+        <div class="tool-card">
+            <h2>JSON Formatter</h2>
+            <p>Format and validate your JSON code instantly.</p>
+            <a href="json_formatter.html">Open Tool</a>
         </div>
-        <div class="option">
-            <a href="cheat_sheets.html">Programming Cheat Sheets</a>
+        <div class="tool-card">
+            <h2>Programming Cheat Sheets</h2>
+            <p>Quick reference guides for programming languages.</p>
+            <a href="cheat_sheets.html">Open Tool</a>
         </div>
     </div>
 
