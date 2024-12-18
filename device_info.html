@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Device Information</title>
+    <title>Comprehensive Device Information</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,7 +17,7 @@
             padding: 30px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 80%;
-            max-width: 500px;
+            max-width: 800px;
             margin: 0 auto;
         }
         h1 {
@@ -36,62 +36,103 @@
 <body>
 
 <div id="device-info-container">
-    <h1>Device Information</h1>
+    <h1>Comprehensive Device Information</h1>
     <div id="device-info"></div>
 </div>
 
 <script>
     function getDeviceInfo() {
-        // Get basic device information
+        // Basic device information
         const userAgent = navigator.userAgent;
         const platform = navigator.platform;
         const language = navigator.language;
         const screenWidth = screen.width;
         const screenHeight = screen.height;
+        const colorDepth = screen.colorDepth;
         const deviceMemory = navigator.deviceMemory || "Not available";
         const userAgentData = navigator.userAgentData ? navigator.userAgentData : null;
         
-        let browserInfo = "Unknown";
-        let osInfo = "Unknown";
-        
-        // Check the user's OS and Browser
-        if (userAgent.includes("Windows")) {
-            osInfo = "Windows";
-        } else if (userAgent.includes("Mac")) {
-            osInfo = "MacOS";
-        } else if (userAgent.includes("Linux")) {
-            osInfo = "Linux";
-        } else if (userAgent.includes("Android")) {
-            osInfo = "Android";
-        } else if (userAgent.includes("iPhone")) {
-            osInfo = "iOS";
-        }
-        
-        if (userAgent.includes("Chrome")) {
-            browserInfo = "Google Chrome";
-        } else if (userAgent.includes("Firefox")) {
-            browserInfo = "Mozilla Firefox";
-        } else if (userAgent.includes("Safari")) {
-            browserInfo = "Apple Safari";
-        } else if (userAgent.includes("Edge")) {
-            browserInfo = "Microsoft Edge";
+        // Network information
+        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        const networkType = connection ? connection.effectiveType : "Not available";
+        const downlink = connection ? connection.downlink : "Not available";
+
+        // Battery information
+        const batteryPromise = navigator.getBattery ? navigator.getBattery() : null;
+
+        // Geolocation information (if allowed)
+        let geoLocation = "Not available";
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+                geoLocation = `${position.coords.latitude}, ${position.coords.longitude}`;
+                updateDeviceInfo();
+            });
         }
 
-        // Generate the device information to be displayed
-        const deviceInfoHtml = `
-            <div class="device-info"><span class="info-label">Browser:</span> ${browserInfo}</div>
-            <div class="device-info"><span class="info-label">Operating System:</span> ${osInfo}</div>
+        // Performance information
+        const cpuCores = navigator.hardwareConcurrency || "Not available";
+        const availableMemory = navigator.deviceMemory || "Not available";
+        
+        // LocalStorage and SessionStorage usage
+        const localStorageUsed = JSON.stringify(localStorage).length;
+        const sessionStorageUsed = JSON.stringify(sessionStorage).length;
+
+        // Display Device Info
+        let deviceInfoHtml = `
+            <div class="device-info"><span class="info-label">Browser:</span> ${getBrowserInfo(userAgent)}</div>
+            <div class="device-info"><span class="info-label">Operating System:</span> ${getOSInfo(userAgent)}</div>
             <div class="device-info"><span class="info-label">Platform:</span> ${platform}</div>
             <div class="device-info"><span class="info-label">Language:</span> ${language}</div>
             <div class="device-info"><span class="info-label">Screen Resolution:</span> ${screenWidth} x ${screenHeight}</div>
+            <div class="device-info"><span class="info-label">Color Depth:</span> ${colorDepth} bits</div>
             <div class="device-info"><span class="info-label">Device Memory:</span> ${deviceMemory} GB</div>
+            <div class="device-info"><span class="info-label">Network Type:</span> ${networkType}</div>
+            <div class="device-info"><span class="info-label">Downlink Speed:</span> ${downlink} Mbps</div>
+            <div class="device-info"><span class="info-label">CPU Cores:</span> ${cpuCores}</div>
+            <div class="device-info"><span class="info-label">Available Memory:</span> ${availableMemory} GB</div>
+            <div class="device-info"><span class="info-label">LocalStorage Used:</span> ${localStorageUsed} bytes</div>
+            <div class="device-info"><span class="info-label">SessionStorage Used:</span> ${sessionStorageUsed} bytes</div>
+            <div class="device-info"><span class="info-label">Geolocation:</span> ${geoLocation}</div>
         `;
+
+        // Battery info update if available
+        if (batteryPromise) {
+            batteryPromise.then(battery => {
+                deviceInfoHtml += `
+                    <div class="device-info"><span class="info-label">Battery Level:</span> ${(battery.level * 100).toFixed(2)}%</div>
+                    <div class="device-info"><span class="info-label">Charging:</span> ${battery.charging ? "Yes" : "No"}</div>
+                `;
+                updateDeviceInfo();
+            });
+        }
+
+        // Append device info to the HTML
+        function updateDeviceInfo() {
+            document.getElementById("device-info").innerHTML = deviceInfoHtml;
+        }
         
-        // Display the device information in the HTML
-        document.getElementById("device-info").innerHTML = deviceInfoHtml;
+        updateDeviceInfo();
     }
 
-    // Call the function to display device information
+    // Browser and OS Information Detection
+    function getBrowserInfo(userAgent) {
+        if (userAgent.includes("Chrome")) return "Google Chrome";
+        if (userAgent.includes("Firefox")) return "Mozilla Firefox";
+        if (userAgent.includes("Safari")) return "Apple Safari";
+        if (userAgent.includes("Edge")) return "Microsoft Edge";
+        return "Unknown Browser";
+    }
+
+    function getOSInfo(userAgent) {
+        if (userAgent.includes("Windows")) return "Windows";
+        if (userAgent.includes("Mac")) return "MacOS";
+        if (userAgent.includes("Linux")) return "Linux";
+        if (userAgent.includes("Android")) return "Android";
+        if (userAgent.includes("iPhone")) return "iOS";
+        return "Unknown OS";
+    }
+
+    // Call the function to display all device information
     getDeviceInfo();
 </script>
 
