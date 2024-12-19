@@ -1,1 +1,55 @@
-g
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Quote Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #111;
+            color: #fff;
+            padding: 20px;
+        }
+        .quote-container {
+            margin-top: 20%;
+        }
+        .play-btn {
+            background-color: #fff;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        .play-btn:hover {
+            background-color: #ddd;
+        }
+        footer {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="quote-container">
+        <p>Click the button below to hear the quote:</p>
+        <button class="play-btn" onclick="playAudio()">Play Audio</button>
+        <audio id="audioQuote" src="a24d556d-5639-4488-84a7-4831c25640ff.mp3"></audio>
+    </div>
+    <footer>
+        © 2024 Your Brand. All rights reserved.
+    </footer>
+
+    <script>
+        function playAudio() {
+            const audio = document.getElementById("audioQuote");
+            audio.play();
+        }
+    </script>
+</body>
+</html>
