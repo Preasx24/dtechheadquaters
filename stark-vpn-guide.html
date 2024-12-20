@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STARK VPN RELOAD - Connection Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        header {
+            text-align: center;
+            background-color: #2c3e50;
+            color: white;
+            padding: 50px 5%;
+        }
+
+        header h1 {
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        header p {
+            font-size: 1.2em;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        .section-header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .section-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .note {
+            background-color: #f7f7f7;
+            padding: 15px;
+            border-left: 5px solid #3498db;
+            font-size: 1.1em;
+            margin-top: 15px;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #1affff;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 5%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>STARK VPN RELOAD - Connection and Host Testing Guide</h1>
+    <p>Learn how to use STARK VPN RELOAD to test various hosts and secure your internet connection. Follow the steps for SSL, HTTP, and TCP connections.</p>
+</header>
+
+<div class="container">
+
+    <!-- SSL Method (V2Ray Option) -->
+    <section id="ssl-method">
+        <div class="section-header">SSL Method (V2Ray Option)</div>
+        <div class="section-content">
+            <p><strong>SSL</strong> is used for encrypting traffic and connecting securely to a host. In STARK VPN RELOAD, instead of the Realme host or TCP option, you have the V2Ray option.</p>
+            <p>To use SSL, simply enter the host address, enable the V2Ray option, and proceed with testing the connection. This will encrypt your traffic and route it through a secure server.</p>
+            <p><strong>Video Tutorial:</strong> <a href="video/sslstar.mp4" target="_blank">Watch the tutorial on how to use SSL (V2Ray) method</a></p>
+        </div>
+    </section>
+
+    <!-- HTTP Method -->
+    <section id="http-method">
+        <div class="section-header">HTTP Method</div>
+        <div class="section-content">
+            <p><strong>HTTP</strong> works by routing your connection through an HTTP proxy. In STARK VPN RELOAD, you can choose between port 443 or 8080.</p>
+            <p>This method is simple and effective when you just need to bypass restrictions. To use HTTP, enter the host address and select the port (either 443 or 8080) based on your preference or the server availability.</p>
+            <p><strong>Video Tutorial:</strong> <a href="video/httpstar.mp4" target="_blank">Watch the tutorial on how to use the HTTP method</a></p>
+        </div>
+    </section>
+
+    <!-- TCP Method -->
+    <section id="tcp-method">
+        <div class="section-header">TCP Method</div>
+        <div class="section-content">
+            <p><strong>TCP</strong> is a reliable and secure connection method for accessing hosts. It is commonly used to ensure a stable and consistent connection.</p>
+            <p>To use the TCP method, enter the host address and port 443, then test the connection. You may experiment with different payloads to see which one works best for your connection.</p>
+            <p><strong>Video Tutorial:</strong> <a href="video/tcpstar.mp4" target="_blank">Watch the tutorial on how to use the TCP method</a></p>
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    <p>&copy; 2024 D-TECH. All rights reserved.</p>
+    <p><a href="terms.html">Terms and Conditions</a></p>
+</footer>
+
+</body>
+</html>
