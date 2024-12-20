@@ -27,9 +27,16 @@
             padding: 20px;
             text-align: center;
         }
-        table {
+        .table-container {
             width: 90%;
             margin: 20px auto;
+            overflow-y: auto;
+            max-height: 500px; /* Set the max height for the scrollable area */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
             border-collapse: collapse;
         }
         th, td {
@@ -40,10 +47,11 @@
         th {
             background-color: #2c3e50;
             color: white;
+            position: sticky;
+            top: 0; /* Keeps the header fixed while scrolling */
         }
         td {
             cursor: pointer;
-            user-select: none; /* Prevent text selection */
         }
         td:hover {
             background-color: #f0f0f0;
@@ -64,17 +72,17 @@
         <h1>Vodacom Host Page</h1>
     </header>
 
-    <table>
-        <thead>
-            <tr>
-                <th>URL</th>
-                <th>Rating</th>
-                <th>TCP Time</th>
-                <th>HTTP Time</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Sample rows -->
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>URL</th>
+                    <th>Rating</th>
+                    <th>TCP Time</th>
+                    <th>HTTP Time</th>
+                </tr>
+            </thead>
+            <tbody>
 <tr>
     <td onclick="copyToClipboard(this)">www.africanstorybook.org</td>
     <td>81.6%</td>
@@ -1123,298 +1131,13 @@
     <td>76.9%</td>
     <td>0.19s</td>
     <td>2.12s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">sso.sun.ac.za</td>
-    <td>93.3%</td>
-    <td>0.15s</td>
-    <td>0.52s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">sso-prod.sun.ac.za</td>
-    <td>92.9%</td>
-    <td>0.19s</td>
-    <td>0.52s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">servicedesk.sun.ac.za</td>
-    <td>91.9%</td>
-    <td>0.14s</td>
-    <td>0.67s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">progressnet.nl</td>
-    <td>72.1%</td>
-    <td>1.07s</td>
-    <td>1.72s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">mobi.ukzn.ac.za</td>
-    <td>49.3%</td>
-    <td>0.41s</td>
-    <td>4.66s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">coronavirus.westerncape.gov.za</td>
-    <td>93.6%</td>
-    <td>0.11s</td>
-    <td>0.53s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">www.charlo.co.za</td>
-    <td>94.3%</td>
-    <td>0.15s</td>
-    <td>0.42s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">dcschool.org.za</td>
-    <td>96.0%</td>
-    <td>0.11s</td>
-    <td>0.29s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">www.fulton.org.za</td>
-    <td>86.0%</td>
-    <td>0.1s</td>
-    <td>1.3s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">glenbridgeschool.co.za</td>
-    <td>95.4%</td>
-    <td>0.16s</td>
-    <td>0.3s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">moodle.hhs.co.za</td>
-    <td>83.1%</td>
-    <td>0.15s</td>
-    <td>1.54s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">hsgrabouw.co.za</td>
-    <td>95.9%</td>
-    <td>0.11s</td>
-    <td>0.3s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">kranskopprimary.co.za</td>
-    <td>75.5%</td>
-    <td>0.14s</td>
-    <td>2.31s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">genelouw.co.za</td>
-    <td>66.1%</td>
-    <td>0.1s</td>
-    <td>3.29s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">paarlgim.co.za</td>
-    <td>96.0%</td>
-    <td>0.14s</td>
-    <td>0.26s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">portiaprimary.co.za</td>
-    <td>80.9%</td>
-    <td>0.47s</td>
-    <td>1.44s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">tvh.co.za</td>
-    <td>51.2%</td>
-    <td>0.18s</td>
-    <td>4.7s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">welgemoedprimary.co.za</td>
-    <td>72.7%</td>
-    <td>0.1s</td>
-    <td>2.63s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">www.ru.ac.za</td>
-    <td>94.3%</td>
-    <td>0.16s</td>
-    <td>0.41s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">homework.stirlinghs.co.za</td>
-    <td>94.9%</td>
-    <td>0.13s</td>
-    <td>0.38s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">www.lenhamprimary.co.za</td>
-    <td>95.5%</td>
-    <td>0.13s</td>
-    <td>0.32s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">itsi.sbhs.co.za</td>
-    <td>92.7%</td>
-    <td>0.14s</td>
-    <td>0.59s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">www.laerskoolmontagu.net</td>
-    <td>89.8%</td>
-    <td>0.18s</td>
-    <td>0.84s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">www.thegrove.co.za</td>
-    <td>92.5%</td>
-    <td>0.17s</td>
-    <td>0.58s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">www.tuskies.co.za</td>
-    <td>90.9%</td>
-    <td>0.27s</td>
-    <td>0.64s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">www.whetstoneprimary.co.za</td>
-    <td>93.1%</td>
-    <td>0.17s</td>
-    <td>0.52s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">www.edgemeadhigh.org.za</td>
-    <td>68.6%</td>
-    <td>0.17s</td>
-    <td>2.97s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">learn.linksidehs.co.za</td>
-    <td>31.900000000000006%</td>
-    <td>0.15s</td>
-    <td>6.66s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">www.outeniqua.co.za</td>
-    <td>49.0%</td>
-    <td>0.12s</td>
-    <td>4.98s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">www.pnps.co.za</td>
-    <td>85.6%</td>
-    <td>0.14s</td>
-    <td>1.3s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">www.hstygerberg.co.za</td>
-    <td>82.0%</td>
-    <td>0.1s</td>
-    <td>1.7s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">www.glenwoodprep.co.za</td>
-    <td>86.3%</td>
-    <td>0.12s</td>
-    <td>1.25s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">www.4ways.co.za</td>
-    <td>96.3%</td>
-    <td>0.09s</td>
-    <td>0.28s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">gdecontent.co.za</td>
-    <td>90.3%</td>
-    <td>0.13s</td>
-    <td>0.84s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">www.hsbrandwag.co.za</td>
-    <td>90.4%</td>
-    <td>0.1s</td>
-    <td>0.86s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">www.eligwa.co.za</td>
-    <td>25.0%</td>
-    <td>1.15s</td>
-    <td>6.35s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">nect.org.za</td>
-    <td>86.5%</td>
-    <td>0.3s</td>
-    <td>1.05s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">myhub.curro.co.za</td>
-    <td>95.2%</td>
-    <td>0.1s</td>
-    <td>0.38s
-</td>
-</tr>
-<tr>
-    <td onclick="copyToClipboard(this)">teachfolk.com</td>
-    <td>90.6%</td>
-    <td>0.11s</td>
-    <td>0.83s
-</td>
-</tr>
-        </tbody>
-    </table>
+</t               
+            </tbody>
+        </table>
+    </div>
 
     <footer>
         <p>&copy; 2024 Vodacom Host Page</p>
     </footer>
-
-    <script>
-        // Function to copy the host URL to clipboard
-        function copyToClipboard(element) {
-            const text = element.textContent;
-            navigator.clipboard.writeText(text).then(() => {
-                alert(`Copied to clipboard: ${text}`);
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-            });
-        }
-    </script>
 </body>
 </html>
