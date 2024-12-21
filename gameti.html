@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>D-TECH Challenge Game</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3388101872497899" crossorigin="anonymous"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -89,8 +90,6 @@
             }
         }
     </style>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3388101872497899"
-        crossorigin="anonymous"></script>
 </head>
 <body>
     <h1>D-TECH Giveaway Challenge</h1>
@@ -115,7 +114,8 @@
     <div id="popup">
         <h2>Game Over!</h2>
         <p id="finalScore"></p>
-        <p id="highScore"></p>
+        <p id="scoreToBeat"></p>
+        <p id="screenshotPrompt"></p>
         <p>📸 Take a screenshot and send it to <a href="https://t.me/PREASX24" target="_blank">@PREASX24</a> for your chance to win an amazing prize on Sunday! 🌹</p>
         <button onclick="closePopup()">Close</button>
     </div>
@@ -130,14 +130,15 @@
         const leaderboardList = document.getElementById('leaderboardList');
         const popup = document.getElementById('popup');
         const finalScoreDisplay = document.getElementById('finalScore');
-        const highScoreDisplay = document.getElementById('highScore');
+        const scoreToBeatDisplay = document.getElementById('scoreToBeat');
+        const screenshotPrompt = document.getElementById('screenshotPrompt');
 
         let score = 0;
         let health = 3;
         let timeLeft = 30;
         let gameActive = true;
-        let highScore = 0;
-        let boxSpeed = 0.5; // Initial slower speed
+        let currentScoreToBeat = 100; // Set this dynamically on the previous page
+        let boxSpeed = 1; // Initial slower speed
         let timerInterval, boxMovementInterval;
         let clickCount = 0; // Track successful clicks
 
@@ -164,11 +165,9 @@
                 scoreDisplay.textContent = `Score: ${score}`;
                 clickCount++;
 
-                // Speed increase after every 10 successful clicks (slower rate)
+                // Speed increase after every 10 successful clicks (evenly distributed)
                 if (clickCount % 10 === 0) {
-                    boxSpeed += 0.0001;  // Slight increase in speed
-                    clearInterval(boxMovementInterval); // Stop previous interval
-                    boxMovementInterval = setInterval(moveGiftBox, 1000 / boxSpeed); // Restart with new speed
+                    boxSpeed += 0.05;  // Slight increase in speed
                 }
 
                 moveGiftBox();
@@ -217,21 +216,21 @@
             clearInterval(boxMovementInterval);
 
             finalScoreDisplay.textContent = `Your Final Score: ${score}`;
-            highScoreDisplay.textContent = `Score to Beat: ${highScore}`;
+            scoreToBeatDisplay.textContent = `Score to Beat: ${currentScoreToBeat}`;
+            
+            // Check if the score is greater than the score to beat
+            if (score > currentScoreToBeat) {
+                screenshotPrompt.textContent = "Congratulations! Your score is higher than the current score to beat. Take a screenshot and send it to @PREASX24 for a chance to win!";
+            } else {
+                screenshotPrompt.textContent = "Keep trying! Your score did not beat the current score to beat.";
+            }
+
             popup.style.display = 'block';
         }
 
         // Close Popup
         function closePopup() {
             popup.style.display = 'none';
-        }
-
-        // Add score to leaderboard
-        function addToLeaderboard(score) {
-            const playerName = prompt('Enter your name for the leaderboard:') || 'Anonymous';
-            const newEntry = document.createElement('li');
-            newEntry.textContent = `${playerName}: ${score} points`;
-            leaderboardList.appendChild(newEntry);
         }
 
         // Start the game
