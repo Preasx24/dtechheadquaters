@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payload Configuration Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        header {
+            text-align: center;
+            background-color: #2c3e50;
+            color: white;
+            padding: 50px 5%;
+        }
+
+        header h1 {
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        header p {
+            font-size: 1.2em;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        .section-header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .section-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .note {
+            background-color: #f7f7f7;
+            padding: 15px;
+            border-left: 5px solid #3498db;
+            font-size: 1.1em;
+            margin-top: 15px;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #1affff;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 5%;
+            margin-top: 20px;
+        }
+
+        /* Prevent Text Selection */
+        body, html {
+            user-select: none;
+        }
+
+        /* Disable Right Click */
+        body {
+            -webkit-touch-callout: none;
+        }
+    </style>
+    <script>
+        // Disable Right-Click
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        // Disable Keyboard Shortcuts for Copy
+        document.addEventListener('keydown', function (e) {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'x' || e.key === 'u')) {
+                e.preventDefault();
+            }
+        });
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3388101872497899"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header>
+    <h1>Payload Configuration Guide</h1>
+    <p>Learn how to create and configure payloads for VPN tunneling effectively.</p>
+</header>
+
+<div class="container">
+
+    <!-- Introduction to Payloads -->
+    <section id="intro-payload">
+        <div class="section-header">Understanding Payloads</div>
+        <div class="section-content">
+            <p>A <strong>payload</strong> is a set of instructions or data used to bypass restrictions and establish a connection between your VPN client and the target server. It helps VPNs like <strong>HA Tunnel, TLS Tunnel, and STARK VPN</strong> bypass certain status codes like <strong>403 Forbidden</strong> or other restrictions.</p>
+            <p class="note"><strong>Note:</strong> Configuring a payload might require SSH configuration knowledge and can be tricky, so follow each step carefully.</p>
+        </div>
+    </section>
+
+    <!-- What is an HTTP Header? -->
+    <section id="http-header">
+        <div class="section-header">What is an HTTP Header?</div>
+        <div class="section-content">
+            <p>An HTTP Header contains information sent between a client (VPN or browser) and a server. It includes details like <strong>Host</strong>, <strong>User-Agent</strong>, and <strong>Content-Type</strong>.</p>
+            <p>Here’s an example of a typical HTTP Header:</p>
+            <pre>
+Host: example.com
+User-Agent: Mozilla/5.0
+Connection: Keep-Alive
+Content-Length: 0
+            </pre>
+            <p><strong>Explanation:</strong></p>
+            <ul>
+                <li><strong>Host:</strong> The domain you're trying to access (e.g., example.com).</li>
+                <li><strong>User-Agent:</strong> Identifies the client (e.g., Mozilla/5.0).</li>
+                <li><strong>Connection:</strong> Specifies whether the connection remains open or closes after a request.</li>
+                <li><strong>Content-Length:</strong> Size of the data being transferred.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Creating a Payload -->
+    <section id="create-payload">
+        <div class="section-header">How to Create a Payload</div>
+        <div class="section-content">
+            <p>Using the information from the HTTP Header, you can create a payload. Below is an example:</p>
+            <pre>
+CONNECT [host_port] HTTP/1.1
+Host: example.com
+User-Agent: Mozilla/5.0
+Connection: Keep-Alive
+            </pre>
+            <p><strong>Steps:</strong></p>
+            <ol>
+                <li>Identify the <strong>Host</strong> and <strong>User-Agent</strong> from the header.</li>
+                <li>Combine them into a payload format (e.g., CONNECT or HTTP GET).</li>
+                <li>Test the payload on your VPN client.</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- VPNs Supporting Direct Payload Connection -->
+    <section id="payload-vpns">
+        <div class="section-header">VPNs Supporting Direct Payload Connection</div>
+        <div class="section-content">
+            <p>Some VPNs allow direct payload input without additional configuration files:</p>
+            <ul>
+                <li><strong>HA Tunnel Plus</strong></li>
+                <li><strong>TLS Tunnel</strong></li>
+                <li><strong>STARK VPN</strong></li>
+                <li><strong>HTTP Injector</strong></li>
+            </ul>
+            <p class="note"><strong>Tip:</strong> Experiment with different payloads to find the one that works best for your connection.</p>
+        </div>
+    </section>
+
+    <!-- Advanced Payload Options -->
+    <section id="advanced-payload">
+        <div class="section-header">Advanced Payload Options</div>
+        <div class="section-content">
+            <p>When configuring a payload, you'll encounter options like:</p>
+            <ul>
+                <li><strong>Online Host:</strong> Defines the primary server address.</li>
+                <li><strong>User-Agent:</strong> Identifies your device or client.</li>
+                <li><strong>Reverse Proxy:</strong> Routes traffic through another server.</li>
+                <li><strong>Custom Payload:</strong> Allows you to set custom HTTP requests.</li>
+            </ul>
+            <p>Each option impacts your VPN connection differently, so understanding their purpose is key.</p>
+        </div>
+    </section>
+
+    <!-- Detailed Configuration Page -->
+    <section id="detailed-config">
+        <div class="section-header">Learn How to Use Payloads on Specific VPNs</div>
+        <div class="section-content">
+            <p>After creating your payload, the next step is to apply it correctly in your VPN app.</p>
+            <p>For a step-by-step guide, click below:</p>
+            <p><a href="payload-vpn-details.html">Payload VPN Configuration Details →</a></p>
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    <p>&copy; 2024 D-TECH. All rights reserved.</p>
+    <p><a href="terms.html">Terms and Conditions</a></p>
+</footer>
+
+</body>
+</html>
