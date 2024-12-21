@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Payload Configuration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9fafc;
+            color: #333;
+        }
+
+        header {
+            text-align: center;
+            background-color: #2c3e50;
+            color: white;
+            padding: 50px 5%;
+        }
+
+        header h1 {
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        header p {
+            font-size: 1.2em;
+        }
+
+        .container {
+            width: 85%;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        .section-header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .section-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .note {
+            background-color: #f1f1f1;
+            padding: 15px;
+            border-left: 5px solid #3498db;
+            font-size: 1.1em;
+            margin-top: 15px;
+        }
+
+        pre {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: auto;
+        }
+
+        ul {
+            margin-left: 20px;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #1affff;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 5%;
+            margin-top: 20px;
+        }
+
+        /* Prevent Text Selection */
+        body, html {
+            user-select: none;
+        }
+
+        /* Disable Right Click */
+        body {
+            -webkit-touch-callout: none;
+        }
+    </style>
+    <script>
+        // Disable Right-Click
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        // Disable Keyboard Shortcuts for Copy
+        document.addEventListener('keydown', function (e) {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'x' || e.key === 'u')) {
+                e.preventDefault();
+            }
+        });
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3388101872497899"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header>
+    <h1>Advanced Payload Configuration</h1>
+    <p>Deep dive into building advanced payloads to bypass restrictions and optimize connections.</p>
+</header>
+
+<div class="container">
+
+    <!-- Payload Complexity -->
+    <section id="payload-complexity">
+        <div class="section-header">1. Understanding Advanced Payload Structures</div>
+        <div class="section-content">
+            <p>Advanced payloads involve more than basic headers. They include techniques to disguise traffic, trick firewalls, and bypass status codes such as <code>403 Forbidden</code> or <code>404 Not Found</code>.</p>
+            <p>Key elements include:</p>
+            <ul>
+                <li><strong>Host Spoofing:</strong> Faking the requested host.</li>
+                <li><strong>Custom User-Agent:</strong> Mimicking browsers or devices.</li>
+                <li><strong>SSL/TLS Encryption:</strong> Ensures secure payload delivery.</li>
+            </ul>
+            <p class="note"><strong>Example Advanced Payload:</strong></p>
+            <pre>
+CONNECT [host_port] HTTP/1.1
+Host: example.com
+User-Agent: Mozilla/5.0 (Linux; Android 10)
+X-Online-Host: [host]
+Connection: Keep-Alive
+            </pre>
+        </div>
+    </section>
+
+    <!-- Payload Headers -->
+    <section id="payload-headers">
+        <div class="section-header">2. Crafting Custom Headers</div>
+        <div class="section-content">
+            <p>Advanced headers include specialized fields to manipulate network behavior. Examples:</p>
+            <ul>
+                <li><strong>X-Forwarded-For:</strong> Specifies client IP address.</li>
+                <li><strong>Proxy-Authorization:</strong> Authenticates proxy connections.</li>
+                <li><strong>Upgrade:</strong> Forces the server to switch protocols.</li>
+            </ul>
+            <p class="note"><strong>Sample Header Configuration:</strong></p>
+            <pre>
+GET / HTTP/1.1
+Host: example.com
+User-Agent: Mozilla/5.0
+X-Forwarded-For: 127.0.0.1
+Connection: Upgrade
+Upgrade: websocket
+            </pre>
+        </div>
+    </section>
+
+    <!-- Troubleshooting Payload Issues -->
+    <section id="payload-troubleshooting">
+        <div class="section-header">3. Troubleshooting Common Payload Errors</div>
+        <div class="section-content">
+            <p>If your payload isn’t working, check for these common issues:</p>
+            <ul>
+                <li><strong>403 Forbidden:</strong> Change the <code>Host</code> or <code>User-Agent</code>.</li>
+                <li><strong>Timeout Error:</strong> Check server responsiveness and payload format.</li>
+                <li><strong>Connection Refused:</strong> Verify server port compatibility.</li>
+            </ul>
+            <p class="note"><strong>Quick Fix Example:</strong></p>
+            <pre>
+CONNECT [host:port] HTTP/1.1
+Host: backup.example.com
+User-Agent: Updated-User-Agent
+Connection: keep-alive
+            </pre>
+        </div>
+    </section>
+
+    <!-- Optimizing Payloads -->
+    <section id="payload-optimization">
+        <div class="section-header">4. Optimizing Payload Performance</div>
+        <div class="section-content">
+            <p>Optimize your payload for better performance and speed:</p>
+            <ul>
+                <li><strong>Shorter Payload Strings:</strong> Reduce unnecessary headers.</li>
+                <li><strong>Persistent Connections:</strong> Use <code>keep-alive</code> header.</li>
+                <li><strong>Testing Multiple Servers:</strong> Try different server configurations.</li>
+            </ul>
+            <p class="note">Keep testing and refining your payload until you get the desired speed and stability.</p>
+        </div>
+    </section>
+
+    <!-- Advanced Payload Tools -->
+    <section id="payload-tools">
+        <div class="section-header">5. Tools for Payload Testing</div>
+        <div class="section-content">
+            <p>Use these tools to test and optimize your payloads:</p>
+            <ul>
+                <li><a href="#">HTTP Injector</a></li>
+                <li><a href="#">TLS Tunnel</a></li>
+                <li><a href="#">HA Tunnel Plus</a></li>
+            </ul>
+            <p>Each tool has its unique settings. Experiment with their advanced options.</p>
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    <p>&copy; 2024 D-TECH. All rights reserved.</p>
+    <p><a href="terms.html">Terms and Conditions</a></p>
+</footer>
+
+</body>
+</html>
