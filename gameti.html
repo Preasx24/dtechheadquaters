@@ -65,8 +65,8 @@
             z-index: 1000;
             text-align: center;
             max-width: 400px;
-            border-radius: 10px;
             width: 80%;
+            border-radius: 10px;
         }
         #popup h2 {
             margin: 10px 0;
@@ -137,7 +137,7 @@
         let timeLeft = 30;
         let gameActive = true;
         let highScore = 0;
-        let boxSpeed = 1; // Initial speed
+        let boxSpeed = 0.5; // Slower starting speed
         let timerInterval, boxMovementInterval;
         let clickCount = 0; // Track successful clicks
 
@@ -166,7 +166,7 @@
 
                 // Speed increase after every 10 successful clicks
                 if (clickCount % 10 === 0) {
-                    boxSpeed += 0.0005;
+                    boxSpeed += 0.0001;  // Slower speed increase
                     clearInterval(boxMovementInterval);
                     boxMovementInterval = setInterval(moveGiftBox, 1000 / boxSpeed);
                 }
