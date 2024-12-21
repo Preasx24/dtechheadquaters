@@ -31,7 +31,7 @@
             cursor: pointer;
             animation: bounce 1s infinite;
         }
-        #score, #health {
+        #score, #health, #timer {
             font-size: 20px;
             margin: 10px 0;
         }
@@ -88,12 +88,15 @@
             }
         }
     </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3388101872497899"
+        crossorigin="anonymous"></script>
 </head>
 <body>
     <h1>D-TECH Giveaway Challenge</h1>
     <p>Click the 🎁 to score points! Avoid clicking elsewhere or you'll lose health!</p>
     <div id="score">Score: 0</div>
     <div id="health">Health: ❤️❤️❤️</div>
+    <div id="timer">Time: 30s</div>
     <button id="stopButton">Stop Game & Submit Score</button>
     <div id="gameArea">
         <div id="giftBox">🎁</div>
@@ -120,6 +123,7 @@
         const giftBox = document.getElementById('giftBox');
         const scoreDisplay = document.getElementById('score');
         const healthDisplay = document.getElementById('health');
+        const timerDisplay = document.getElementById('timer');
         const stopButton = document.getElementById('stopButton');
         const gameArea = document.getElementById('gameArea');
         const leaderboardList = document.getElementById('leaderboardList');
@@ -129,8 +133,11 @@
 
         let score = 0;
         let health = 3;
+        let timeLeft = 30;
         let gameActive = true;
         let highScore = 0;
+        let boxSpeed = 1; // Initial speed
+        let timerInterval, boxMovementInterval;
 
         // Move the gift box randomly
         function moveGiftBox() {
@@ -157,6 +164,13 @@
                     highScore = score;
                 }
                 moveGiftBox();
+                // Increase speed slightly
+                boxSpeed = Math.min(boxSpeed + 0.05, 2);
+                clearInterval(boxMovementInterval);
+                boxMovementInterval = setInterval(moveGiftBox, 1000 / boxSpeed);
+                // Add more time to the timer
+                timeLeft += 2;
+                timerDisplay.textContent = `Time: ${timeLeft}s`;
             }
             event.stopPropagation(); // Prevent click from propagating to gameArea
         });
@@ -168,6 +182,19 @@
                 updateHealth();
             }
         });
+
+        // Start the timer countdown
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                if (gameActive) {
+                    timeLeft--;
+                    timerDisplay.textContent = `Time: ${timeLeft}s`;
+                    if (timeLeft <= 0) {
+                        endGame();
+                    }
+                }
+            }, 1000);
+        }
 
         // Stop game and save score
         stopButton.addEventListener('click', () => {
@@ -181,6 +208,8 @@
             gameActive = false;
             giftBox.style.display = 'none';
             stopButton.disabled = true;
+            clearInterval(timerInterval);
+            clearInterval(boxMovementInterval);
 
             finalScoreDisplay.textContent = `Your Final Score: ${score}`;
             highScoreDisplay.textContent = `Score to Beat: ${highScore}`;
@@ -202,6 +231,8 @@
 
         // Start the game
         moveGiftBox();
+        startTimer();
+        boxMovementInterval = setInterval(moveGiftBox, 1000 / boxSpeed);
     </script>
 </body>
 </html>
