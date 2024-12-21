@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V2Ray Configuration Details</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        header {
+            text-align: center;
+            background-color: #2c3e50;
+            color: white;
+            padding: 50px 5%;
+        }
+
+        header h1 {
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        header p {
+            font-size: 1.2em;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        .section-header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .section-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .note {
+            background-color: #f7f7f7;
+            padding: 15px;
+            border-left: 5px solid #3498db;
+            font-size: 1.1em;
+            margin-top: 15px;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #1affff;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 5%;
+            margin-top: 20px;
+        }
+
+        /* Prevent Text Selection */
+        body, html {
+            user-select: none;
+        }
+
+        /* Disable Right Click */
+        body {
+            -webkit-touch-callout: none;
+        }
+    </style>
+    <script>
+        // Disable Right-Click
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        // Disable Keyboard Shortcuts for Copy
+        document.addEventListener('keydown', function (e) {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'x' || e.key === 'u')) {
+                e.preventDefault();
+            }
+        });
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3388101872497899"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header>
+    <h1>V2Ray Configuration Details</h1>
+    <p>Step-by-step guide for configuring V2Ray on popular VPN apps.</p>
+</header>
+
+<div class="container">
+
+    <!-- HTTP Injector Configuration -->
+    <section id="http-injector">
+        <div class="section-header">V2Ray on HTTP Injector</div>
+        <div class="section-content">
+            <p>Follow these steps to configure your V2Ray setup on <strong>HTTP Injector:</strong></p>
+            <ol>
+                <li>Open <strong>HTTP Injector</strong>.</li>
+                <li>Press the <strong>SSL/TLS → SSH</strong> option.</li>
+                <li>Select <strong>V2Ray (Xray)</strong> from the options.</li>
+                <li>Save your settings.</li>
+                <li>Alternatively, press <strong>Start</strong> directly.</li>
+                <li>You will be prompted to enter your V2Ray Configuration. Choose the <strong>manual</strong> option.</li>
+                <li>Paste the V2Ray configuration you copied from <strong>SSHmax</strong>.</li>
+                <li>Go back to the home screen and press <strong>Start</strong>.</li>
+            </ol>
+            <p class="note"><strong>Tip:</strong> Ensure your V2Ray config is valid before starting.</p>
+        </div>
+    </section>
+
+    <!-- HTTP Custom Configuration -->
+    <section id="http-custom">
+        <div class="section-header">V2Ray on HTTP Custom</div>
+        <div class="section-content">
+            <p>Steps to configure V2Ray on <strong>HTTP Custom:</strong></p>
+            <ol>
+                <li>Open <strong>HTTP Custom</strong>.</li>
+                <li>On the top-right corner, select the <strong>far-left option</strong> (marked {B | G | R} → choose <strong>B</strong>).</li>
+                <li>Select <strong>V2Ray Settings</strong>.</li>
+                <li>Press the <strong>Paste</strong> button on the top-right corner.</li>
+                <li>Go back to the home screen.</li>
+                <li>Enable <strong>V2Ray</strong> from the home screen.</li>
+                <li>Press <strong>Connect</strong>.</li>
+            </ol>
+            <p class="note"><strong>Tip:</strong> Double-check your configuration before enabling V2Ray.</p>
+        </div>
+    </section>
+
+    <!-- Napster VPN Configuration -->
+    <section id="napster-vpn">
+        <div class="section-header">V2Ray on Napster VPN</div>
+        <div class="section-content">
+            <p>Steps to configure V2Ray on <strong>Napster VPN:</strong></p>
+            <ol>
+                <li>Open <strong>Napster VPN</strong>.</li>
+                <li>Press the <strong>+</strong> icon at the top-right corner.</li>
+                <li>Select <strong>Import from Clipboard</strong>.</li>
+                <li>Choose <strong>Input URI</strong>.</li>
+                <li>The V2Ray configuration will be imported automatically.</li>
+                <li>Press <strong>Start</strong> to activate the connection.</li>
+            </ol>
+            <p class="note"><strong>Tip:</strong> Always ensure your V2Ray URI is correctly formatted before importing.</p>
+        </div>
+    </section>
+
+    <!-- Additional Tips -->
+    <section id="v2ray-tips">
+        <div class="section-header">Additional Tips for V2Ray</div>
+        <div class="section-content">
+            <ul>
+                <li>Always use updated VPN versions.</li>
+                <li>Choose servers close to your location for better performance.</li>
+                <li>Test multiple servers to find the most stable connection.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Advanced Details Page -->
+    <section id="advanced-config">
+        <div class="section-header">Advanced Configuration Guide</div>
+        <div class="section-content">
+            <p>For more advanced details on setting up V2Ray, including custom settings and troubleshooting, click below:</p>
+            <p><a href="v2ray-advanced.html">Advanced V2Ray Configuration Guide →</a></p>
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    <p>&copy; 2024 D-TECH. All rights reserved.</p>
+    <p><a href="terms.html">Terms and Conditions</a></p>
+</footer>
+
+</body>
+</html>
