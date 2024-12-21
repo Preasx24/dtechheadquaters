@@ -137,7 +137,7 @@
         let timeLeft = 30;
         let gameActive = true;
         let highScore = 0;
-        let boxSpeed = 0.5; // Slower starting speed
+        let boxSpeed = 0.5; // Initial slower speed
         let timerInterval, boxMovementInterval;
         let clickCount = 0; // Track successful clicks
 
@@ -164,11 +164,11 @@
                 scoreDisplay.textContent = `Score: ${score}`;
                 clickCount++;
 
-                // Speed increase after every 10 successful clicks
+                // Speed increase after every 10 successful clicks (slower rate)
                 if (clickCount % 10 === 0) {
-                    boxSpeed += 0.0001;  // Slower speed increase
-                    clearInterval(boxMovementInterval);
-                    boxMovementInterval = setInterval(moveGiftBox, 1000 / boxSpeed);
+                    boxSpeed += 0.0001;  // Slight increase in speed
+                    clearInterval(boxMovementInterval); // Stop previous interval
+                    boxMovementInterval = setInterval(moveGiftBox, 1000 / boxSpeed); // Restart with new speed
                 }
 
                 moveGiftBox();
