@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D-TECH Challenge Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #121212;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            margin-top: 20px;
+        }
+        #gameArea {
+            width: 90%;
+            height: 60vh;
+            margin: 20px auto;
+            position: relative;
+            background-color: #1f1f1f;
+            border: 2px solid #444;
+            overflow: hidden;
+        }
+        #giftBox {
+            font-size: 40px;
+            position: absolute;
+            cursor: pointer;
+            animation: bounce 1s infinite;
+        }
+        #score, #health {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+        #stopButton {
+            margin: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .leaderboard {
+            margin: 20px auto;
+            width: 90%;
+            max-width: 400px;
+            text-align: left;
+        }
+        .leaderboard h3 {
+            text-align: center;
+        }
+        .leaderboard ol {
+            padding-left: 20px;
+        }
+        #popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #2a2a2a;
+            padding: 20px;
+            border: 2px solid #444;
+            z-index: 1000;
+            text-align: center;
+            max-width: 300px;
+            border-radius: 10px;
+        }
+        #popup h2 {
+            margin: 10px 0;
+        }
+        #popup p {
+            font-size: 14px;
+            margin: 10px 0;
+        }
+        #popup button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>D-TECH Giveaway Challenge</h1>
+    <p>Click the 🎁 to score points! Avoid clicking elsewhere or you'll lose health!</p>
+    <div id="score">Score: 0</div>
+    <div id="health">Health: ❤️❤️❤️</div>
+    <button id="stopButton">Stop Game & Submit Score</button>
+    <div id="gameArea">
+        <div id="giftBox">🎁</div>
+    </div>
+    
+    <div class="leaderboard">
+        <h3>Leaderboard</h3>
+        <ol id="leaderboardList"></ol>
+    </div>
+    
+    <footer>
+        <p>Game hosted by <a href="https://t.me/PREASX24" target="_blank" style="color: #4caf50;">@PREASX24</a></p>
+    </footer>
+
+    <div id="popup">
+        <h2>Game Over!</h2>
+        <p id="finalScore"></p>
+        <p id="highScore"></p>
+        <p>📸 Take a screenshot and send it to <a href="https://t.me/PREASX24" target="_blank">@PREASX24</a> for your chance to win an amazing prize on Sunday! 🌹</p>
+        <button onclick="closePopup()">Close</button>
+    </div>
+
+    <script>
+        const giftBox = document.getElementById('giftBox');
+        const scoreDisplay = document.getElementById('score');
+        const healthDisplay = document.getElementById('health');
+        const stopButton = document.getElementById('stopButton');
+        const gameArea = document.getElementById('gameArea');
+        const leaderboardList = document.getElementById('leaderboardList');
+        const popup = document.getElementById('popup');
+        const finalScoreDisplay = document.getElementById('finalScore');
+        const highScoreDisplay = document.getElementById('highScore');
+
+        let score = 0;
+        let health = 3;
+        let gameActive = true;
+        let highScore = 0;
+
+        // Move the gift box randomly
+        function moveGiftBox() {
+            const x = Math.random() * (gameArea.offsetWidth - giftBox.offsetWidth);
+            const y = Math.random() * (gameArea.offsetHeight - giftBox.offsetHeight);
+            giftBox.style.left = `${x}px`;
+            giftBox.style.top = `${y}px`;
+        }
+
+        // Update health display
+        function updateHealth() {
+            healthDisplay.textContent = `Health: ${'❤️'.repeat(health)}`;
+            if (health === 0) {
+                endGame();
+            }
+        }
+
+        // Handle clicking the gift
+        giftBox.addEventListener('click', (event) => {
+            if (gameActive) {
+                score++;
+                scoreDisplay.textContent = `Score: ${score}`;
+                if (score > highScore) {
+                    highScore = score;
+                }
+                moveGiftBox();
+            }
+            event.stopPropagation(); // Prevent click from propagating to gameArea
+        });
+
+        // Handle clicking anywhere else in the game area
+        gameArea.addEventListener('click', () => {
+            if (gameActive) {
+                health--;
+                updateHealth();
+            }
+        });
+
+        // Stop game and save score
+        stopButton.addEventListener('click', () => {
+            if (gameActive) {
+                endGame();
+            }
+        });
+
+        // End Game and Show Popup
+        function endGame() {
+            gameActive = false;
+            giftBox.style.display = 'none';
+            stopButton.disabled = true;
+
+            finalScoreDisplay.textContent = `Your Final Score: ${score}`;
+            highScoreDisplay.textContent = `Score to Beat: ${highScore}`;
+            popup.style.display = 'block';
+        }
+
+        // Close Popup
+        function closePopup() {
+            popup.style.display = 'none';
+        }
+
+        // Add score to leaderboard
+        function addToLeaderboard(score) {
+            const playerName = prompt('Enter your name for the leaderboard:') || 'Anonymous';
+            const newEntry = document.createElement('li');
+            newEntry.textContent = `${playerName}: ${score} points`;
+            leaderboardList.appendChild(newEntry);
+        }
+
+        // Start the game
+        moveGiftBox();
+    </script>
+</body>
+</html>
