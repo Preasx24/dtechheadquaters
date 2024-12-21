@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D-TECH YouTube Showcase</title>
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9fafc;
+            color: #333;
+        }
+
+        header {
+            text-align: center;
+            background-color: #2c3e50;
+            color: white;
+            padding: 50px 5%;
+        }
+
+        header h1 {
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        header p {
+            font-size: 1.2em;
+        }
+
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .video-section {
+            margin: 20px 0;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-thumbnail {
+            position: relative;
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            display: block;
+        }
+
+        .video-thumbnail .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .video-details {
+            padding: 15px;
+        }
+
+        .video-details h3 {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .video-details p {
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 5%;
+            margin-top: 30px;
+        }
+
+        footer a {
+            color: #1abc9c;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* No Copy & Right-Click */
+        body {
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        body {
+            -webkit-user-select: none;
+        }
+    </style>
+    <script>
+        // Disable Right-Click
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        // Disable Copy Shortcut
+        document.addEventListener('keydown', function (e) {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'u')) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</head>
+<body>
+
+<header>
+    <h1>D-TECH YouTube Showcase</h1>
+    <p>Explore our curated collection of powerful tech tutorials and tools.</p>
+</header>
+
+<div class="container">
+
+    <!-- Video List (All 14 Videos) -->
+    <div class="video-section">
+        <div class="video-thumbnail">
+            <img src="https://img.youtube.com/vi/Imyc9osAwO4/maxresdefault.jpg" alt="Crunchyroll ACC Tester">
+            <a href="https://youtu.be/Imyc9osAwO4" target="_blank" class="play-button">▶ Play</a>
+        </div>
+        <div class="video-details">
+            <h3>Crunchyroll ACC Tester</h3>
+        </div>
+    </div>
+
+    <div class="video-section">
+        <div class="video-thumbnail">
+            <img src="https://img.youtube.com/vi/XmHp4NCZv_E/maxresdefault.jpg" alt="Find All Tools">
+            <a href="https://youtu.be/XmHp4NCZv_E" target="_blank" class="play-button">▶ Play</a>
+        </div>
+        <div class="video-details">
+            <h3>How to Find All Our Tools</h3>
+        </div>
+    </div>
+
+    <div class="video-section">
+        <div class="video-thumbnail">
+            <img src="https://img.youtube.com/vi/43XLu6L6pU8/maxresdefault.jpg" alt="System Info Tool">
+            <a href="https://youtu.be/43XLu6L6pU8" target="_blank" class="play-button">▶ Play</a>
+        </div>
+        <div class="video-details">
+            <h3>D-TECH System Info Tool</h3>
+        </div>
+    </div>
+
+    <!-- Remaining Videos -->
+    <div class="video-section"><a href="https://youtu.be/UgeeCykOgcY">D-TECH Termux Tools</a></div>
+    <div class="video-section"><a href="https://youtu.be/nmaS5jpe4J8">SNI Host Checker</a></div>
+    <div class="video-section"><a href="https://youtu.be/wS-mFs-z_T4">Bulk SNI Host Checker</a></div>
+    <div class="video-section"><a href="https://youtu.be/8-9WracHYjQ">Faster UDP File/Config</a></div>
+    <div class="video-section"><a href="https://youtu.be/twHoYn05z9U">Ultimate SNI Automated Host Checker</a></div>
+    <div class="video-section"><a href="https://youtu.be/3ZLv7w3qevc">Create Files for VPN</a></div>
+    <div class="video-section"><a href="https://youtu.be/j7KSaa2CN3U">Live CCTV Footage Access</a></div>
+    <div class="video-section"><a href="https://youtu.be/5GCuMxRlFpY">Create Static Website</a></div>
+    <div class="video-section"><a href="https://youtu.be/I6iiXYrGdt8">Free Netflix Account</a></div>
+    <div class="video-section"><a href="https://youtu.be/L4ngUc63tRI">Speed Test Telegram Bot</a></div>
+    <div class="video-section"><a href="https://youtu.be/M2wSjZ0j-XU">100MB MTN Daily Access</a></div>
+
+</div>
+
+<footer>
+    <p>&copy; 2024 D-TECH. All rights reserved.</p>
+    <p>Subscribe to our <a href="https://www.youtube.com/@Preasx24" target="_blank">YouTube Channel</a> for more updates!</p>
+</footer>
+
+</body>
+</html>
