@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V2Ray Details Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        header {
+            text-align: center;
+            background-color: #2c3e50;
+            color: white;
+            padding: 50px 5%;
+        }
+
+        header h1 {
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        header p {
+            font-size: 1.2em;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        .section-header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .section-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .note {
+            background-color: #f7f7f7;
+            padding: 15px;
+            border-left: 5px solid #3498db;
+            font-size: 1.1em;
+            margin-top: 15px;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #1affff;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 5%;
+            margin-top: 20px;
+        }
+
+        /* Prevent Text Selection */
+        body, html {
+            user-select: none;
+        }
+
+        /* Disable Right Click */
+        body {
+            -webkit-touch-callout: none;
+        }
+    </style>
+    <script>
+        // Disable Right-Click
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        // Disable Keyboard Shortcuts for Copy
+        document.addEventListener('keydown', function (e) {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'x' || e.key === 'u')) {
+                e.preventDefault();
+            }
+        });
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3388101872497899"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header>
+    <h1>V2Ray Details Guide</h1>
+    <p>Understand V2Ray protocols, learn to create accounts, and configure connections properly.</p>
+</header>
+
+<div class="container">
+
+    <!-- What is V2Ray? -->
+    <section id="what-is-v2ray">
+        <div class="section-header">What is V2Ray?</div>
+        <div class="section-content">
+            <p><strong>V2Ray</strong> is a versatile proxy tool that enables secure and private internet access. It supports protocols like <strong>VLess</strong> and <strong>VMess</strong>, which are ideal for bypassing restrictions and improving connection stability.</p>
+        </div>
+    </section>
+
+    <!-- VLess Protocol -->
+    <section id="vless">
+        <div class="section-header">VLess Protocol</div>
+        <div class="section-content">
+            <p><strong>VLess</strong> is a lightweight protocol designed for better performance, lower latency, and efficient data transfer. It works well with SSL/TLS encryption.</p>
+        </div>
+    </section>
+
+    <!-- VMess Protocol -->
+    <section id="vmess">
+        <div class="section-header">VMess Protocol</div>
+        <div class="section-content">
+            <p><strong>VMess</strong> is a more robust protocol that focuses on authentication and strong encryption. It is widely used for secure proxy connections in restricted networks.</p>
+        </div>
+    </section>
+
+    <!-- How to Create a V2Ray Account -->
+    <section id="create-v2ray">
+        <div class="section-header">How to Create a V2Ray Account on SSHMax</div>
+        <div class="section-content">
+            <p>Follow these steps to create a V2Ray account on <strong>SSHMax</strong>:</p>
+            <ol>
+                <li>Go to <a href="https://www.sshmax.com/" target="_blank">SSHMax</a>.</li>
+                <li>Click on the three lines (<strong>Menu</strong>) at the top-right corner.</li>
+                <li>Select either <strong>V2Ray VLess</strong> or <strong>V2Ray VMess</strong> based on your preference.</li>
+                <li>Choose a server. It’s recommended to pick a server close to your location, but feel free to experiment with other servers.</li>
+                <li>Enter your desired <strong>Username</strong> and <strong>Host</strong> details.</li>
+                <li>Select the option to <strong>Reserve SNI Host</strong> as the address.</li>
+                <li>Complete the reCAPTCHA verification.</li>
+                <li>Click on <strong>Create Account</strong>.</li>
+                <li>Once completed, you'll receive the <strong>WebSocket Configuration</strong>.</li>
+                <li>If there are two WebSocket configurations (port 80 and port 443), always choose the one with <strong>WebSocket 443</strong> for better security and stability.</li>
+            </ol>
+            <p class="note"><strong>Note:</strong> Save your WebSocket configuration securely, as it will be required for setting up your V2Ray connection.</p>
+        </div>
+    </section>
+
+    <!-- Further Configuration Details -->
+    <section id="further-config">
+        <div class="section-header">Learn How to Input V2Ray Configuration</div>
+        <div class="section-content">
+            <p>Once you've created your V2Ray account and obtained the configuration, the next step is to properly set it up in your VPN client.</p>
+            <p>For a detailed guide on how to input the V2Ray configuration, click below:</p>
+            <p><a href="v2ray-config-details.html">V2Ray Configuration Details →</a></p>
+        </div>
+    </section>
+
+    <!-- Account Providers -->
+    <section id="providers">
+        <div class="section-header">Other Trusted V2Ray Account Providers</div>
+        <div class="section-content">
+            <ul>
+                <li><a href="https://www.sshmax.com/" target="_blank">SSHMax</a></li>
+                <li><a href="https://v2ray.cool/" target="_blank">V2Ray.cool</a></li>
+                <li><a href="https://freev2ray.com/" target="_blank">FreeV2Ray</a></li>
+            </ul>
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    <p>&copy; 2024 D-TECH. All rights reserved.</p>
+    <p><a href="terms.html">Terms and Conditions</a></p>
+</footer>
+
+</body>
+</html>
