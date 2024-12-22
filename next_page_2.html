@@ -3,101 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Background</title>
+    <title>Auto Play Audio</title>
     <style>
         body {
+            background-image: url('theme.png'); /* Add your background image */
+            background-size: cover; /* Make sure the image covers the whole page */
+            background-position: center; /* Center the image */
             margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Arial', sans-serif;
-            color: white;
-            background: linear-gradient(45deg, #2c3e50, #4ca1af);
-            background-size: 400% 400%;
-            animation: backgroundAnimation 10s ease-in-out infinite, shapeAnimation 15s ease-in-out infinite;
-            overflow: hidden;
+            height: 100vh; /* Ensure the body takes up the full height */
         }
-
-        h1 {
-            font-size: 4em;
-            z-index: 2;
-            animation: slideIn 3s ease-in-out;
-        }
-
-        .container {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 40px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            z-index: 2;
-        }
-
-        audio {
-            width: 100%;
-            margin-top: 20px;
-            outline: none;
-            border-radius: 10px;
-        }
-
-        .message {
-            font-size: 1.5em;
-            margin-top: 20px;
-            color: #f1c40f;
-            animation: fadeInText 2s ease-in-out;
-        }
-
-        /* Keyframe Animations */
-        @keyframes backgroundAnimation {
-            0% {
-                background: linear-gradient(45deg, #2c3e50, #4ca1af);
-                background-size: 400% 400%;
-            }
-            50% {
-                background: linear-gradient(45deg, #ff6a00, #ee0979);
-                background-size: 400% 400%;
-            }
-            100% {
-                background: linear-gradient(45deg, #2c3e50, #4ca1af);
-                background-size: 400% 400%;
-            }
-        }
-
-        @keyframes shapeAnimation {
-            0% {
-                transform: scale(1) rotate(0deg);
-            }
-            50% {
-                transform: scale(1.2) rotate(10deg);
-            }
-            100% {
-                transform: scale(1) rotate(0deg);
-            }
-        }
-
-        @keyframes slideIn {
-            0% { transform: translateY(-50px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes fadeInText {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Listen to the Message</h1>
-        <p class="message">A message to reflect on...</p>
-        <audio autoplay>
-            <source src="a24d556d-5639-4488-84a7-4831c25640ff.mp3" type="audio/mp3">
-            Your browser does not support the audio element.
-        </audio>
-    </div>
+    <audio autoplay>
+        <source src="a24d556d-5639-4488-84a7-4831c25640ff.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
 
 </body>
 </html>
