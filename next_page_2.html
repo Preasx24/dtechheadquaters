@@ -3,23 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Play Audio</title>
+    <title>D-TECH Tools - Advanced</title>
     <style>
         body {
-            background-image: url('theme.png'); /* Add your background image */
-            background-size: cover; /* Make sure the image covers the whole page */
-            background-position: center; /* Center the image */
+            font-family: 'Verdana', sans-serif;
+            background: linear-gradient(135deg, #001f3f, #003366, #004080);
+            color: #ffffff;
             margin: 0;
-            height: 100vh; /* Ensure the body takes up the full height */
+            padding: 0;
+        }
+        header {
+            background-color: #00264d;
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #00aaff;
+        }
+        header img {
+            width: 120px;
+            height: auto;
+        }
+        header h1 {
+            font-size: 2.2em;
+            margin: 10px 0;
+            color: #00aaff;
+        }
+        header p {
+            font-size: 1.1em;
+            color: #d1d1d1;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .tool-card {
+            background-color: #003366;
+            border: 1px solid #00aaff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .tool-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 170, 255, 0.6);
+        }
+        .tool-card h2 {
+            font-size: 1.4em;
+            margin: 10px 0;
+            color: #00aaff;
+        }
+        .tool-card p {
+            font-size: 1em;
+            color: #d1d1d1;
+            margin-bottom: 15px;
+        }
+        .tool-card a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #00aaff;
+            color: #000000;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        .tool-card a:hover {
+            background-color: #ff6600;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px auto;
+            max-width: 1200px;
+        }
+        .navigation a {
+            padding: 15px 30px;
+            background-color: #00aaff;
+            color: #000000;
+            font-size: 1.2em;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+            text-align: center;
+        }
+        .navigation a:hover {
+            background-color: #ff6600;
         }
     </style>
 </head>
 <body>
+    <header>
+        <img src="dtech-logo.png" alt="D-TECH Logo">
+        <h1>D-TECH Advanced Tools</h1>
+        <p>Push the limits of your tech knowledge with these powerful tools</p>
+    </header>
 
-    <audio autoplay>
-        <source src="a24d556d-5639-4488-84a7-4831c25640ff.mp3" type="audio/mp3">
-        Your browser does not support the audio element.
-    </audio>
+    <div class="grid-container">
+        <div class="tool-card">
+            <h2>DNS Lookup</h2>
+            <p>Fetch DNS records and analyze domain information.</p>
+            <a href="dns_lookup.html">Open Tool</a>
+        </div>
+        <div class="tool-card">
+            <h2>Reverse IP Lookup</h2>
+            <p>Trace websites hosted on a given IP address.</p>
+            <a href="reverse_ip_lookup.html">Open Tool</a>
+        </div>
+        <div class="tool-card">
+            <h2>MAC Lookup</h2>
+            <p>Find the manufacturer details for a MAC address.</p>
+            <a href="mac_lookup.html">Open Tool</a>
+        </div>
+        <div class="tool-card">
+            <h2>Base64 Encoder/Decoder</h2>
+            <p>Encode or decode Base64 strings easily.</p>
+            <a href="base64_encoder_decoder.html">Open Tool</a>
+        </div>
+        <div class="tool-card">
+            <h2>Bin Checker</h2>
+            <p>Check the validity of BIN numbers.</p>
+            <a href="bin_checker.html">Open Tool</a>
+        </div>
+        <div class="tool-card">
+            <h2>HTTP Header</h2>
+            <p>Analyze HTTP headers for troubleshooting or information gathering.</p>
+            <a href="http_header.html">Open Tool</a>
+        </div>
+    </div>
 
+    <div class="navigation">
+        <a href="index.html">Back to Main Page</a>
+        <a href="next_page_2.html">Next Page</a>
+    </div>
 </body>
 </html>
