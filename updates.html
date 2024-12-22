@@ -41,39 +41,36 @@
             padding: 20px 0;
         }
 
-        .dropdown-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin: 20px 0;
+        .update-section {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
         }
 
-        .dropdown {
-            background-color: #2c3e50;
+        .update-section h2 {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .update {
+            background-color: #34495e;
             color: white;
             padding: 15px;
-            font-size: 1.2em;
             border-radius: 5px;
-            cursor: pointer;
-            text-align: left;
+            margin-bottom: 10px;
             position: relative;
-            transition: background-color 0.3s;
         }
 
-        .dropdown:hover {
-            background-color: #1a252f;
+        .update h3 {
+            font-size: 1.4em;
+            margin-bottom: 10px;
         }
 
-        .dropdown-content {
-            display: none;
-            background-color: #34495e;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 10px;
-        }
-
-        .dropdown.active .dropdown-content {
-            display: block;
+        .update p {
+            font-size: 1.1em;
         }
 
         .notification {
@@ -108,28 +105,19 @@
 
         /* Media Queries for Responsive Design */
         @media screen and (max-width: 768px) {
-            .dropdown-container {
-                grid-template-columns: 1fr;
+            .container {
+                width: 90%;
             }
 
-            .dropdown {
-                font-size: 1.1em;
+            .update h3 {
+                font-size: 1.2em;
+            }
+
+            .update p {
+                font-size: 1em;
             }
         }
     </style>
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QFCETX7516"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-QFCETX7516');
-    </script>
-    <!-- Google AdSense Script -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3388101872497899"
-        crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -139,52 +127,41 @@
 </header>
 
 <div class="container">
-    <div class="dropdown-container">
-        <div class="dropdown">
-            <span>Bots</span>
+    <div class="update-section">
+        <h2>Latest Updates</h2>
+
+        <div class="update">
             <div class="notification">1</div>
-            <div class="dropdown-content">
-                <p><strong>Bot A:</strong> Version 2.1 released with new features!</p>
-                <p><strong>Bot B:</strong> Bug fix implemented for better performance.</p>
-                <p>New Bot feature coming soon! Stay tuned.</p>
-            </div>
+            <h3>Bots</h3>
+            <p><strong>Bot A:</strong> Version 2.1 released with new features!</p>
+            <p><strong>Bot B:</strong> Bug fix implemented for better performance.</p>
+            <p>New Bot feature coming soon! Stay tuned.</p>
         </div>
 
-        <div class="dropdown">
-            <span>Files</span>
+        <div class="update">
             <div class="notification">2</div>
-            <div class="dropdown-content">
-                <p><strong>File Update:</strong> New admin panel files uploaded.</p>
-                <p><strong>File Release:</strong> Configuration files for new bot version available.</p>
-            </div>
+            <h3>Files</h3>
+            <p><strong>File Update:</strong> New admin panel files uploaded.</p>
+            <p><strong>File Release:</strong> Configuration files for new bot version available.</p>
         </div>
 
-        <div class="dropdown">
-            <span>Tools</span>
-            <div class="notification">0</div>
-            <div class="dropdown-content">
-                <p><strong>Tool Update:</strong> New D-TECH Network Analyzer tool released.</p>
-                <p><strong>Security Update:</strong> VPN Auto-Connector now has improved security.</p>
-            </div>
+        <div class="update">
+            <h3>Tools</h3>
+            <p><strong>Tool Update:</strong> New D-TECH Network Analyzer tool released.</p>
+            <p><strong>Security Update:</strong> VPN Auto-Connector now has improved security.</p>
         </div>
 
-        <div class="dropdown">
-            <span>Resources</span>
-            <div class="notification">0</div>
-            <div class="dropdown-content">
-                <p><strong>New Resource:</strong> API documentation now available.</p>
-                <p><strong>Update:</strong> New user guides for advanced features have been released.</p>
-            </div>
+        <div class="update">
+            <h3>Resources</h3>
+            <p><strong>New Resource:</strong> API documentation now available.</p>
+            <p><strong>Update:</strong> New user guides for advanced features have been released.</p>
         </div>
 
-        <div class="dropdown">
-            <span>Services</span>
-            <div class="notification"></div>
-            <div class="dropdown-content">
-                <p><strong>New Service:</strong> Premium hosting for all D-TECH tools.</p>
-                <p><strong>Service Update:</strong> Enhanced support services now available for premium users.</p>
-                <p><strong>Service Upgrade:</strong> All services now include advanced security features.</p>
-            </div>
+        <div class="update">
+            <h3>Services</h3>
+            <p><strong>New Service:</strong> Premium hosting for all D-TECH tools.</p>
+            <p><strong>Service Update:</strong> Enhanced support services now available for premium users.</p>
+            <p><strong>Service Upgrade:</strong> All services now include advanced security features.</p>
         </div>
     </div>
 </div>
@@ -193,14 +170,6 @@
     <p>&copy; 2024 D-TECH Headquarters. All rights reserved.</p>
     <p><a href="terms.html">Terms and Conditions</a></p>
 </footer>
-
-<script>
-    document.querySelectorAll('.dropdown').forEach(dropdown => {
-        dropdown.addEventListener('click', function() {
-            this.classList.toggle('active');
-        });
-    });
-</script>
 
 </body>
 </html>
