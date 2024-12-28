@@ -3,158 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Host Connection Assistant</title>
+    <title>D-TECH Crunchyroll Premium Account</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
+            background-color: #111;
+            color: #fff;
+            margin: 0;
+            padding: 0;
         }
-        .container {
-            background-color: #fff;
+        header {
+            background-color: #222;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            margin: auto;
-        }
-        h1 {
             text-align: center;
-            color: #333;
         }
-        label, select, input, button {
-            width: 100%;
+        header h1 {
+            margin: 0;
+        }
+        .content {
+            padding: 20px;
+        }
+        .button {
+            background-color: #007bff;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .account-info {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .vip-info {
+            margin-top: 20px;
+            font-size: 16px;
+            background-color: #333;
             padding: 10px;
-            margin: 10px 0;
             border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        .response {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #e7f5e7;
-            border-radius: 5px;
-            border: 1px solid #4CAF50;
-            color: #2e7d32;
-        }
-        .payload {
-            background-color: #f2f2f2;
-            padding: 15px;
-            margin-top: 20px;
-            border-radius: 5px;
-            font-family: monospace;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-        .dropdown-container {
-            display: none;
-            margin-top: 20px;
         }
     </style>
 </head>
 <body>
+    <header>
+        <h1>D-TECH Crunchyroll Premium Account</h1>
+        <p>Get Free Crunchyroll Premium Accounts!</p>
+    </header>
 
-    <div class="container">
-        <h1>Host Connection Assistant</h1>
-        <form id="hostForm">
-            <label for="statusCode">Enter the status code of the host:</label>
-            <input type="number" id="statusCode" name="statusCode" min="100" max="599" required>
+    <div class="content">
+        <button class="button" onclick="getAccount()">Get Account</button>
+        <button class="button" onclick="checkTime()">Check Time Limit</button>
 
-            <label for="hostName">Enter the host URL:</label>
-            <input type="text" id="hostName" name="hostName" required>
+        <div id="account-info" class="account-info"></div>
 
-            <button type="submit">Get Suggestions & Generate Payload</button>
-        </form>
-
-        <div id="response" class="response" style="display:none;"></div>
-        <div id="payloadSection" class="payload" style="display:none;"></div>
-
-        <button id="showHeaderInput" type="button">Generate Header Payload</button>
-        <div id="headerDropdown" class="dropdown-container">
-            <label for="header">Select or Input Header:</label>
-            <input type="text" id="header" name="header" placeholder="Enter or select header...">
-            <button type="button" id="generateHeaderPayload">Generate Payload</button>
-            <div id="headerPayload" class="payload" style="display:none;"></div>
+        <div class="vip-info">
+            <p><strong>VIP Access:</strong> Want faster access? VIP members can reduce the waiting time to 45 minutes. Contact the admin for VIP access for only 15 ZAR.</p>
+            <button class="button" onclick="openVIPLink()">VIP Access</button>
         </div>
     </div>
 
     <script>
-        // Function to fetch payloads from the 302.json file
-        async function fetchPayloads() {
-            try {
-                const response = await fetch('302.json');
-                return await response.json();
-            } catch (error) {
-                console.error("Error fetching payloads:", error);
+        let userAccessTimes = {};
+        let accounts = ["account1@example.com:password123", "account2@example.com:password456"]; // Replace with actual accounts
+        let VIP_KEY = "DTECHVIPX24";
+
+        function getAccount() {
+            const userId = "user123"; // Example user ID
+            const currentTime = new Date();
+            const lastUsedTime = userAccessTimes[userId];
+            const hoursWaited = lastUsedTime ? (currentTime - new Date(lastUsedTime)) / 3600000 : 0;
+
+            if (hoursWaited < 6) {
+                alert("You're still in the waiting period! VIP members can enter a key to reduce the wait time.");
+                return;
             }
+
+            if (accounts.length > 0) {
+                const account = accounts[Math.floor(Math.random() * accounts.length)];
+                document.getElementById("account-info").innerHTML = `Here’s your Crunchyroll Premium Account: <br><strong>${account}</strong>`;
+            } else {
+                document.getElementById("account-info").innerHTML = "No accounts available at the moment. Please try again later.";
+            }
+
+            userAccessTimes[userId] = currentTime;
         }
 
-        // Event listener for form submission
-        document.getElementById('hostForm').addEventListener('submit', async function(event) {
-            event.preventDefault();
+        function checkTime() {
+            const userId = "user123"; // Example user ID
+            const lastUsedTime = userAccessTimes[userId];
+            const currentTime = new Date();
 
-            const statusCode = document.getElementById('statusCode').value;
-            const hostName = document.getElementById('hostName').value;
-
-            // Fetch payload data
-            const payloadData = await fetchPayloads();
-            let responseMessage = '';
-            let payloadMessage = '';
-
-            // Check if payloads exist for the entered status code
-            if (payloadData[statusCode]) {
-                responseMessage = `Status Code ${statusCode}: Payload suggestions are available for this status code.`;
-                payloadMessage = generatePayload(payloadData, statusCode, hostName);
-            } else {
-                responseMessage = `Status Code ${statusCode}: Unable to provide a specific recommendation for this status code.`;
-                payloadMessage = 'Try using V2Ray or SSH with WebSocket or Tunnel for better results.';
-            }
-
-            document.getElementById('response').innerText = responseMessage;
-            document.getElementById('response').style.display = 'block';
-            document.getElementById('payloadSection').innerText = payloadMessage;
-            document.getElementById('payloadSection').style.display = 'block';
-        });
-
-        // Function to generate payload for headers based on status code
-        function generatePayload(payloadData, statusCode, hostName) {
-            const headers = payloadData[statusCode];
-            let payloadMessage = '';
-
-            if (headers) {
-                for (const header in headers) {
-                    payloadMessage += `Payload for header ${header}:\n${headers[header]}\n\n`;
+            if (lastUsedTime) {
+                const timeDiff = (currentTime - new Date(lastUsedTime)) / 3600000;
+                const hoursLeft = 6 - timeDiff;
+                if (hoursLeft > 0) {
+                    alert(`You can request another account in ${hoursLeft.toFixed(2)} hours.`);
+                } else {
+                    alert("You can now request a new account!");
                 }
             } else {
-                payloadMessage = 'No specific payloads found for this status code.';
+                alert("You can now request a new account!");
             }
-
-            return payloadMessage;
         }
 
-        // Event listener for generating payload based on header and status code
-        document.getElementById('generateHeaderPayload').addEventListener('click', async function() {
-            const header = document.getElementById('header').value;
-            const statusCode = document.getElementById('statusCode').value;
-
-            const payloadData = await fetchPayloads();
-            let headerPayloadMessage = '';
-
-            if (header && statusCode && payloadData[statusCode] && payloadData[statusCode][header]) {
-                headerPayloadMessage = payloadData[statusCode][header];
-            } else {
-                headerPayloadMessage = "No payload found for this header and status code.";
-            }
-
-            document.getElementById('headerPayload').innerText = headerPayloadMessage;
-            document.getElementById('headerPayload').style.display = 'block';
-        });
-
-        // Show the header input section
-        document.getElementById('showHeaderInput').addEventListener('click', function() {
-            document.getElementById('headerDropdown').style.display = 'block';
-        });
+        function openVIPLink() {
+            window.open("https://t.me/PREASX24", "_blank"); // Link to VIP access
+        }
     </script>
-
 </body>
 </html>
