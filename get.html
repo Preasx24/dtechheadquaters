@@ -46,13 +46,9 @@
             white-space: pre-wrap;
             word-wrap: break-word;
         }
-        .no-info {
-            color: #ff6347;
-            background-color: #fff3e3;
-            padding: 15px;
-            border-radius: 5px;
-            border: 1px solid #ff6347;
-            text-align: center;
+        .dropdown-container {
+            display: none;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -72,46 +68,46 @@
 
         <div id="response" class="response" style="display:none;"></div>
         <div id="payloadSection" class="payload" style="display:none;"></div>
-        <div id="noInfo" class="no-info" style="display:none;">
-            Info on this code is not yet input. <a href="status-codes.html">View status code description here</a>
+
+        <button id="showHeaderInput" type="button">Generate Header Payload</button>
+        <div id="headerDropdown" class="dropdown-container">
+            <label for="header">Select or Input Header:</label>
+            <input type="text" id="header" name="header" placeholder="Enter or select header...">
+            <button type="button" id="generateHeaderPayload">Generate Payload</button>
+            <div id="headerPayload" class="payload" style="display:none;"></div>
         </div>
     </div>
 
     <script>
-        document.getElementById('hostForm').addEventListener('submit', function(event) {
+        // Function to fetch payloads from the 302.json file
+        async function fetchPayloads() {
+            try {
+                const response = await fetch('302.json');
+                return await response.json();
+            } catch (error) {
+                console.error("Error fetching payloads:", error);
+            }
+        }
+
+        // Event listener for form submission
+        document.getElementById('hostForm').addEventListener('submit', async function(event) {
             event.preventDefault();
 
             const statusCode = document.getElementById('statusCode').value;
             const hostName = document.getElementById('hostName').value;
 
+            // Fetch payload data
+            const payloadData = await fetchPayloads();
             let responseMessage = '';
             let payloadMessage = '';
 
-            // Determine suggestions based on status code
-            if (statusCode == 200) {
-                responseMessage = `Status Code 200: Connection successful. You can use V2Ray with VMESS/VLESS or SSH with WebSocket or Tunnel for better performance.`;
-                payloadMessage = generatePayload(hostName, statusCode);
-            } 
-            else if (statusCode == 301 || statusCode == 302) {
-                responseMessage = `Status Code ${statusCode}: The host has moved. Try using V2Ray with VMESS/VLESS and WebSocket for redirection.`;
-                payloadMessage = generatePayload(hostName, statusCode);
-            }
-            else if (statusCode == 403) {
-                responseMessage = `Status Code 403: Forbidden. Use V2Ray with WebSocket for obfuscation or SSH with Tunnel. You might also try using a payload to bypass restrictions.`;
-                payloadMessage = generatePayload(hostName, statusCode);
-            }
-            else if (statusCode == 404) {
-                responseMessage = `Status Code 404: The requested resource doesn’t exist. Double-check the URL or try another host.`;
-                payloadMessage = 'No payload needed for 404. Please check the URL or the host configuration.';
-            }
-            else if (statusCode == 500 || statusCode == 502) {
-                responseMessage = `Status Code ${statusCode}: Server error. Try V2Ray with VMESS/VLESS or SSH Tunnel. Payloads might help in some cases.`;
-                payloadMessage = generatePayload(hostName, statusCode);
-            } 
-            else {
+            // Check if payloads exist for the entered status code
+            if (payloadData[statusCode]) {
+                responseMessage = `Status Code ${statusCode}: Payload suggestions are available for this status code.`;
+                payloadMessage = generatePayload(payloadData, statusCode, hostName);
+            } else {
                 responseMessage = `Status Code ${statusCode}: Unable to provide a specific recommendation for this status code.`;
                 payloadMessage = 'Try using V2Ray or SSH with WebSocket or Tunnel for better results.';
-                document.getElementById('noInfo').style.display = 'block'; // Show the "info not yet input" message
             }
 
             document.getElementById('response').innerText = responseMessage;
@@ -120,23 +116,44 @@
             document.getElementById('payloadSection').style.display = 'block';
         });
 
-        // Function to generate a basic payload
-        function generatePayload(hostName, statusCode) {
-            let payload = '';
-            if (statusCode == 403) {
-                payload = `Payload to bypass 403 (forbidden):\nPOST / HTTP/1.1\nHost: ${hostName}\nUser-Agent: Mozilla/5.0\nConnection: keep-alive\nX-Forwarded-For: 192.168.1.1\nX-Requested-With: XMLHttpRequest\nCache-Control: no-cache\nContent-Type: application/x-www-form-urlencoded\nPayload Data: xyz`;
-            } 
-            else if (statusCode == 500 || statusCode == 502) {
-                payload = `Payload to bypass 500/502 (server error):\nGET / HTTP/1.1\nHost: ${hostName}\nConnection: close\nCache-Control: no-cache\nX-Forwarded-For: 192.168.1.1\nUser-Agent: curl/7.64.1\nContent-Length: 0`;
-            } 
-            else if (statusCode == 301 || statusCode == 302) {
-                payload = `Payload to handle redirect 301/302:\nGET / HTTP/1.1\nHost: ${hostName}\nConnection: keep-alive\nReferer: ${hostName}\nX-Forwarded-For: 192.168.1.1\nUser-Agent: Mozilla/5.0`;
-            } 
-            else {
-                payload = `No specific payload required for Status Code ${statusCode}. If needed, use generic methods like WebSocket in SSH or V2Ray.`;
+        // Function to generate payload for headers based on status code
+        function generatePayload(payloadData, statusCode, hostName) {
+            const headers = payloadData[statusCode];
+            let payloadMessage = '';
+
+            if (headers) {
+                for (const header in headers) {
+                    payloadMessage += `Payload for header ${header}:\n${headers[header]}\n\n`;
+                }
+            } else {
+                payloadMessage = 'No specific payloads found for this status code.';
             }
-            return payload;
+
+            return payloadMessage;
         }
+
+        // Event listener for generating payload based on header and status code
+        document.getElementById('generateHeaderPayload').addEventListener('click', async function() {
+            const header = document.getElementById('header').value;
+            const statusCode = document.getElementById('statusCode').value;
+
+            const payloadData = await fetchPayloads();
+            let headerPayloadMessage = '';
+
+            if (header && statusCode && payloadData[statusCode] && payloadData[statusCode][header]) {
+                headerPayloadMessage = payloadData[statusCode][header];
+            } else {
+                headerPayloadMessage = "No payload found for this header and status code.";
+            }
+
+            document.getElementById('headerPayload').innerText = headerPayloadMessage;
+            document.getElementById('headerPayload').style.display = 'block';
+        });
+
+        // Show the header input section
+        document.getElementById('showHeaderInput').addEventListener('click', function() {
+            document.getElementById('headerDropdown').style.display = 'block';
+        });
     </script>
 
 </body>
