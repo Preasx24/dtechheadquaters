@@ -1,53 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Firebase Account Fetcher</title>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D-TECH Firebase Accounts</title>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
 </head>
 <body>
-    <h1>Firebase Account Fetcher</h1>
-    <button onclick="fetchAccounts()">Fetch Accounts</button>
-    <div id="output"></div>
+  <h1>D-TECH Firebase Accounts</h1>
+  <div id="accounts"></div>
 
-    <script type="module">
-        // Firebase Configuration
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js';
-        import { getFirestore, collection, getDocs } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js';
+  <script>
+    // Your Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDuYe1ECzQjdF_gS2LmGDROWm4AxTGcT6c",
+      authDomain: "tech-d4d76.firebaseapp.com",
+      projectId: "tech-d4d76",
+      storageBucket: "tech-d4d76.firebasestorage.app",
+      messagingSenderId: "102270954981",
+      appId: "1:102270954981:web:15d1053443e121a5ded30c",
+      measurementId: "G-K93TNXQF9Q"
+    };
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyDuYe1ECzQjdF_gS2LmGDROWm4AxTGcT6c",
-            authDomain: "tech-d4d76.firebaseapp.com",
-            projectId: "tech-d4d76",
-            storageBucket: "tech-d4d76.firebasestorage.app",
-            messagingSenderId: "102270954981",
-            appId: "1:102270954981:web:15d1053443e121a5ded30c",
-            measurementId: "G-K93TNXQF9Q"
-        };
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+    // Reference to the accounts data
+    const accountsRef = database.ref('accounts');
 
-        async function fetchAccounts() {
-            const outputDiv = document.getElementById('output');
-            outputDiv.innerHTML = 'Fetching accounts...';
-
-            try {
-                const querySnapshot = await getDocs(collection(db, "Accounts"));
-                let accounts = [];
-                querySnapshot.forEach((doc) => {
-                    accounts.push(doc.data());
-                    console.log(`Account: ${doc.data().email} | Password: ${doc.data().password}`);
-                });
-                outputDiv.innerHTML = `Fetched ${accounts.length} accounts. Check the console for details.`;
-            } catch (error) {
-                console.error("Error fetching accounts:", error);
-                outputDiv.innerHTML = 'Failed to fetch accounts. Check the console for errors.';
-            }
-        }
-    </script>
+    // Fetch accounts from Firebase
+    accountsRef.on('value', (snapshot) => {
+      const data = snapshot.val();
+      console.log(data); // Logs the data to the console for now
+      document.getElementById('accounts').innerText = JSON.stringify(data, null, 2);
+    }, (error) => {
+      console.error('Error fetching data:', error);
+    });
+  </script>
 </body>
 </html>
