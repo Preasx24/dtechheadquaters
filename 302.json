@@ -1,0 +1,140 @@
+{
+  "302": {
+    "User-Agent": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nUser-Agent: {user_agent}\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by setting the User-Agent header."
+    },
+    "Referer": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nReferer: {referer}\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by setting the Referer header."
+    },
+    "Accept": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nAccept: {accept}\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by setting the Accept header."
+    },
+    "Cookie": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nCookie: {cookie}\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by setting the Cookie header."
+    },
+    "X-Forwarded-For": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nX-Forwarded-For: {ip}\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by modifying the X-Forwarded-For header with a custom IP."
+    },
+    "Authorization": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nAuthorization: Bearer {token}\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by setting the Authorization header with a Bearer token."
+    },
+    "Accept-Encoding": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nAccept-Encoding: gzip, deflate\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by setting the Accept-Encoding header."
+    },
+    "Connection": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nConnection: {connection_type}\nCache-Control: no-cache",
+      "description": "Bypasses 302 by setting the Connection header."
+    },
+    "Cache-Control": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nCache-Control: {cache_control}\nConnection: keep-alive\nAccept: text/html",
+      "description": "Bypasses 302 by modifying Cache-Control header."
+    },
+    "X-Requested-With": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nX-Requested-With: {x_requested_with}\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by setting the X-Requested-With header."
+    },
+    "DNT": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nDNT: 1\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by setting the DNT (Do Not Track) header."
+    },
+    "Upgrade-Insecure-Requests": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nUpgrade-Insecure-Requests: 1\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by setting the Upgrade-Insecure-Requests header."
+    },
+    "X-Frame-Options": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nX-Frame-Options: SAMEORIGIN\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by setting the X-Frame-Options header."
+    },
+    "Origin": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nOrigin: {origin}\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by setting the Origin header."
+    },
+    "X-Content-Type-Options": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nX-Content-Type-Options: nosniff\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by setting the X-Content-Type-Options header."
+    },
+    "X-XSS-Protection": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nX-XSS-Protection: 1; mode=block\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by setting the X-XSS-Protection header."
+    },
+    "Host": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by modifying the Host header."
+    },
+    "Content-Type": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nContent-Type: {content_type}\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by modifying the Content-Type header."
+    },
+    "X-Auth-Token": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nX-Auth-Token: {auth_token}\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by setting the X-Auth-Token header."
+    },
+    "X-Real-IP": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nX-Real-IP: {ip_address}\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by setting the X-Real-IP header."
+    },
+    "If-Modified-Since": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nIf-Modified-Since: {timestamp}\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by setting the If-Modified-Since header."
+    },
+    "X-Forwarded-Proto": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nX-Forwarded-Proto: https\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by setting the X-Forwarded-Proto header."
+    },
+    "Accept-Language": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nAccept-Language: {language}\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by setting the Accept-Language header."
+    },
+    "Accept-Charset": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nAccept-Charset: {charset}\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by setting the Accept-Charset header."
+    },
+    "X-Powered-By": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nX-Powered-By: {framework}\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by setting the X-Powered-By header."
+    },
+    "Via": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nVia: {proxy}\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by modifying the Via header."
+    },
+    "X-Request-ID": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nX-Request-ID: {request_id}\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by setting the X-Request-ID header."
+    },
+    "X-Cache": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nX-Cache: {cache_status}\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by modifying the X-Cache header."
+    },
+    "X-Scheme": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nX-Scheme: https\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by modifying the X-Scheme header."
+    },
+    "ETag": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nETag: {etag}\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by setting the ETag header."
+    },
+    "Authorization-Basic": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nAuthorization: Basic {encoded_credentials}\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by using Basic Authentication header."
+    },
+    "X-DNS-Prefetch-Control": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nX-DNS-Prefetch-Control: off\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by setting X-DNS-Prefetch-Control to off."
+    },
+    "X-Content-Options": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nX-Content-Options: nosniff\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by setting X-Content-Options to nosniff."
+    },
+    "X-Frame-Options-SameOrigin": {
+      "structure": "GET / HTTP/1.1\nHost: {host}\nX-Frame-Options: SAMEORIGIN\nConnection: keep-alive\nCache-Control: no-cache",
+      "description": "Bypasses 302 by setting X-Frame-Options to SAMEORIGIN."
+    }
+  }
+}
