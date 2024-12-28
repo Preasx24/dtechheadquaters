@@ -61,6 +61,7 @@
     <div class="content">
         <button class="button" onclick="getAccount()">Get Account</button>
         <button class="button" onclick="checkTime()">Check Time Limit</button>
+        <button class="button" onclick="checkRemainingAccounts()">Check Remaining Accounts</button>
         <button class="button vip-button" onclick="enterVIPKey()">Enter VIP Key</button>
 
         <div id="account-info" class="account-info"></div>
@@ -72,8 +73,7 @@
     </div>
 
     <script>
-        let userAccessTimes = {};
-        let accounts = []; // Placeholder for fetched accounts
+        let accounts = [];
         let VIP_KEY = "DTECHVIPX24";
         let isVIP = false;  // Tracks if user is VIP
 
@@ -86,6 +86,7 @@
                 }
                 const data = await response.text();
                 accounts = data.split('\n').map(account => account.trim()).filter(account => account !== '');
+                loadUsedAccounts();
                 console.log('Accounts loaded:', accounts);
             } catch (error) {
                 console.error(error);
@@ -95,52 +96,53 @@
 
         fetchAccounts();
 
+        // Load used accounts from localStorage
+        function loadUsedAccounts() {
+            const usedAccounts = JSON.parse(localStorage.getItem('usedAccounts')) || [];
+            accounts = accounts.filter(account => !usedAccounts.includes(account));
+        }
+
+        // Save used accounts to localStorage
+        function markAccountAsUsed(account) {
+            let usedAccounts = JSON.parse(localStorage.getItem('usedAccounts')) || [];
+            usedAccounts.push(account);
+            localStorage.setItem('usedAccounts', JSON.stringify(usedAccounts));
+        }
+
+        // Get account with waiting time enforced
         function getAccount() {
-            const userId = "user123"; // Example user ID
-            const currentTime = new Date();
-            const lastUsedTime = userAccessTimes[userId];
-            
-            if (!lastUsedTime) {
-                // First-time access
-                giveAccount(userId, currentTime);
+            const lastAccessTime = localStorage.getItem('lastAccessTime');
+            const currentTime = new Date().getTime();
+            const waitTime = isVIP ? 45 * 60 * 1000 : 6 * 60 * 60 * 1000; // 45 mins for VIP, 6 hours for regular
+
+            if (lastAccessTime && currentTime - lastAccessTime < waitTime) {
+                const remainingTime = ((waitTime - (currentTime - lastAccessTime)) / 60000).toFixed(2);
+                alert(`Please wait ${remainingTime} minutes before requesting another account.`);
                 return;
             }
 
-            const hoursWaited = (currentTime - new Date(lastUsedTime)) / 3600000;
-            const waitTime = isVIP ? 0.75 : 6; // 45 minutes if VIP, 6 hours if not
-
-            if (hoursWaited < waitTime) {
-                const hoursLeft = waitTime - hoursWaited;
-                alert(`Please wait ${hoursLeft.toFixed(2)} hours before requesting another account.`);
-            } else {
-                giveAccount(userId, currentTime);
-            }
-        }
-
-        function giveAccount(userId, currentTime) {
             if (accounts.length > 0) {
-                const account = accounts.shift(); // Remove the first account from the array
+                const account = accounts.shift(); // Remove the first account
                 document.getElementById("account-info").innerHTML = 
                     `Here’s your Crunchyroll Premium Account:<br><strong>${account}</strong>`;
-                userAccessTimes[userId] = currentTime; // Record access time
+                markAccountAsUsed(account);
+                localStorage.setItem('lastAccessTime', currentTime);
             } else {
                 document.getElementById("account-info").innerHTML = 
                     "No accounts available at the moment. Please try again later.";
             }
         }
 
+        // Check waiting time
         function checkTime() {
-            const userId = "user123"; // Example user ID
-            const lastUsedTime = userAccessTimes[userId];
-            const currentTime = new Date();
+            const lastAccessTime = localStorage.getItem('lastAccessTime');
+            const currentTime = new Date().getTime();
+            const waitTime = isVIP ? 45 * 60 * 1000 : 6 * 60 * 60 * 1000; 
 
-            if (lastUsedTime) {
-                const timeDiff = (currentTime - new Date(lastUsedTime)) / 3600000;
-                const waitTime = isVIP ? 0.75 : 6; 
-                const hoursLeft = waitTime - timeDiff;
-
-                if (hoursLeft > 0) {
-                    alert(`You can request another account in ${hoursLeft.toFixed(2)} hours.`);
+            if (lastAccessTime) {
+                const remainingTime = ((waitTime - (currentTime - lastAccessTime)) / 60000).toFixed(2);
+                if (remainingTime > 0) {
+                    alert(`You can request another account in ${remainingTime} minutes.`);
                 } else {
                     alert("You can now request a new account!");
                 }
@@ -149,6 +151,12 @@
             }
         }
 
+        // Check remaining accounts
+        function checkRemainingAccounts() {
+            alert(`Remaining Accounts: ${accounts.length}`);
+        }
+
+        // VIP Access
         function enterVIPKey() {
             const userKey = prompt("Enter your VIP access key:");
             if (userKey === VIP_KEY) {
@@ -159,6 +167,7 @@
             }
         }
 
+        // VIP Contact
         function openVIPLink() {
             window.open("https://t.me/PREASX24", "_blank");
         }
