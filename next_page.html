@@ -3,29 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Play Audio</title>
-
-    <script type="text/javascript" data-cfasync="false">
-/*<![CDATA[/* */
-(function(){var b=window,n="b76527a5c53827910401af2fe2b13921",g=[["siteId",160-244+152+46+5161161],["minBid",0],["popundersPerIP","0"],["delayBetween",0],["default",false],["defaultPerDay",0],["topmostLayer","auto"]],t=["d3d3LmNkbjRhZHMuY29tL3JzdHJpbmcubWluLmNzcw==","ZDNnNW92Zm5nanc5YncuY2xvdWRmcm9udC5uZXQvVnlIL3Jib290c3RyYXAtbWF0ZXJpYWwtZGF0ZXRpbWVwaWNrZXIubWluLmpz"],f=-1,i,q,j=function(){clearTimeout(q);f++;if(t[f]&&!(1761206581000<(new Date).getTime()&&1<f)){i=b.document.createElement("script");i.type="text/javascript";i.async=!0;var o=b.document.getElementsByTagName("script")[0];i.src="https://"+atob(t[f]);i.crossOrigin="anonymous";i.onerror=j;i.onload=function(){clearTimeout(q);b[n.slice(0,16)+n.slice(0,16)]||j()};q=setTimeout(j,5E3);o.parentNode.insertBefore(i,o)}};if(!b[n]){try{Object.freeze(b[n]=g)}catch(e){}j()}})();
-/*]]>/* */
-</script>
+    <title>D-TECH Host Checker V3</title>
     <style>
         body {
-            background-image: url('theme.png'); /* Add your background image */
-            background-size: cover; /* Make sure the image covers the whole page */
-            background-position: center; /* Center the image */
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #00ffcc;
+            text-align: center;
             margin: 0;
-            height: 100vh; /* Ensure the body takes up the full height */
+            padding: 0;
+        }
+        h1 {
+            margin-top: 20px;
+            font-size: 36px;
+            color: #00ffcc;
+        }
+        p {
+            font-size: 18px;
+            color: #aaa;
+        }
+        input[type="text"] {
+            width: 70%;
+            padding: 15px;
+            margin: 20px 0;
+            border: 2px solid #00ffcc;
+            border-radius: 8px;
+            background-color: #1e1e1e;
+            color: #fff;
+            font-size: 16px;
+        }
+        input[type="text"]:focus {
+            border-color: #009988;
+            outline: none;
+        }
+        button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            background-color: #00ffcc;
+            color: #121212;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #009988;
+        }
+        #result {
+            margin-top: 30px;
+            text-align: left;
+            display: inline-block;
+            background-color: #1e1e1e;
+            padding: 25px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 800px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        .active {
+            color: #00ff00;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .inactive {
+            color: #ff4444;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .info {
+            margin-top: 15px;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .info strong {
+            color: #00ffcc;
+        }
+        .link-buttons {
+            margin-top: 20px;
+        }
+        .link-buttons a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #00ffcc;
+            color: #121212;
+            font-weight: bold;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+        .link-buttons a:hover {
+            background-color: #009988;
         }
     </style>
 </head>
 <body>
+    <h1>D-TECH Host Checker V3</h1>
+    <p>Enter a host or SNI below to check its status and details:</p>
+    <input type="text" id="hostInput" placeholder="Enter host (e.g., example.com)">
+    <br>
+    <button onclick="checkHost()">Check Host</button>
+    <div id="result"></div>
 
-    <audio autoplay>
-        <source src="a24d556d-5639-4488-84a7-4831c25640ff.mp3" type="audio/mp3">
-        Your browser does not support the audio element.
-    </audio>
+    <div class="link-buttons">
+        <a href="status-code.html" target="_blank">View Status Code Meanings</a>
+        <a href="get.html" target="_blank">Find Connection Method</a>
+    </div>
 
+    <script>
+        async function checkHost() {
+            const host = document.getElementById('hostInput').value.trim();
+            const resultDiv = document.getElementById('result');
+
+            if (!host) {
+                resultDiv.innerHTML = "<p class='inactive'>Please enter a valid host.</p>";
+                return;
+            }
+
+            resultDiv.innerHTML = "<p>Checking host... Please wait.</p>";
+
+            try {
+                const response = await fetch(`https://api.hackertarget.com/httpheaders/?q=${host}`);
+                const data = await response.text();
+
+                if (response.ok) {
+                    const statusCode = data.match(/HTTP\/[\d.]+\s(\d+)/)?.[1] || 'N/A';
+                    const ip = await resolveIP(host);
+                    const sslInfo = await checkSSL(host);
+
+                    resultDiv.innerHTML = `
+                        <p class='active'>[ACTIVE] ${host} ✓</p>
+                        <div class='info'>
+                            <strong>Status Code:</strong> ${statusCode}<br>
+                            <strong>IP Address:</strong> ${ip || 'N/A'}<br>
+                            <strong>SSL Valid Until:</strong> ${sslInfo || 'N/A'}<br>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<p class='inactive'>[INACTIVE] ${host} ✗ (Failed to fetch data)</p>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<p class='inactive'>[INACTIVE] ${host} ✗ (Error: ${error.message})</p>`;
+            }
+        }
+
+        async function resolveIP(host) {
+            try {
+                const response = await fetch(`https://dns.google/resolve?name=${host}&type=A`);
+                const data = await response.json();
+                return data.Answer ? data.Answer[0].data : 'N/A';
+            } catch (error) {
+                return 'N/A';
+            }
+        }
+
+        async function checkSSL(host) {
+            try {
+                const response = await fetch(`https://${host}`, { method: 'HEAD' });
+                const cert = response.headers.get('strict-transport-security');
+                return cert ? cert : 'Valid';
+            } catch (error) {
+                return 'N/A';
+            }
+        }
+    </script>
 </body>
 </html>
