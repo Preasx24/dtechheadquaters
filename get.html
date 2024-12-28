@@ -22,6 +22,7 @@
         }
         .content {
             padding: 20px;
+            text-align: center;
         }
         .button {
             background-color: #007bff;
@@ -46,6 +47,9 @@
             padding: 10px;
             border-radius: 5px;
         }
+        .vip-button {
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -57,26 +61,27 @@
     <div class="content">
         <button class="button" onclick="getAccount()">Get Account</button>
         <button class="button" onclick="checkTime()">Check Time Limit</button>
+        <button class="button vip-button" onclick="enterVIPKey()">Enter VIP Key</button>
 
         <div id="account-info" class="account-info"></div>
 
         <div class="vip-info">
-            <p><strong>VIP Access:</strong> Want faster access? VIP members can reduce the waiting time to 45 minutes. Contact the admin for VIP access for only 15 ZAR.</p>
-            <button class="button" onclick="openVIPLink()">VIP Access</button>
+            <p><strong>VIP Access:</strong> Reduce waiting time to 45 minutes with VIP Access.</p>
+            <button class="button" onclick="openVIPLink()">Contact Admin</button>
         </div>
     </div>
 
     <script>
         let userAccessTimes = {};
-        let accounts = []; // Empty array initially, will be filled with data from the file
+        let accounts = []; // Placeholder for fetched accounts
         let VIP_KEY = "DTECHVIPX24";
-        let isVIP = false;  // Variable to track if the user is VIP
+        let isVIP = false;  // Tracks if user is VIP
 
-        // Fetch the accounts from Google Drive
+        // Fetch accounts from Google Drive
         fetch('https://drive.google.com/uc?export=download&id=132xU-2ZFET87q1KAuG_-gbujrdiG6TO5')
             .then(response => response.text())
             .then(data => {
-                accounts = data.split('\n').map(account => account.trim()).filter(account => account !== ''); // Clean and prepare the accounts list
+                accounts = data.split('\n').map(account => account.trim()).filter(account => account !== '');
             })
             .catch(error => console.error('Error loading accounts:', error));
 
@@ -85,30 +90,32 @@
             const currentTime = new Date();
             const lastUsedTime = userAccessTimes[userId];
             
-            // If the user has never accessed before, allow them to get an account immediately
             if (!lastUsedTime) {
-                if (accounts.length > 0) {
-                    const account = accounts[Math.floor(Math.random() * accounts.length)];
-                    document.getElementById("account-info").innerHTML = `Here’s your Crunchyroll Premium Account: <br><strong>${account}</strong>`;
-                    userAccessTimes[userId] = currentTime; // Set the time when the account is taken
-                }
+                // First-time access
+                giveAccount(userId, currentTime);
+                return;
+            }
+
+            const hoursWaited = (currentTime - new Date(lastUsedTime)) / 3600000;
+            const waitTime = isVIP ? 0.75 : 6; // 45 minutes if VIP, 6 hours if not
+
+            if (hoursWaited < waitTime) {
+                const hoursLeft = waitTime - hoursWaited;
+                alert(`Please wait ${hoursLeft.toFixed(2)} hours before requesting another account.`);
             } else {
-                // Check how much time has passed since the last account request
-                const hoursWaited = (currentTime - new Date(lastUsedTime)) / 3600000;
+                giveAccount(userId, currentTime);
+            }
+        }
 
-                // Apply VIP reduction if applicable
-                const waitTime = isVIP ? 0.75 : 6; // 45 minutes if VIP, 6 hours if not
-
-                if (hoursWaited < waitTime) {
-                    const hoursLeft = waitTime - hoursWaited;
-                    alert(`You need to wait ${hoursLeft.toFixed(2)} hours before requesting another account. VIP members have a 45-minute wait.`);
-                } else {
-                    if (accounts.length > 0) {
-                        const account = accounts[Math.floor(Math.random() * accounts.length)];
-                        document.getElementById("account-info").innerHTML = `Here’s your Crunchyroll Premium Account: <br><strong>${account}</strong>`;
-                        userAccessTimes[userId] = currentTime; // Set the time when the account is taken
-                    }
-                }
+        function giveAccount(userId, currentTime) {
+            if (accounts.length > 0) {
+                const account = accounts.shift(); // Remove the first account from the array
+                document.getElementById("account-info").innerHTML = 
+                    `Here’s your Crunchyroll Premium Account:<br><strong>${account}</strong>`;
+                userAccessTimes[userId] = currentTime; // Record access time
+            } else {
+                document.getElementById("account-info").innerHTML = 
+                    "No accounts available at the moment. Please try again later.";
             }
         }
 
@@ -119,8 +126,9 @@
 
             if (lastUsedTime) {
                 const timeDiff = (currentTime - new Date(lastUsedTime)) / 3600000;
-                const waitTime = isVIP ? 0.75 : 6; // 45 minutes if VIP, 6 hours if not
+                const waitTime = isVIP ? 0.75 : 6; 
                 const hoursLeft = waitTime - timeDiff;
+
                 if (hoursLeft > 0) {
                     alert(`You can request another account in ${hoursLeft.toFixed(2)} hours.`);
                 } else {
@@ -131,7 +139,7 @@
             }
         }
 
-        function openVIPLink() {
+        function enterVIPKey() {
             const userKey = prompt("Enter your VIP access key:");
             if (userKey === VIP_KEY) {
                 isVIP = true;
@@ -139,6 +147,10 @@
             } else {
                 alert("Invalid VIP key.");
             }
+        }
+
+        function openVIPLink() {
+            window.open("https://t.me/PREASX24", "_blank");
         }
     </script>
 </body>
