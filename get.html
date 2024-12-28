@@ -46,6 +46,14 @@
             white-space: pre-wrap;
             word-wrap: break-word;
         }
+        .no-info {
+            color: #ff6347;
+            background-color: #fff3e3;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #ff6347;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -55,21 +63,24 @@
         <form id="hostForm">
             <label for="statusCode">Enter the status code of the host:</label>
             <input type="number" id="statusCode" name="statusCode" min="100" max="599" required>
-            
+
             <label for="hostName">Enter the host URL:</label>
             <input type="text" id="hostName" name="hostName" required>
-            
+
             <button type="submit">Get Suggestions & Generate Payload</button>
         </form>
-        
+
         <div id="response" class="response" style="display:none;"></div>
         <div id="payloadSection" class="payload" style="display:none;"></div>
+        <div id="noInfo" class="no-info" style="display:none;">
+            Info on this code is not yet input. <a href="status-codes.html">View status code description here</a>
+        </div>
     </div>
 
     <script>
         document.getElementById('hostForm').addEventListener('submit', function(event) {
             event.preventDefault();
-            
+
             const statusCode = document.getElementById('statusCode').value;
             const hostName = document.getElementById('hostName').value;
 
@@ -100,6 +111,7 @@
             else {
                 responseMessage = `Status Code ${statusCode}: Unable to provide a specific recommendation for this status code.`;
                 payloadMessage = 'Try using V2Ray or SSH with WebSocket or Tunnel for better results.';
+                document.getElementById('noInfo').style.display = 'block'; // Show the "info not yet input" message
             }
 
             document.getElementById('response').innerText = responseMessage;
