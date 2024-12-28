@@ -77,10 +77,10 @@
         let VIP_KEY = "DTECHVIPX24";
         let isVIP = false;  // Tracks if user is VIP
 
-        // Fetch accounts from Google Drive
+        // Fetch accounts from GitHub
         async function fetchAccounts() {
             try {
-                const response = await fetch('https://drive.google.com/uc?export=download&id=132xU-2ZFET87q1KAuG_-gbujrdiG6TO5');
+                const response = await fetch('https://raw.githubusercontent.com/Preasx24/D-TECH_CHAT/main/accounts.txt');
                 if (!response.ok) {
                     throw new Error('Failed to fetch accounts. Please try again later.');
                 }
