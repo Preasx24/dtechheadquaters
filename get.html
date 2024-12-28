@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Host Connection Assistant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label, select, input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .response {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e7f5e7;
+            border-radius: 5px;
+            border: 1px solid #4CAF50;
+            color: #2e7d32;
+        }
+        .payload {
+            background-color: #f2f2f2;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Host Connection Assistant</h1>
+        <form id="hostForm">
+            <label for="statusCode">Enter the status code of the host:</label>
+            <input type="number" id="statusCode" name="statusCode" min="100" max="599" required>
+            
+            <label for="hostName">Enter the host URL:</label>
+            <input type="text" id="hostName" name="hostName" required>
+            
+            <button type="submit">Get Suggestions & Generate Payload</button>
+        </form>
+        
+        <div id="response" class="response" style="display:none;"></div>
+        <div id="payloadSection" class="payload" style="display:none;"></div>
+    </div>
+
+    <script>
+        document.getElementById('hostForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const statusCode = document.getElementById('statusCode').value;
+            const hostName = document.getElementById('hostName').value;
+
+            let responseMessage = '';
+            let payloadMessage = '';
+
+            // Determine suggestions based on status code
+            if (statusCode == 200) {
+                responseMessage = `Status Code 200: Connection successful. You can use V2Ray with VMESS/VLESS or SSH with WebSocket or Tunnel for better performance.`;
+                payloadMessage = generatePayload(hostName, statusCode);
+            } 
+            else if (statusCode == 301 || statusCode == 302) {
+                responseMessage = `Status Code ${statusCode}: The host has moved. Try using V2Ray with VMESS/VLESS and WebSocket for redirection.`;
+                payloadMessage = generatePayload(hostName, statusCode);
+            }
+            else if (statusCode == 403) {
+                responseMessage = `Status Code 403: Forbidden. Use V2Ray with WebSocket for obfuscation or SSH with Tunnel. You might also try using a payload to bypass restrictions.`;
+                payloadMessage = generatePayload(hostName, statusCode);
+            }
+            else if (statusCode == 404) {
+                responseMessage = `Status Code 404: The requested resource doesn’t exist. Double-check the URL or try another host.`;
+                payloadMessage = 'No payload needed for 404. Please check the URL or the host configuration.';
+            }
+            else if (statusCode == 500 || statusCode == 502) {
+                responseMessage = `Status Code ${statusCode}: Server error. Try V2Ray with VMESS/VLESS or SSH Tunnel. Payloads might help in some cases.`;
+                payloadMessage = generatePayload(hostName, statusCode);
+            } 
+            else {
+                responseMessage = `Status Code ${statusCode}: Unable to provide a specific recommendation for this status code.`;
+                payloadMessage = 'Try using V2Ray or SSH with WebSocket or Tunnel for better results.';
+            }
+
+            document.getElementById('response').innerText = responseMessage;
+            document.getElementById('response').style.display = 'block';
+            document.getElementById('payloadSection').innerText = payloadMessage;
+            document.getElementById('payloadSection').style.display = 'block';
+        });
+
+        // Function to generate a basic payload
+        function generatePayload(hostName, statusCode) {
+            let payload = '';
+            if (statusCode == 403) {
+                payload = `Payload to bypass 403 (forbidden):\nPOST / HTTP/1.1\nHost: ${hostName}\nUser-Agent: Mozilla/5.0\nConnection: keep-alive\nX-Forwarded-For: 192.168.1.1\nX-Requested-With: XMLHttpRequest\nCache-Control: no-cache\nContent-Type: application/x-www-form-urlencoded\nPayload Data: xyz`;
+            } 
+            else if (statusCode == 500 || statusCode == 502) {
+                payload = `Payload to bypass 500/502 (server error):\nGET / HTTP/1.1\nHost: ${hostName}\nConnection: close\nCache-Control: no-cache\nX-Forwarded-For: 192.168.1.1\nUser-Agent: curl/7.64.1\nContent-Length: 0`;
+            } 
+            else if (statusCode == 301 || statusCode == 302) {
+                payload = `Payload to handle redirect 301/302:\nGET / HTTP/1.1\nHost: ${hostName}\nConnection: keep-alive\nReferer: ${hostName}\nX-Forwarded-For: 192.168.1.1\nUser-Agent: Mozilla/5.0`;
+            } 
+            else {
+                payload = `No specific payload required for Status Code ${statusCode}. If needed, use generic methods like WebSocket in SSH or V2Ray.`;
+            }
+            return payload;
+        }
+    </script>
+
+</body>
+</html>
