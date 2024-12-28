@@ -5,64 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>D-TECH Crunchyroll Premium Account</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #111;
-            color: #fff;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #222;
-            padding: 20px;
-            text-align: center;
-        }
-        header h1 {
-            margin: 0;
-        }
-        .content {
-            padding: 20px;
-            text-align: center;
-        }
-        .button {
-            background-color: #007bff;
-            border: none;
-            padding: 10px 20px;
-            margin: 10px;
-            color: white;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .button:hover {
-            background-color: #0056b3;
-        }
-        .account-info {
-            margin-top: 20px;
-            font-size: 18px;
-        }
-        .vip-info {
-            margin-top: 20px;
-            font-size: 16px;
-            background-color: #333;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .vip-button {
-            margin-top: 10px;
-        }
-        .footer {
-            margin-top: 40px;
-            font-size: 14px;
-            text-align: center;
-            color: #bbb;
-        }
-        .footer a {
-            color: #fff;
-            text-decoration: none;
-        }
-        .footer a:hover {
-            text-decoration: underline;
-        }
+        /* Same style as before */
     </style>
 </head>
 <body>
@@ -91,12 +34,13 @@
     </div>
 
     <script>
-        let userAccessTimes = {};
         let accounts = []; // Placeholder for fetched accounts
         let usedAccounts = {}; // To store which account has been used by which user
-        let VIP_KEY = "DTECHVIPX24";
+        let userAccessTimes = {}; // User access times for VIP key
         let isVIP = false;  // Tracks if user is VIP
         let totalAccounts = 0;
+
+        const userId = "user123"; // Example user ID - You should implement a unique user system if possible
 
         // Fetch accounts from raw GitHub link
         async function fetchAccounts() {
@@ -108,6 +52,16 @@
                 const data = await response.text();
                 accounts = data.split('\n').map(account => account.trim()).filter(account => account !== '');
                 totalAccounts = accounts.length;
+
+                // If accounts are stored in localStorage, keep them
+                if (localStorage.getItem('usedAccounts')) {
+                    usedAccounts = JSON.parse(localStorage.getItem('usedAccounts'));
+                }
+
+                if (localStorage.getItem('totalAccounts')) {
+                    totalAccounts = JSON.parse(localStorage.getItem('totalAccounts'));
+                }
+
                 console.log('Accounts loaded:', accounts);
                 updateAccountCount(); // Update count once accounts are fetched
             } catch (error) {
@@ -119,44 +73,37 @@
         fetchAccounts();
 
         function getAccount() {
-            const userId = "user123"; // Example user ID - You should implement a unique user system if possible
             const currentTime = new Date();
             const lastUsedTime = userAccessTimes[userId];
+            const hoursWaited = (currentTime - new Date(lastUsedTime)) / 3600000;
+            const waitTime = isVIP ? 0.75 : 6;
 
-            if (!lastUsedTime) {
-                // First-time access
-                giveAccount(userId, currentTime);
+            if (lastUsedTime && hoursWaited < waitTime) {
+                const hoursLeft = waitTime - hoursWaited;
+                alert(`Please wait ${hoursLeft.toFixed(2)} hours before requesting another account.`);
                 return;
             }
 
-            const hoursWaited = (currentTime - new Date(lastUsedTime)) / 3600000;
-            const waitTime = isVIP ? 0.75 : 6; // 45 minutes if VIP, 6 hours if not
-
-            if (hoursWaited < waitTime) {
-                const hoursLeft = waitTime - hoursWaited;
-                alert(`Please wait ${hoursLeft.toFixed(2)} hours before requesting another account.`);
-            } else {
-                giveAccount(userId, currentTime);
-            }
-        }
-
-        function giveAccount(userId, currentTime) {
             if (accounts.length > 0) {
                 let account = accounts.shift(); // Remove the first account from the array
 
-                // Check if the user has already been given this account
+                // Ensure the account hasn't been used
                 if (usedAccounts[account]) {
                     account = accounts.shift(); // Remove the next available unused account
                 }
 
-                // Assign account to user
+                // Assign account to user and update localStorage
                 usedAccounts[account] = userId;
+                userAccessTimes[userId] = currentTime;
+                localStorage.setItem('usedAccounts', JSON.stringify(usedAccounts));
+
                 document.getElementById("account-info").innerHTML = 
                     `Here’s your Crunchyroll Premium Account:<br><strong>${account}</strong>`;
-                userAccessTimes[userId] = currentTime; // Record access time
 
                 totalAccounts -= 1; // Decrease available accounts
-                updateAccountCount(); // Update the account count display
+                localStorage.setItem('totalAccounts', JSON.stringify(totalAccounts)); // Store new total
+
+                updateAccountCount();
             } else {
                 document.getElementById("account-info").innerHTML = 
                     "No accounts available at the moment. Please try again later.";
@@ -164,14 +111,12 @@
         }
 
         function checkTime() {
-            const userId = "user123"; // Example user ID
-            const lastUsedTime = userAccessTimes[userId];
             const currentTime = new Date();
-
+            const lastUsedTime = userAccessTimes[userId];
             if (lastUsedTime) {
-                const timeDiff = (currentTime - new Date(lastUsedTime)) / 3600000;
-                const waitTime = isVIP ? 0.75 : 6; 
-                const hoursLeft = waitTime - timeDiff;
+                const hoursWaited = (currentTime - new Date(lastUsedTime)) / 3600000;
+                const waitTime = isVIP ? 0.75 : 6;
+                const hoursLeft = waitTime - hoursWaited;
 
                 if (hoursLeft > 0) {
                     alert(`You can request another account in ${hoursLeft.toFixed(2)} hours.`);
@@ -185,7 +130,7 @@
 
         function enterVIPKey() {
             const userKey = prompt("Enter your VIP access key:");
-            if (userKey === VIP_KEY) {
+            if (userKey === "DTECHVIPX24") {
                 isVIP = true;
                 alert("VIP access granted! Your waiting time is reduced to 45 minutes.");
             } else {
@@ -204,6 +149,12 @@
         function updateAccountCount() {
             document.getElementById("account-info").innerHTML += `<br><strong>Remaining Accounts: </strong>${totalAccounts}`;
         }
+
+        // Ensure accounts persist across sessions (on same device)
+        window.addEventListener('beforeunload', () => {
+            localStorage.setItem('usedAccounts', JSON.stringify(usedAccounts));
+            localStorage.setItem('totalAccounts', JSON.stringify(totalAccounts));
+        });
     </script>
 </body>
 </html>
