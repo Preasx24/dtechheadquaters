@@ -196,24 +196,12 @@
             try {
                 const snapshot = await db.collection("Accounts").get();
                 accounts = snapshot.docs.map(doc => doc.data().email);
-                loadUsedAccounts();
             } catch (error) {
                 document.getElementById("account-info").innerText = "Failed to load accounts. Try again later.";
             }
         }
 
         fetchAccounts();
-
-        function loadUsedAccounts() {
-            const used = JSON.parse(localStorage.getItem('usedAccounts')) || [];
-            accounts = accounts.filter(account => !used.includes(account));
-        }
-
-        function markAccountAsUsed(account) {
-            let used = JSON.parse(localStorage.getItem('usedAccounts')) || [];
-            used.push(account);
-            localStorage.setItem('usedAccounts', JSON.stringify(used));
-        }
 
         function getAccount() {
             const lastTime = localStorage.getItem('lastAccessTime');
@@ -228,11 +216,25 @@
 
             if (accounts.length > 0) {
                 const account = accounts.shift();
-                markAccountAsUsed(account);
+                deleteAccountFromFirestore(account);  // Delete account from Firestore after use
                 localStorage.setItem('lastAccessTime', now);
                 document.getElementById("account-info").innerHTML = `<strong>Your Account:</strong> ${account}`;
             } else {
                 document.getElementById("account-info").innerText = "No accounts available. Try again later.";
+            }
+        }
+
+        // Function to delete account from Firestore
+        async function deleteAccountFromFirestore(account) {
+            try {
+                const querySnapshot = await db.collection("Accounts").where("email", "==", account).get();
+                if (!querySnapshot.empty) {
+                    // If found, delete the account from Firestore
+                    querySnapshot.docs[0].ref.delete();
+                }
+            } catch (error) {
+                console.error("Error deleting account:", error);
+                document.getElementById("account-info").innerText = "Failed to mark account as used. Try again later.";
             }
         }
 
