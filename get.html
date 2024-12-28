@@ -3,175 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D-TECH Crunchyroll Premium Account</title>
-    <style>
-        /* General Styles */
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #0d1117;
-            color: #c9d1d9;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-
-        header {
-            background: linear-gradient(90deg, #1f6feb, #0a58ca);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 28px;
-        }
-
-        header p {
-            font-size: 14px;
-            margin-top: 5px;
-        }
-
-        .content {
-            margin: 20px;
-        }
-
-        .button {
-            background: #1f6feb;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            margin: 10px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .button:hover {
-            background: #0a58ca;
-        }
-
-        .account-info {
-            margin-top: 20px;
-            font-size: 18px;
-            font-weight: bold;
-            color: #58a6ff;
-        }
-
-        .vip-info {
-            margin-top: 20px;
-            font-size: 16px;
-            background-color: #21262d;
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        .vip-info p {
-            margin: 0;
-        }
-
-        footer {
-            margin-top: 30px;
-            font-size: 14px;
-            color: #8b949e;
-        }
-
-        footer a {
-            color: #58a6ff;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        .support-section {
-            margin-top: 30px;
-            background-color: #161b22;
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-        .support-section h3 {
-            margin-bottom: 10px;
-            font-size: 18px;
-            color: #58a6ff;
-        }
-
-        .support-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 10px;
-        }
-
-        .support-links a {
-            color: #58a6ff;
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.3s ease;
-        }
-
-        .support-links a:hover {
-            color: #1f6feb;
-        }
-
-        .ads-message {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #8b949e;
-            font-style: italic;
-        }
-    </style>
-
-    <!-- Firebase SDK -->
+    <title>Firebase Account Fetcher</title>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js"></script>
 </head>
 <body>
-    <!-- Header Section -->
-    <header>
-        <h1>D-TECH Crunchyroll Premium Accounts</h1>
-        <p>Enjoy Premium Access for Free — Courtesy of D-TECH</p>
-    </header>
-
-    <!-- Main Content -->
-    <div class="content">
-        <button class="button" onclick="getAccount()">Get Account</button>
-        <button class="button" onclick="checkTime()">Check Time Limit</button>
-        <button class="button" onclick="checkRemainingAccounts()">Check Remaining Accounts</button>
-        <button class="button" onclick="enterVIPKey()">Enter VIP Key</button>
-
-        <div id="account-info" class="account-info"></div>
-
-        <div class="vip-info">
-            <p><strong>VIP Access:</strong> Reduce waiting time to 45 minutes with VIP Access.</p>
-            <button class="button" onclick="openVIPLink()">Contact Admin</button>
-        </div>
-    </div>
-
-    <!-- Support Section -->
-    <div class="support-section">
-        <h3>Support D-TECH</h3>
-        <p>If you enjoy our services, please visit and follow us on:</p>
-        <div class="support-links">
-            <a href="https://t.me/DTECHXPORT" target="_blank">Telegram Channel</a>
-            <a href="https://youtube.com/@d-tech_services?si=ZP4C9eK-FJza4BFk" target="_blank">YouTube Channel</a>
-        </div>
-        <p class="ads-message">Your support is greatly appreciated. Please let the ads fully display before skipping or exiting. Every bit helps us improve our services!</p>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 D-TECH. All Rights Reserved.</p>
-    </footer>
+    <h1>Firebase Account Fetcher</h1>
+    <button onclick="fetchAccounts()">Fetch Accounts</button>
+    <div id="output"></div>
 
     <script type="module">
         // Firebase Configuration
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js';
-        import { getFirestore, collection, getDocs, doc, deleteDoc } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js';
+        import { getFirestore, collection, getDocs } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js';
 
         const firebaseConfig = {
             apiKey: "AIzaSyDuYe1ECzQjdF_gS2LmGDROWm4AxTGcT6c",
@@ -183,60 +27,26 @@
             measurementId: "G-K93TNXQF9Q"
         };
 
+        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        let accounts = [];
-        const VIP_KEY = "DTECHVIPX24";
-        let isVIP = localStorage.getItem('isVIP') === 'true';
-
         async function fetchAccounts() {
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = 'Fetching accounts...';
+
             try {
                 const querySnapshot = await getDocs(collection(db, "Accounts"));
-                accounts = querySnapshot.docs.map(doc => ({
-                    id: doc.id,
-                    email: doc.data().email,
-                    password: doc.data().password
-                }));
+                let accounts = [];
+                querySnapshot.forEach((doc) => {
+                    accounts.push(doc.data());
+                    console.log(`Account: ${doc.data().email} | Password: ${doc.data().password}`);
+                });
+                outputDiv.innerHTML = `Fetched ${accounts.length} accounts. Check the console for details.`;
             } catch (error) {
                 console.error("Error fetching accounts:", error);
+                outputDiv.innerHTML = 'Failed to fetch accounts. Check the console for errors.';
             }
-        }
-
-        fetchAccounts();
-
-        async function getAccount() {
-            const now = Date.now();
-            const lastTime = localStorage.getItem('lastAccessTime');
-            const waitTime = isVIP ? 45 * 60 * 1000 : 6 * 60 * 60 * 1000;
-
-            if (lastTime && now - lastTime < waitTime) {
-                alert("Please wait before requesting another account.");
-                return;
-            }
-
-            if (accounts.length > 0) {
-                const account = accounts.shift();
-                await deleteDoc(doc(db, "Accounts", account.id));
-                localStorage.setItem('lastAccessTime', now);
-                document.getElementById("account-info").innerHTML = `<strong>Email:</strong> ${account.email}<br><strong>Password:</strong> ${account.password}`;
-            } else {
-                alert("No accounts available.");
-            }
-        }
-
-        function enterVIPKey() {
-            const userKey = prompt("Enter your VIP Key:");
-            if (userKey === VIP_KEY) {
-                localStorage.setItem('isVIP', 'true');
-                alert("VIP Access Activated!");
-            } else {
-                alert("Invalid VIP Key.");
-            }
-        }
-
-        function openVIPLink() {
-            window.open("https://t.me/PREASX24", "_blank");
         }
     </script>
 </body>
