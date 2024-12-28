@@ -50,6 +50,19 @@
         .vip-button {
             margin-top: 10px;
         }
+        .footer {
+            margin-top: 40px;
+            font-size: 14px;
+            text-align: center;
+            color: #bbb;
+        }
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -62,6 +75,7 @@
         <button class="button" onclick="getAccount()">Get Account</button>
         <button class="button" onclick="checkTime()">Check Time Limit</button>
         <button class="button vip-button" onclick="enterVIPKey()">Enter VIP Key</button>
+        <button class="button" onclick="checkRemainingAccounts()">Check Remaining Accounts</button>
 
         <div id="account-info" class="account-info"></div>
 
@@ -69,6 +83,11 @@
             <p><strong>VIP Access:</strong> Reduce waiting time to 45 minutes with VIP Access.</p>
             <button class="button" onclick="openVIPLink()">Contact Admin</button>
         </div>
+    </div>
+
+    <div class="footer">
+        <p>If you like our services, please let the ads fully load before skipping or exiting them. We highly appreciate your support! 🌹</p>
+        <p>For support, join our <a href="https://t.me/DTECHXPORT" target="_blank">Telegram Channel</a> or visit our <a href="https://youtube.com/@d-tech_services?si=ZP4C9eK-FJza4BFk" target="_blank">YouTube Channel</a>.</p>
     </div>
 
     <script>
@@ -90,6 +109,7 @@
                 accounts = data.split('\n').map(account => account.trim()).filter(account => account !== '');
                 totalAccounts = accounts.length;
                 console.log('Accounts loaded:', accounts);
+                updateAccountCount(); // Update count once accounts are fetched
             } catch (error) {
                 console.error(error);
                 document.getElementById("account-info").innerHTML = "Failed to load accounts. Please try again later.";
@@ -175,6 +195,10 @@
 
         function openVIPLink() {
             window.open("https://t.me/DTECHXPORT", "_blank");
+        }
+
+        function checkRemainingAccounts() {
+            alert(`There are ${totalAccounts} accounts remaining.`);
         }
 
         function updateAccountCount() {
