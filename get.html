@@ -195,7 +195,7 @@
         async function fetchAccounts() {
             try {
                 const snapshot = await db.collection("Accounts").get();
-                accounts = snapshot.docs.map(doc => doc.data().email);
+                accounts = snapshot.docs.map(doc => doc.data()); // Get all document data
             } catch (error) {
                 document.getElementById("account-info").innerText = "Failed to load accounts. Try again later.";
             }
@@ -216,18 +216,22 @@
 
             if (accounts.length > 0) {
                 const account = accounts.shift();
-                deleteAccountFromFirestore(account);  // Delete account from Firestore after use
+                deleteAccountFromFirestore(account.email);  // Delete account from Firestore after use
                 localStorage.setItem('lastAccessTime', now);
-                document.getElementById("account-info").innerHTML = `<strong>Your Account:</strong> ${account}`;
+                document.getElementById("account-info").innerHTML = `
+                    <strong>Your Account:</strong><br>
+                    Email: ${account.email}<br>
+                    Password: ${account.password}
+                `;
             } else {
                 document.getElementById("account-info").innerText = "No accounts available. Try again later.";
             }
         }
 
         // Function to delete account from Firestore
-        async function deleteAccountFromFirestore(account) {
+        async function deleteAccountFromFirestore(accountEmail) {
             try {
-                const querySnapshot = await db.collection("Accounts").where("email", "==", account).get();
+                const querySnapshot = await db.collection("Accounts").where("email", "==", accountEmail).get();
                 if (!querySnapshot.empty) {
                     // If found, delete the account from Firestore
                     querySnapshot.docs[0].ref.delete();
