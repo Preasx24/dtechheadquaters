@@ -48,14 +48,16 @@
     // Fetch and Delete Account
     function fetchAccount() {
       const accountsRef = database.ref('accounts');
+      console.log("Fetching account...");
 
       accountsRef.limitToFirst(1).once('child_added', (snapshot) => {
         const accountKey = snapshot.key;
         const accountData = snapshot.val();
 
         if (accountData) {
+          console.log("Account fetched:", accountData);
           document.getElementById('account').innerText = 
-            `Username: ${accountData.username}\nPassword: ${accountData.password}`;
+            `Email: ${accountData.email}\nPassword: ${accountData.password}`;
           
           // Delete the fetched account
           accountsRef.child(accountKey).remove()
@@ -67,6 +69,7 @@
               document.getElementById('error').innerText = `Error: ${error.message}`;
             });
         } else {
+          console.log('No accounts available.');
           document.getElementById('account').innerText = 'No accounts available.';
         }
       }, (error) => {
