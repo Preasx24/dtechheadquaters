@@ -171,12 +171,11 @@
         <p>&copy; 2024 D-TECH. All Rights Reserved.</p>
     </footer>
 
-    <script>
-        let accounts = [];
-        const VIP_KEY = "DTECHVIPX24";
-        let isVIP = localStorage.getItem('isVIP') === 'true';
+    <script type="module">
+        // Firebase Configuration
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js';
+        import { getFirestore, collection, getDocs, doc, deleteDoc } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js';
 
-        // Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyDuYe1ECzQjdF_gS2LmGDROWm4AxTGcT6c",
             authDomain: "tech-d4d76.firebaseapp.com",
@@ -187,65 +186,51 @@
             measurementId: "G-K93TNXQF9Q"
         };
 
-        // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-        // Fetch accounts from Firestore
+        let accounts = [];
+        const VIP_KEY = "DTECHVIPX24";
+        let isVIP = localStorage.getItem('isVIP') === 'true';
+
         async function fetchAccounts() {
             try {
-                const snapshot = await db.collection("Accounts").get();
-                accounts = snapshot.docs.map(doc => ({ id: doc.id, email: doc.data().email, password: doc.data().password }));
+                const querySnapshot = await getDocs(collection(db, "Accounts"));
+                accounts = querySnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    email: doc.data().email,
+                    password: doc.data().password
+                }));
             } catch (error) {
-                document.getElementById("account-info").innerText = "Failed to load accounts. Try again later.";
+                console.error("Error fetching accounts:", error);
             }
         }
 
         fetchAccounts();
 
-        function getAccount() {
-            const lastTime = localStorage.getItem('lastAccessTime');
+        async function getAccount() {
             const now = Date.now();
+            const lastTime = localStorage.getItem('lastAccessTime');
             const waitTime = isVIP ? 45 * 60 * 1000 : 6 * 60 * 60 * 1000;
 
             if (lastTime && now - lastTime < waitTime) {
-                const remainingTime = Math.ceil((waitTime - (now - lastTime)) / (60 * 60 * 1000));
-                alert(`Please wait ${remainingTime} hour(s) before requesting another account.`);
+                alert("Please wait before requesting another account.");
                 return;
             }
 
             if (accounts.length > 0) {
                 const account = accounts.shift();
-                deleteAccountFromFirestore(account.id);  // Delete account using document ID
+                await deleteDoc(doc(db, "Accounts", account.id));
                 localStorage.setItem('lastAccessTime', now);
-                document.getElementById("account-info").innerHTML = `<strong>Your Account:</strong><br>Email: ${account.email}<br>Password: ${account.password}`;
+                document.getElementById("account-info").innerHTML = `<strong>Email:</strong> ${account.email}<br><strong>Password:</strong> ${account.password}`;
             } else {
-                document.getElementById("account-info").innerText = "No accounts available. Try again later.";
+                alert("No accounts available.");
             }
-        }
-
-        // Function to delete account from Firestore
-        async function deleteAccountFromFirestore(accountId) {
-            try {
-                await db.collection("Accounts").doc(accountId).delete();
-            } catch (error) {
-                console.error("Error deleting account:", error);
-                document.getElementById("account-info").innerText = "Failed to mark account as used. Try again later.";
-            }
-        }
-
-        function checkTime() {
-            alert("Check waiting time in the console.");
-        }
-
-        function checkRemainingAccounts() {
-            alert(`Remaining Accounts: ${accounts.length}`);
         }
 
         function enterVIPKey() {
             const userKey = prompt("Enter your VIP Key:");
             if (userKey === VIP_KEY) {
-                isVIP = true;
                 localStorage.setItem('isVIP', 'true');
                 alert("VIP Access Activated!");
             } else {
