@@ -169,8 +169,8 @@
 
     <script>
         let accounts = [];
-        let VIP_KEY = "DTECHVIPX24";
-        let isVIP = false;
+        const VIP_KEY = "DTECHVIPX24";
+        let isVIP = localStorage.getItem('isVIP') === 'true';
 
         // Fetch accounts
         async function fetchAccounts() {
@@ -204,7 +204,8 @@
             const waitTime = isVIP ? 45 * 60 * 1000 : 6 * 60 * 60 * 1000;
 
             if (lastTime && now - lastTime < waitTime) {
-                alert(`Please wait ${(waitTime - (now - lastTime)) / 60000} minutes.`);
+                const remainingTime = Math.ceil((waitTime - (now - lastTime)) / (60 * 60 * 1000));
+                alert(`Please wait ${remainingTime} hour(s) before requesting another account.`);
                 return;
             }
 
@@ -230,6 +231,7 @@
             const userKey = prompt("Enter your VIP Key:");
             if (userKey === VIP_KEY) {
                 isVIP = true;
+                localStorage.setItem('isVIP', 'true');
                 alert("VIP Access Activated!");
             } else {
                 alert("Invalid VIP Key.");
