@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>D-TECH Firebase Accounts</title>
+  <title>D-TECH Account Fetcher</title>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
   <style>
@@ -11,11 +11,11 @@
       font-family: Arial, sans-serif;
       margin: 20px;
     }
-    #accounts {
-      white-space: pre-wrap;
+    #account {
       background: #f4f4f4;
       padding: 10px;
       border: 1px solid #ddd;
+      margin-top: 10px;
     }
     .error {
       color: red;
@@ -23,8 +23,9 @@
   </style>
 </head>
 <body>
-  <h1>D-TECH Firebase Accounts</h1>
-  <div id="accounts">Loading accounts...</div>
+  <h1>D-TECH Account Fetcher</h1>
+  <button onclick="fetchAccount()">Fetch Account</button>
+  <div id="account">No account fetched yet.</div>
   <div id="error" class="error"></div>
 
   <script>
@@ -44,21 +45,35 @@
     const app = firebase.initializeApp(firebaseConfig);
     const database = firebase.database();
 
-    // Reference to the 'accounts' node in your database
-    const accountsRef = database.ref('accounts');
+    // Fetch and Delete Account
+    function fetchAccount() {
+      const accountsRef = database.ref('accounts');
 
-    // Fetch accounts from Firebase
-    accountsRef.on('value', (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        document.getElementById('accounts').innerText = JSON.stringify(data, null, 2);
-      } else {
-        document.getElementById('accounts').innerText = 'No accounts found in the database.';
-      }
-    }, (error) => {
-      console.error('Error fetching data:', error);
-      document.getElementById('error').innerText = `Error: ${error.message}`;
-    });
+      accountsRef.limitToFirst(1).once('child_added', (snapshot) => {
+        const accountKey = snapshot.key;
+        const accountData = snapshot.val();
+
+        if (accountData) {
+          document.getElementById('account').innerText = 
+            `Username: ${accountData.username}\nPassword: ${accountData.password}`;
+          
+          // Delete the fetched account
+          accountsRef.child(accountKey).remove()
+            .then(() => {
+              console.log(`Account ${accountKey} deleted successfully.`);
+            })
+            .catch((error) => {
+              console.error('Error deleting account:', error);
+              document.getElementById('error').innerText = `Error: ${error.message}`;
+            });
+        } else {
+          document.getElementById('account').innerText = 'No accounts available.';
+        }
+      }, (error) => {
+        console.error('Error fetching account:', error);
+        document.getElementById('error').innerText = `Error: ${error.message}`;
+      });
+    }
   </script>
 </body>
 </html>
