@@ -128,6 +128,10 @@
             font-style: italic;
         }
     </style>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js"></script>
 </head>
 <body>
     <!-- Header Section -->
@@ -172,13 +176,26 @@
         const VIP_KEY = "DTECHVIPX24";
         let isVIP = localStorage.getItem('isVIP') === 'true';
 
-        // Fetch accounts
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDuYe1ECzQjdF_gS2LmGDROWm4AxTGcT6c",
+            authDomain: "tech-d4d76.firebaseapp.com",
+            projectId: "tech-d4d76",
+            storageBucket: "tech-d4d76.firebasestorage.app",
+            messagingSenderId: "102270954981",
+            appId: "1:102270954981:web:15d1053443e121a5ded30c",
+            measurementId: "G-K93TNXQF9Q"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Fetch accounts from Firestore
         async function fetchAccounts() {
             try {
-                const response = await fetch('https://raw.githubusercontent.com/Preasx24/D-TECH_CHAT/main/accounts.txt');
-                if (!response.ok) throw new Error('Failed to fetch accounts');
-                const data = await response.text();
-                accounts = data.split('\n').map(account => account.trim()).filter(account => account !== '');
+                const snapshot = await db.collection("Accounts").get();
+                accounts = snapshot.docs.map(doc => doc.data().email);
                 loadUsedAccounts();
             } catch (error) {
                 document.getElementById("account-info").innerText = "Failed to load accounts. Try again later.";
