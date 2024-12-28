@@ -68,28 +68,48 @@
 
     <script>
         let userAccessTimes = {};
-        let accounts = ["account1@example.com:password123", "account2@example.com:password456"]; // Replace with actual accounts
+        let accounts = []; // Empty array initially, will be filled with data from the file
         let VIP_KEY = "DTECHVIPX24";
+        let isVIP = false;  // Variable to track if the user is VIP
+
+        // Fetch the accounts from Google Drive
+        fetch('https://drive.google.com/uc?export=download&id=132xU-2ZFET87q1KAuG_-gbujrdiG6TO5')
+            .then(response => response.text())
+            .then(data => {
+                accounts = data.split('\n').map(account => account.trim()).filter(account => account !== ''); // Clean and prepare the accounts list
+            })
+            .catch(error => console.error('Error loading accounts:', error));
 
         function getAccount() {
             const userId = "user123"; // Example user ID
             const currentTime = new Date();
             const lastUsedTime = userAccessTimes[userId];
-            const hoursWaited = lastUsedTime ? (currentTime - new Date(lastUsedTime)) / 3600000 : 0;
-
-            if (hoursWaited < 6) {
-                alert("You're still in the waiting period! VIP members can enter a key to reduce the wait time.");
-                return;
-            }
-
-            if (accounts.length > 0) {
-                const account = accounts[Math.floor(Math.random() * accounts.length)];
-                document.getElementById("account-info").innerHTML = `Here’s your Crunchyroll Premium Account: <br><strong>${account}</strong>`;
+            
+            // If the user has never accessed before, allow them to get an account immediately
+            if (!lastUsedTime) {
+                if (accounts.length > 0) {
+                    const account = accounts[Math.floor(Math.random() * accounts.length)];
+                    document.getElementById("account-info").innerHTML = `Here’s your Crunchyroll Premium Account: <br><strong>${account}</strong>`;
+                    userAccessTimes[userId] = currentTime; // Set the time when the account is taken
+                }
             } else {
-                document.getElementById("account-info").innerHTML = "No accounts available at the moment. Please try again later.";
-            }
+                // Check how much time has passed since the last account request
+                const hoursWaited = (currentTime - new Date(lastUsedTime)) / 3600000;
 
-            userAccessTimes[userId] = currentTime;
+                // Apply VIP reduction if applicable
+                const waitTime = isVIP ? 0.75 : 6; // 45 minutes if VIP, 6 hours if not
+
+                if (hoursWaited < waitTime) {
+                    const hoursLeft = waitTime - hoursWaited;
+                    alert(`You need to wait ${hoursLeft.toFixed(2)} hours before requesting another account. VIP members have a 45-minute wait.`);
+                } else {
+                    if (accounts.length > 0) {
+                        const account = accounts[Math.floor(Math.random() * accounts.length)];
+                        document.getElementById("account-info").innerHTML = `Here’s your Crunchyroll Premium Account: <br><strong>${account}</strong>`;
+                        userAccessTimes[userId] = currentTime; // Set the time when the account is taken
+                    }
+                }
+            }
         }
 
         function checkTime() {
@@ -99,7 +119,8 @@
 
             if (lastUsedTime) {
                 const timeDiff = (currentTime - new Date(lastUsedTime)) / 3600000;
-                const hoursLeft = 6 - timeDiff;
+                const waitTime = isVIP ? 0.75 : 6; // 45 minutes if VIP, 6 hours if not
+                const hoursLeft = waitTime - timeDiff;
                 if (hoursLeft > 0) {
                     alert(`You can request another account in ${hoursLeft.toFixed(2)} hours.`);
                 } else {
@@ -111,7 +132,13 @@
         }
 
         function openVIPLink() {
-            window.open("https://t.me/PREASX24", "_blank"); // Link to VIP access
+            const userKey = prompt("Enter your VIP access key:");
+            if (userKey === VIP_KEY) {
+                isVIP = true;
+                alert("VIP access granted! Your waiting time is reduced to 45 minutes.");
+            } else {
+                alert("Invalid VIP key.");
+            }
         }
     </script>
 </body>
