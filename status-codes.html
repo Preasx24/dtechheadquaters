@@ -14,7 +14,7 @@
       gtag('config', 'G-QFCETX7516');
     </script>
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3388101872497899"
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3388101872497899"
      crossorigin="anonymous"></script>
 
     <style>
@@ -80,6 +80,7 @@
             <div class="status-code"><strong>100 Continue:</strong> The server has received the request headers and the client can continue sending the request body.</div>
             <div class="status-code"><strong>101 Switching Protocols:</strong> The server agrees to switch to the protocol requested by the client (e.g., WebSocket).</div>
             <div class="status-code"><strong>102 Processing:</strong> The server has received and is processing the request but has not completed it.</div>
+            <div class="status-code"><strong>103 Early Hints:</strong> The server is sending some preliminary headers before the final response.</div>
         </div>
 
         <div class="status-group">
@@ -87,14 +88,19 @@
             <div class="status-code"><strong>200 OK:</strong> The request was successful, and the server has returned the requested data.</div>
             <div class="status-code"><strong>201 Created:</strong> The request was successful, and a new resource was created (e.g., after a POST request).</div>
             <div class="status-code"><strong>202 Accepted:</strong> The request has been accepted for processing, but it's not completed yet.</div>
+            <div class="status-code"><strong>203 Non-Authoritative Information:</strong> The request was successful, but the information may be from a cached copy.</div>
             <div class="status-code"><strong>204 No Content:</strong> The request was successful, but there's no content to send in the response.</div>
+            <div class="status-code"><strong>205 Reset Content:</strong> The request was successful, and the client should reset the document view.</div>
+            <div class="status-code"><strong>206 Partial Content:</strong> The server is returning a portion of the requested resource, often used for range requests.</div>
         </div>
 
         <div class="status-group">
             <div class="group-title">3xx: Redirection</div>
             <div class="status-code"><strong>301 Moved Permanently:</strong> The resource has been permanently moved to a new URL.</div>
             <div class="status-code"><strong>302 Found:</strong> The resource has temporarily moved to a different URL.</div>
+            <div class="status-code"><strong>303 See Other:</strong> The client should follow the instructions in the response's Location header to retrieve the resource.</div>
             <div class="status-code"><strong>304 Not Modified:</strong> The resource has not been modified since the last request (used for caching).</div>
+            <div class="status-code"><strong>305 Use Proxy:</strong> The requested resource must be accessed through the proxy given by the Location field.</div>
             <div class="status-code"><strong>307 Temporary Redirect:</strong> Similar to 302, but the method (GET/POST) must remain the same.</div>
             <div class="status-code"><strong>308 Permanent Redirect:</strong> Similar to 301, but the method must remain the same.</div>
         </div>
@@ -103,11 +109,33 @@
             <div class="group-title">4xx: Client Errors</div>
             <div class="status-code"><strong>400 Bad Request:</strong> The server cannot process the request due to invalid syntax.</div>
             <div class="status-code"><strong>401 Unauthorized:</strong> Authentication is required to access the resource.</div>
+            <div class="status-code"><strong>402 Payment Required:</strong> Reserved for future use, often for payment-based requests.</div>
             <div class="status-code"><strong>403 Forbidden:</strong> The client is not allowed to access the resource.</div>
             <div class="status-code"><strong>404 Not Found:</strong> The requested resource could not be found.</div>
             <div class="status-code"><strong>405 Method Not Allowed:</strong> The HTTP method (e.g., GET, POST) is not allowed for the resource.</div>
+            <div class="status-code"><strong>406 Not Acceptable:</strong> The server cannot generate a response that is acceptable to the client.</div>
+            <div class="status-code"><strong>407 Proxy Authentication Required:</strong> The client must authenticate through a proxy server before accessing the resource.</div>
             <div class="status-code"><strong>408 Request Timeout:</strong> The server timed out waiting for the client's request.</div>
+            <div class="status-code"><strong>409 Conflict:</strong> The request could not be completed due to a conflict with the current state of the resource.</div>
+            <div class="status-code"><strong>410 Gone:</strong> The requested resource is no longer available and will not be available again.</div>
+            <div class="status-code"><strong>411 Length Required:</strong> The server requires the Content-Length header to be specified in the request.</div>
+            <div class="status-code"><strong>412 Precondition Failed:</strong> A condition specified in the request header was evaluated to false by the server.</div>
+            <div class="status-code"><strong>413 Payload Too Large:</strong> The request entity is too large for the server to process.</div>
+            <div class="status-code"><strong>414 URI Too Long:</strong> The request URI is too long for the server to process.</div>
+            <div class="status-code"><strong>415 Unsupported Media Type:</strong> The server does not support the media type of the request entity.</div>
+            <div class="status-code"><strong>416 Range Not Satisfiable:</strong> The server cannot fulfill the range specified in the request.</div>
+            <div class="status-code"><strong>417 Expectation Failed:</strong> The server could not meet the expectation specified in the Expect header.</div>
+            <div class="status-code"><strong>418 I'm a teapot:</strong> A joke response code used in the Hyper Text Coffee Pot Control Protocol (HTCPCP).</div>
+            <div class="status-code"><strong>421 Misdirected Request:</strong> The request was directed to a server that is not able to produce a response.</div>
+            <div class="status-code"><strong>422 Unprocessable Entity:</strong> The request was well-formed, but the server was unable to process it.</div>
+            <div class="status-code"><strong>423 Locked:</strong> The resource is locked and cannot be modified.</div>
+            <div class="status-code"><strong>424 Failed Dependency:</strong> The request failed due to a failure of a previous request.</div>
+            <div class="status-code"><strong>425 Too Early:</strong> The server is unwilling to risk processing a request that may be replayed.</div>
+            <div class="status-code"><strong>426 Upgrade Required:</strong> The client should switch to a different protocol, as specified in the Upgrade header.</div>
+            <div class="status-code"><strong>428 Precondition Required:</strong> The server requires the request to be conditional.</div>
             <div class="status-code"><strong>429 Too Many Requests:</strong> The client has sent too many requests in a given amount of time.</div>
+            <div class="status-code"><strong>431 Request Header Fields Too Large:</strong> The request header fields are too large for the server to process.</div>
+            <div class="status-code"><strong>451 Unavailable For Legal Reasons:</strong> The resource is unavailable due to legal reasons.</div>
         </div>
 
         <div class="status-group">
@@ -118,6 +146,11 @@
             <div class="status-code"><strong>503 Service Unavailable:</strong> The server is currently unavailable (e.g., overloaded or under maintenance).</div>
             <div class="status-code"><strong>504 Gateway Timeout:</strong> The server did not receive a timely response from an upstream server.</div>
             <div class="status-code"><strong>505 HTTP Version Not Supported:</strong> The server does not support the HTTP version used in the request.</div>
+            <div class="status-code"><strong>506 Variant Also Negotiates:</strong> Transparent content negotiation for the request results in a circular reference.</div>
+            <div class="status-code"><strong>507 Insufficient Storage:</strong> The server is unable to store the representation needed to complete the request.</div>
+            <div class="status-code"><strong>508 Loop Detected:</strong> The server detected an infinite loop while processing a request.</div>
+            <div class="status-code"><strong>510 Not Extended:</strong> Further extensions to the request are required for the server to fulfill it.</div>
+            <div class="status-code"><strong>511 Network Authentication Required:</strong> The client must authenticate to gain network access.</div>
         </div>
     </div>
 </body>
