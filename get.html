@@ -5,143 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>D-TECH Crunchyroll Premium Account</title>
     <style>
-        /* General Styles */
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #0d1117;
-            color: #c9d1d9;
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: #fff;
             margin: 0;
             padding: 0;
-            text-align: center;
         }
-
-        /* Header Styles */
         header {
-            background: linear-gradient(90deg, #1f6feb, #0a58ca);
-            color: white;
+            background-color: #222;
             padding: 20px;
             text-align: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
-
         header h1 {
             margin: 0;
-            font-size: 28px;
         }
-
-        header p {
-            font-size: 14px;
-            margin-top: 5px;
-        }
-
-        /* Content Section */
         .content {
-            margin: 20px;
+            padding: 20px;
+            text-align: center;
         }
-
         .button {
-            background: #1f6feb;
-            color: white;
+            background-color: #007bff;
             border: none;
-            padding: 12px 24px;
+            padding: 10px 20px;
             margin: 10px;
-            font-size: 16px;
-            border-radius: 5px;
+            color: white;
             cursor: pointer;
-            transition: background 0.3s ease;
+            font-size: 16px;
         }
-
         .button:hover {
-            background: #0a58ca;
+            background-color: #0056b3;
         }
-
         .account-info {
             margin-top: 20px;
             font-size: 18px;
-            font-weight: bold;
-            color: #58a6ff;
         }
-
         .vip-info {
             margin-top: 20px;
             font-size: 16px;
-            background-color: #21262d;
-            padding: 15px;
-            border-radius: 8px;
+            background-color: #333;
+            padding: 10px;
+            border-radius: 5px;
         }
-
-        .vip-info p {
-            margin: 0;
-        }
-
-        /* Footer Section */
-        footer {
-            margin-top: 30px;
-            font-size: 14px;
-            color: #8b949e;
-        }
-
-        footer a {
-            color: #58a6ff;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        .support-section {
-            margin-top: 30px;
-            background-color: #161b22;
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-        .support-section h3 {
-            margin-bottom: 10px;
-            font-size: 18px;
-            color: #58a6ff;
-        }
-
-        .support-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
+        .vip-button {
             margin-top: 10px;
-        }
-
-        .support-links a {
-            color: #58a6ff;
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.3s ease;
-        }
-
-        .support-links a:hover {
-            color: #1f6feb;
-        }
-
-        .ads-message {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #8b949e;
-            font-style: italic;
         }
     </style>
 </head>
 <body>
-    <!-- Header Section -->
     <header>
-        <h1>D-TECH Crunchyroll Premium Accounts</h1>
-        <p>Enjoy Premium Access for Free — Courtesy of D-TECH</p>
+        <h1>D-TECH Crunchyroll Premium Account</h1>
+        <p>Get Free Crunchyroll Premium Accounts!</p>
     </header>
 
-    <!-- Main Content -->
     <div class="content">
         <button class="button" onclick="getAccount()">Get Account</button>
         <button class="button" onclick="checkTime()">Check Time Limit</button>
-        <button class="button" onclick="checkRemainingAccounts()">Check Remaining Accounts</button>
-        <button class="button" onclick="enterVIPKey()">Enter VIP Key</button>
+        <button class="button vip-button" onclick="enterVIPKey()">Enter VIP Key</button>
 
         <div id="account-info" class="account-info"></div>
 
@@ -151,95 +71,114 @@
         </div>
     </div>
 
-    <!-- Support Section -->
-    <div class="support-section">
-        <h3>Support D-TECH</h3>
-        <p>If you enjoy our services, please visit and follow us on:</p>
-        <div class="support-links">
-            <a href="https://t.me/DTECHXPORT" target="_blank">Telegram Channel</a>
-            <a href="https://youtube.com/@d-tech_services?si=ZP4C9eK-FJza4BFk" target="_blank">YouTube Channel</a>
-        </div>
-        <p class="ads-message">Your support is greatly appreciated. Please let the ads fully display before skipping or exiting. Every bit helps us improve our services!</p>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 D-TECH. All Rights Reserved.</p>
-    </footer>
-
     <script>
-        let accounts = [];
-        const VIP_KEY = "DTECHVIPX24";
-        let isVIP = localStorage.getItem('isVIP') === 'true';
+        let userAccessTimes = {};
+        let accounts = []; // Placeholder for fetched accounts
+        let usedAccounts = {}; // To store which account has been used by which user
+        let VIP_KEY = "DTECHVIPX24";
+        let isVIP = false;  // Tracks if user is VIP
+        let totalAccounts = 0;
 
-        // Fetch accounts
+        // Fetch accounts from raw GitHub link
         async function fetchAccounts() {
             try {
-                const response = await fetch('https://raw.githubusercontent.com/Preasx24/D-TECH_CHAT/main/accounts.txt');
-                if (!response.ok) throw new Error('Failed to fetch accounts');
+                const response = await fetch('https://raw.githubusercontent.com/Preasx24/D-TECH_CHAT/refs/heads/main/accounts.txt');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch accounts. Please try again later.');
+                }
                 const data = await response.text();
                 accounts = data.split('\n').map(account => account.trim()).filter(account => account !== '');
-                loadUsedAccounts();
+                totalAccounts = accounts.length;
+                console.log('Accounts loaded:', accounts);
             } catch (error) {
-                document.getElementById("account-info").innerText = "Failed to load accounts. Try again later.";
+                console.error(error);
+                document.getElementById("account-info").innerHTML = "Failed to load accounts. Please try again later.";
             }
         }
 
         fetchAccounts();
 
-        function loadUsedAccounts() {
-            const used = JSON.parse(localStorage.getItem('usedAccounts')) || [];
-            accounts = accounts.filter(account => !used.includes(account));
-        }
-
-        function markAccountAsUsed(account) {
-            let used = JSON.parse(localStorage.getItem('usedAccounts')) || [];
-            used.push(account);
-            localStorage.setItem('usedAccounts', JSON.stringify(used));
-        }
-
         function getAccount() {
-            const lastTime = localStorage.getItem('lastAccessTime');
-            const now = Date.now();
-            const waitTime = isVIP ? 45 * 60 * 1000 : 6 * 60 * 60 * 1000;
+            const userId = "user123"; // Example user ID - You should implement a unique user system if possible
+            const currentTime = new Date();
+            const lastUsedTime = userAccessTimes[userId];
 
-            if (lastTime && now - lastTime < waitTime) {
-                const remainingTime = Math.ceil((waitTime - (now - lastTime)) / (60 * 60 * 1000));
-                alert(`Please wait ${remainingTime} hour(s) before requesting another account.`);
+            if (!lastUsedTime) {
+                // First-time access
+                giveAccount(userId, currentTime);
                 return;
             }
 
-            if (accounts.length > 0) {
-                const account = accounts.shift();
-                markAccountAsUsed(account);
-                localStorage.setItem('lastAccessTime', now);
-                document.getElementById("account-info").innerHTML = `<strong>Your Account:</strong> ${account}`;
+            const hoursWaited = (currentTime - new Date(lastUsedTime)) / 3600000;
+            const waitTime = isVIP ? 0.75 : 6; // 45 minutes if VIP, 6 hours if not
+
+            if (hoursWaited < waitTime) {
+                const hoursLeft = waitTime - hoursWaited;
+                alert(`Please wait ${hoursLeft.toFixed(2)} hours before requesting another account.`);
             } else {
-                document.getElementById("account-info").innerText = "No accounts available. Try again later.";
+                giveAccount(userId, currentTime);
+            }
+        }
+
+        function giveAccount(userId, currentTime) {
+            if (accounts.length > 0) {
+                let account = accounts.shift(); // Remove the first account from the array
+
+                // Check if the user has already been given this account
+                if (usedAccounts[account]) {
+                    account = accounts.shift(); // Remove the next available unused account
+                }
+
+                // Assign account to user
+                usedAccounts[account] = userId;
+                document.getElementById("account-info").innerHTML = 
+                    `Here’s your Crunchyroll Premium Account:<br><strong>${account}</strong>`;
+                userAccessTimes[userId] = currentTime; // Record access time
+
+                totalAccounts -= 1; // Decrease available accounts
+                updateAccountCount(); // Update the account count display
+            } else {
+                document.getElementById("account-info").innerHTML = 
+                    "No accounts available at the moment. Please try again later.";
             }
         }
 
         function checkTime() {
-            alert("Check waiting time in the console.");
-        }
+            const userId = "user123"; // Example user ID
+            const lastUsedTime = userAccessTimes[userId];
+            const currentTime = new Date();
 
-        function checkRemainingAccounts() {
-            alert(`Remaining Accounts: ${accounts.length}`);
+            if (lastUsedTime) {
+                const timeDiff = (currentTime - new Date(lastUsedTime)) / 3600000;
+                const waitTime = isVIP ? 0.75 : 6; 
+                const hoursLeft = waitTime - timeDiff;
+
+                if (hoursLeft > 0) {
+                    alert(`You can request another account in ${hoursLeft.toFixed(2)} hours.`);
+                } else {
+                    alert("You can now request a new account!");
+                }
+            } else {
+                alert("You can now request a new account!");
+            }
         }
 
         function enterVIPKey() {
-            const userKey = prompt("Enter your VIP Key:");
+            const userKey = prompt("Enter your VIP access key:");
             if (userKey === VIP_KEY) {
                 isVIP = true;
-                localStorage.setItem('isVIP', 'true');
-                alert("VIP Access Activated!");
+                alert("VIP access granted! Your waiting time is reduced to 45 minutes.");
             } else {
-                alert("Invalid VIP Key.");
+                alert("Invalid VIP key.");
             }
         }
 
         function openVIPLink() {
-            window.open("https://t.me/PREASX24", "_blank");
+            window.open("https://t.me/DTECHXPORT", "_blank");
+        }
+
+        function updateAccountCount() {
+            document.getElementById("account-info").innerHTML += `<br><strong>Remaining Accounts: </strong>${totalAccounts}`;
         }
     </script>
 </body>
