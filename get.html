@@ -28,43 +28,26 @@
             color: var(--text-color);
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
+            text-align: center;
             transition: background 0.3s, color 0.3s;
         }
 
         header {
-            width: 100%;
             background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
             color: white;
-            text-align: center;
-            padding: 20px 0;
-            margin-bottom: 20px;
-        }
-
-        header h1 {
-            margin: 0;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 400px;
-            background: var(--card-bg);
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
+        }
+
+        .content {
+            margin: 20px;
         }
 
         .button {
             background: var(--primary-color);
             color: white;
             border: none;
-            padding: 10px 20px;
-            margin-top: 10px;
+            padding: 12px 24px;
+            margin: 10px;
             font-size: 16px;
             border-radius: 5px;
             cursor: pointer;
@@ -75,37 +58,44 @@
             background: var(--secondary-color);
         }
 
-        .vip-section {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .vip-section input {
-            width: 80%;
-            padding: 10px;
-            margin-top: 10px;
-            border: 1px solid var(--primary-color);
-            border-radius: 4px;
-        }
-
+        /* Timer Display */
         .timer {
-            margin: 20px 0;
-            font-size: 14px;
-        }
-
-        .ad-message {
             margin-top: 20px;
-            font-size: 12px;
-            color: var(--secondary-color);
+            font-size: 18px;
+            font-weight: bold;
         }
 
-        footer {
-            margin-top: 30px;
-            text-align: center;
-            font-size: 12px;
+        /* Theme Switcher */
+        .theme-switcher {
+            margin: 20px;
+        }
+
+        /* Loading Animation */
+        .loader {
+            display: none;
+            margin: 20px auto;
+            border: 6px solid var(--card-bg);
+            border-radius: 50%;
+            border-top: 6px solid var(--primary-color);
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* CAPTCHA */
+        .captcha {
+            margin: 20px auto;
+        }
+
+        .captcha input {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid var(--primary-color);
         }
 
         /* Modal Popup */
@@ -127,54 +117,51 @@
             padding: 20px;
             border-radius: 8px;
             text-align: center;
-            width: 90%;
+            width: 80%;
             max-width: 400px;
         }
 
-        .modal-content p {
-            font-size: 16px;
-            margin: 10px 0;
+        footer {
+            margin-top: 30px;
+            font-size: 14px;
         }
 
-        .modal-close {
-            margin-top: 15px;
-            cursor: pointer;
-            color: var(--primary-color);
+        .ad-message {
+            margin-top: 30px;
+            font-size: 14px;
+            color: var(--secondary-color);
         }
-
-        /* reCAPTCHA */
-        .recaptcha {
-            margin-top: 20px;
-        }
-
     </style>
 </head>
 <body>
     <header>
         <h1>D-TECH Crunchyroll Premium Accounts</h1>
-        <p>Premium Access Courtesy of D-TECH</p>
+        <p>Enjoy Premium Access for Free — Courtesy of D-TECH</p>
     </header>
 
-    <div class="container">
-        <h2>Get Your Premium Account</h2>
-        <button class="button" onclick="requestAccount()">Get Account</button>
-        <div class="timer" id="timer"></div>
-        
-        <div class="vip-section">
-            <h3>VIP Access</h3>
-            <input type="text" id="vipKeyInput" placeholder="Enter VIP Key">
-            <button class="button" onclick="applyVIPKey()">Apply Key</button>
-            <p>Need a VIP Key? <a href="https://t.me/PREASX24" target="_blank">Message Admin (R15)</a></p>
-        </div>
-
-        <div class="recaptcha">
-            <p>Please complete the reCAPTCHA below:</p>
-            <div>
-                <img src="https://via.placeholder.com/200x50" alt="reCAPTCHA">
-            </div>
-        </div>
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <button class="button" onclick="toggleTheme()">Switch Theme</button>
     </div>
 
+    <!-- Timer Display -->
+    <div class="timer" id="timer">Time Remaining: --:--</div>
+
+    <!-- Loading Animation -->
+    <div class="loader" id="loader"></div>
+
+    <!-- CAPTCHA -->
+    <div class="captcha">
+        <input type="text" id="captchaInput" placeholder="Enter CAPTCHA">
+        <span id="captchaText"></span>
+        <button class="button" onclick="verifyCaptcha()">Verify</button>
+    </div>
+
+    <div class="content">
+        <button class="button" onclick="requestAccount()">Get Account</button>
+    </div>
+
+    <!-- Modal for Account Display -->
     <div id="accountModal" class="modal">
         <div class="modal-content">
             <p><strong>Your Account:</strong></p>
@@ -184,27 +171,22 @@
         </div>
     </div>
 
-    <div class="ad-message">
-        <p>Please allow ads to fully display before skipping. Your support keeps us going!</p>
-    </div>
-
     <footer>
         <p>&copy; 2024 D-TECH. All Rights Reserved.</p>
     </footer>
 
     <script>
         let accounts = [];
-        let waitingTime = 6 * 60 * 60 * 1000; // 6 hours in milliseconds
-        let vipWaitingTime = 45 * 60 * 1000; // 45 minutes in milliseconds
+        let waitingTime = 6 * 60 * 60 * 1000; // 6 hours in ms
         let lastRequestTime = localStorage.getItem('lastRequestTime');
-        let vipKey = "DTECHVIP2024";
 
+        // Fetch Accounts
         async function fetchAccounts() {
             try {
                 const response = await fetch('https://raw.githubusercontent.com/Preasx24/D-TECH_CHAT/main/accounts.txt');
                 if (!response.ok) throw new Error('Failed to fetch accounts');
                 const data = await response.text();
-                accounts = data.split('\n').map(account => account.trim()).filter(account => account !== '');
+                accounts = data.split('\n').filter(Boolean);
             } catch (error) {
                 alert("Failed to load accounts.");
             }
@@ -212,41 +194,45 @@
 
         fetchAccounts();
 
-        function requestAccount() {
+        // Timer Functionality
+        function updateTimer() {
             const now = Date.now();
             const timePassed = now - (lastRequestTime || 0);
-            const allowedTime = localStorage.getItem('isVIP') === 'true' ? vipWaitingTime : waitingTime;
-
-            if (timePassed < allowedTime) {
-                const remainingTime = Math.ceil((allowedTime - timePassed) / 1000 / 60);
-                alert(`Please wait ${remainingTime} minutes before requesting another account.`);
-                return;
+            const remaining = waitingTime - timePassed;
+            if (remaining > 0) {
+                const minutes = Math.floor(remaining / 60000);
+                const seconds = ((remaining % 60000) / 1000).toFixed(0);
+                document.getElementById('timer').textContent = `Time Remaining: ${minutes}:${seconds}`;
+                setTimeout(updateTimer, 1000);
             }
+        }
 
-            if (accounts.length > 0) {
-                const account = accounts.shift();
-                document.getElementById('accountDetails').textContent = account;
+        // CAPTCHA Integration
+        function verifyCaptcha() {
+            const input = document.getElementById('captchaInput').value.trim();
+            if (input === '1234') {
+                alert('CAPTCHA Verified!');
+            } else {
+                alert('Invalid CAPTCHA!');
+            }
+        }
+
+        // Theme Toggle
+        function toggleTheme() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Account Request
+        function requestAccount() {
+            document.getElementById('loader').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
                 document.getElementById('accountModal').style.display = 'flex';
-                lastRequestTime = now;
-                localStorage.setItem('lastRequestTime', now);
-            } else {
-                alert("No accounts available at the moment.");
-            }
-        }
-
-        function applyVIPKey() {
-            const userKey = document.getElementById('vipKeyInput').value.trim();
-            if (userKey === vipKey) {
-                localStorage.setItem('isVIP', 'true');
-                alert("VIP Key applied! Waiting time reduced to 45 minutes.");
-            } else {
-                alert("Invalid VIP Key!");
-            }
-        }
-
-        function copyToClipboard() {
-            navigator.clipboard.writeText(document.getElementById('accountDetails').innerText);
-            alert("Copied to Clipboard!");
+                document.getElementById('accountDetails').textContent = accounts.pop() || 'No accounts available.';
+            }, 2000);
         }
 
         function closeModal() {
