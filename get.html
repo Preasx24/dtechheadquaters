@@ -33,6 +33,11 @@
             background-color: #45a049;
         }
 
+        .btn:disabled {
+            background-color: #888;
+            cursor: not-allowed;
+        }
+
         .timer {
             margin-top: 20px;
             font-size: 18px;
@@ -64,6 +69,19 @@
         let vipKeyEntered = false;
         let vipKey = 'DTECHVIPX24';
         let cooldown = 6 * 60 * 60 * 1000; // 6 hours in milliseconds
+        let timerInterval;
+
+        // Initialize cooldown on load
+        window.onload = () => {
+            let now = new Date().getTime();
+            if (firstAccess === 'true') {
+                document.getElementById('getAccountBtn').disabled = false;
+            } else if (lastRequestTime && now - lastRequestTime < cooldown && !vipKeyEntered) {
+                let remaining = cooldown - (now - lastRequestTime);
+                startTimer(remaining);
+                document.getElementById('getAccountBtn').disabled = true;
+            }
+        };
 
         function checkCooldown() {
             let now = new Date().getTime();
@@ -71,8 +89,6 @@
                 return true; // Allow first free access
             }
             if (lastRequestTime && now - lastRequestTime < cooldown && !vipKeyEntered) {
-                let remaining = cooldown - (now - lastRequestTime);
-                startTimer(remaining);
                 return false;
             }
             return true;
@@ -80,16 +96,20 @@
 
         function startTimer(duration) {
             let timerDisplay = document.getElementById('timer');
+            let getAccountBtn = document.getElementById('getAccountBtn');
             let timer = duration / 1000;
-            let interval = setInterval(() => {
+            getAccountBtn.disabled = true;
+
+            timerInterval = setInterval(() => {
                 let hours = Math.floor(timer / 3600);
                 let minutes = Math.floor((timer % 3600) / 60);
                 let seconds = timer % 60;
                 timerDisplay.innerText = `Next ACC available in: ${hours}h ${minutes}m ${seconds}s`;
                 timer--;
                 if (timer < 0) {
-                    clearInterval(interval);
+                    clearInterval(timerInterval);
                     timerDisplay.innerText = "You can now request a new account!";
+                    getAccountBtn.disabled = false;
                 }
             }, 1000);
         }
@@ -122,7 +142,8 @@
                     localStorage.setItem('firstAccess', 'false');
                 }
 
-                startTimer(vipKeyEntered ? 45 * 60 * 1000 : cooldown);
+                let cooldownTime = vipKeyEntered ? 45 * 60 * 1000 : cooldown;
+                startTimer(cooldownTime);
             } catch (error) {
                 console.error('Error fetching accounts:', error);
             }
@@ -134,6 +155,8 @@
                 vipKeyEntered = true;
                 cooldown = 45 * 60 * 1000; // 45 minutes in milliseconds
                 alert('VIP Key Accepted! Your cooldown is now reduced to 45 minutes.');
+                clearInterval(timerInterval);
+                startTimer(cooldown);
             } else {
                 alert('Invalid VIP Key!');
             }
@@ -151,7 +174,7 @@
     <div class="container">
         <h1>D-TECH FREE CRUNCHYROLL PREMIUM ACCOUNTS</h1>
         <div id="accountDisplay">Click below to get an account</div>
-        <button class="btn" onclick="fetchAccount()">Get Account</button>
+        <button id="getAccountBtn" class="btn" onclick="fetchAccount()">Get Account</button>
         <div class="captcha">
             <label>Enter CAPTCHA (1234):</label>
             <input type="text" id="captchaInput" placeholder="Enter CAPTCHA">
