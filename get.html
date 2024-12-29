@@ -36,7 +36,13 @@
 
         /* Content Section */
         .content {
-            margin: 20px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #161b22;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
         }
 
         .button {
@@ -44,11 +50,12 @@
             color: white;
             border: none;
             padding: 12px 24px;
-            margin: 10px;
+            margin: 20px 0;
             font-size: 16px;
             border-radius: 5px;
             cursor: pointer;
             transition: background 0.3s ease;
+            width: 80%;
         }
 
         .button:hover {
@@ -60,10 +67,11 @@
             font-size: 18px;
             font-weight: bold;
             color: #58a6ff;
+            word-wrap: break-word;
         }
 
         .vip-info {
-            margin-top: 20px;
+            margin-top: 30px;
             font-size: 16px;
             background-color: #21262d;
             padding: 15px;
@@ -71,10 +79,9 @@
         }
 
         .vip-info p {
-            margin: 0;
+            margin: 0 0 10px;
         }
 
-        /* Footer Section */
         footer {
             margin-top: 30px;
             font-size: 14px;
@@ -120,13 +127,6 @@
         .support-links a:hover {
             color: #1f6feb;
         }
-
-        .ads-message {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #8b949e;
-            font-style: italic;
-        }
     </style>
 </head>
 <body>
@@ -139,15 +139,12 @@
     <!-- Main Content -->
     <div class="content">
         <button class="button" onclick="getAccount()">Get Account</button>
-        <button class="button" onclick="checkTime()">Check Time Limit</button>
-        <button class="button" onclick="checkRemainingAccounts()">Check Remaining Accounts</button>
-        <button class="button" onclick="enterVIPKey()">Enter VIP Key</button>
 
         <div id="account-info" class="account-info"></div>
 
         <div class="vip-info">
-            <p><strong>VIP Access:</strong> Reduce waiting time to 45 minutes with VIP Access.</p>
-            <button class="button" onclick="openVIPLink()">Contact Admin</button>
+            <p><strong>VIP Access:</strong> Reduce waiting time with VIP Access.</p>
+            <button class="button" onclick="enterVIPKey()">Activate VIP</button>
         </div>
     </div>
 
@@ -159,7 +156,6 @@
             <a href="https://t.me/DTECHXPORT" target="_blank">Telegram Channel</a>
             <a href="https://youtube.com/@d-tech_services?si=ZP4C9eK-FJza4BFk" target="_blank">YouTube Channel</a>
         </div>
-        <p class="ads-message">Your support is greatly appreciated. Please let the ads fully display before skipping or exiting. Every bit helps us improve our services!</p>
     </div>
 
     <!-- Footer -->
@@ -199,32 +195,14 @@
         }
 
         function getAccount() {
-            const lastTime = localStorage.getItem('lastAccessTime');
-            const now = Date.now();
-            const waitTime = isVIP ? 45 * 60 * 1000 : 6 * 60 * 60 * 1000;
-
-            if (lastTime && now - lastTime < waitTime) {
-                const remainingTime = Math.ceil((waitTime - (now - lastTime)) / (60 * 60 * 1000));
-                alert(`Please wait ${remainingTime} hour(s) before requesting another account.`);
-                return;
-            }
-
             if (accounts.length > 0) {
-                const account = accounts.shift();
+                const randomIndex = Math.floor(Math.random() * accounts.length);
+                const account = accounts.splice(randomIndex, 1)[0];
                 markAccountAsUsed(account);
-                localStorage.setItem('lastAccessTime', now);
                 document.getElementById("account-info").innerHTML = `<strong>Your Account:</strong> ${account}`;
             } else {
                 document.getElementById("account-info").innerText = "No accounts available. Try again later.";
             }
-        }
-
-        function checkTime() {
-            alert("Check waiting time in the console.");
-        }
-
-        function checkRemainingAccounts() {
-            alert(`Remaining Accounts: ${accounts.length}`);
         }
 
         function enterVIPKey() {
@@ -236,10 +214,6 @@
             } else {
                 alert("Invalid VIP Key.");
             }
-        }
-
-        function openVIPLink() {
-            window.open("https://t.me/PREASX24", "_blank");
         }
     </script>
 </body>
