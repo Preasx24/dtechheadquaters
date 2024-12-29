@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D-TECH ACC Fetcher</title>
+    <title>D-TECH FREE CRUNCHYROLL PREMIUM ACCOUNTS</title>
     <style>
         /* General Styles */
         body {
@@ -60,13 +60,17 @@
     </style>
     <script>
         let lastRequestTime = localStorage.getItem('lastRequestTime');
+        let firstAccess = localStorage.getItem('firstAccess') || 'true';
         let vipKeyEntered = false;
-        let vipKey = 'VIP15ZAR';
+        let vipKey = 'DTECHVIPX24';
         let cooldown = 6 * 60 * 60 * 1000; // 6 hours in milliseconds
 
         function checkCooldown() {
             let now = new Date().getTime();
-            if (lastRequestTime && now - lastRequestTime < cooldown) {
+            if (firstAccess === 'true') {
+                return true; // Allow first free access
+            }
+            if (lastRequestTime && now - lastRequestTime < cooldown && !vipKeyEntered) {
                 let remaining = cooldown - (now - lastRequestTime);
                 startTimer(remaining);
                 return false;
@@ -112,6 +116,12 @@
                 document.getElementById('accountDisplay').innerText = `Your Account: ${account}`;
                 lastRequestTime = new Date().getTime();
                 localStorage.setItem('lastRequestTime', lastRequestTime);
+                
+                if (firstAccess === 'true') {
+                    firstAccess = 'false';
+                    localStorage.setItem('firstAccess', 'false');
+                }
+
                 startTimer(vipKeyEntered ? 45 * 60 * 1000 : cooldown);
             } catch (error) {
                 console.error('Error fetching accounts:', error);
@@ -139,7 +149,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>D-TECH ACC Fetcher</h1>
+        <h1>D-TECH FREE CRUNCHYROLL PREMIUM ACCOUNTS</h1>
         <div id="accountDisplay">Click below to get an account</div>
         <button class="btn" onclick="fetchAccount()">Get Account</button>
         <div class="captcha">
