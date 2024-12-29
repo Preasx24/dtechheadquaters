@@ -1,63 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fetch and Delete Account</title>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    <title>Account Fetcher</title>
 </head>
 <body>
+    <h1>Fetch Account</h1>
+    <button onclick="fetchAccount()">Get Account</button>
+    <p id="account"></p>
 
-  <h1>Fetch and Delete Account</h1>
-  <button id="fetchAccountBtn">Fetch and Delete Account</button>
-  <div id="accountDetails"></div>
-
-  <script>
-    // Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyDuYe1ECzQjdF_gS2LmGDROWm4AxTGcT6c",
-      authDomain: "tech-d4d76.firebaseapp.com",
-      projectId: "tech-d4d76",
-      storageBucket: "tech-d4d76.firebasestorage.app",
-      messagingSenderId: "102270954981",
-      appId: "1:102270954981:web:15d1053443e121a5ded30c",
-      measurementId: "G-K93TNXQF9Q"
-    };
-
-    // Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
-
-    document.getElementById('fetchAccountBtn').addEventListener('click', function() {
-      const accountsRef = database.ref('accounts');
-
-      // Fetch the first account
-      accountsRef.limitToFirst(1).once('child_added', function(snapshot) {
-        const accountKey = snapshot.key;
-        const accountData = snapshot.val();
-
-        if (accountData) {
-          // Display account details
-          document.getElementById('accountDetails').innerHTML = `
-            <p>Email: ${accountData.email}</p>
-            <p>Password: ${accountData.password}</p>
-          `;
-
-          // Delete the fetched account
-          accountsRef.child(accountKey).remove()
-            .then(function() {
-              console.log(`Account ${accountKey} deleted successfully.`);
-            })
-            .catch(function(error) {
-              console.error('Error deleting account:', error);
-            });
-        } else {
-          document.getElementById('accountDetails').innerHTML = '<p>No accounts available.</p>';
+    <script>
+        async function fetchAccount() {
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/your-username/account-storage-repo/main/accounts.json');
+                if (response.ok) {
+                    const accounts = await response.json();
+                    const account = accounts.shift(); // Get the first account and delete it
+                    document.getElementById('account').innerText = `User: ${account.username}, Pass: ${account.password}`;
+                } else {
+                    document.getElementById('account').innerText = 'No accounts available';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
         }
-      });
-    });
-  </script>
-
+    </script>
 </body>
 </html>
