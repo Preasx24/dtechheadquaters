@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Account Fetcher</title>
+    <title>AccFetcher</title>
 </head>
 <body>
     <h1>Fetch Account</h1>
@@ -11,7 +11,7 @@
     <script>
         async function fetchAccount() {
             try {
-                const response = await fetch('https://raw.githubusercontent.com/your-username/account-storage-repo/main/accounts.json');
+                const response = await fetch('https://raw.githubusercontent.com/Preasx24/dtechheadquaters/main/accounts.json');
                 if (response.ok) {
                     const accounts = await response.json();
                     const account = accounts.shift(); // Get the first account and delete it
