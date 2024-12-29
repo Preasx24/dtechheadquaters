@@ -6,22 +6,37 @@
     <title>D-TECH Crunchyroll Premium Account</title>
     <style>
         /* General Styles */
+        :root {
+            --bg-color: #0d1117;
+            --text-color: #c9d1d9;
+            --primary-color: #1f6feb;
+            --secondary-color: #0a58ca;
+            --card-bg: #161b22;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --primary-color: #1f6feb;
+            --secondary-color: #0a58ca;
+            --card-bg: #f3f4f6;
+        }
+
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #0d1117;
-            color: #c9d1d9;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             margin: 0;
             padding: 0;
             text-align: center;
+            transition: background 0.3s, color 0.3s;
         }
 
-        /* Header Styles */
         header {
-            background: linear-gradient(90deg, #1f6feb, #0a58ca);
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
             color: white;
             padding: 20px;
             text-align: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
 
         header h1 {
@@ -29,191 +44,232 @@
             font-size: 28px;
         }
 
-        header p {
-            font-size: 14px;
-            margin-top: 5px;
-        }
-
-        /* Content Section */
         .content {
-            margin: 40px auto;
-            padding: 20px;
-            background-color: #161b22;
-            border-radius: 8px;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            margin: 20px;
         }
 
         .button {
-            background: #1f6feb;
+            background: var(--primary-color);
             color: white;
             border: none;
             padding: 12px 24px;
-            margin: 20px 0;
+            margin: 10px;
             font-size: 16px;
             border-radius: 5px;
             cursor: pointer;
-            transition: background 0.3s ease;
-            width: 80%;
+            transition: background 0.3s;
         }
 
         .button:hover {
-            background: #0a58ca;
+            background: var(--secondary-color);
         }
 
-        .account-info {
-            margin-top: 20px;
-            font-size: 18px;
-            font-weight: bold;
-            color: #58a6ff;
-            word-wrap: break-word;
+        /* Theme Toggle */
+        .theme-toggle {
+            margin: 20px;
         }
 
-        .vip-info {
-            margin-top: 30px;
-            font-size: 16px;
-            background-color: #21262d;
-            padding: 15px;
+        /* Modal Popup */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            padding: 20px;
             border-radius: 8px;
+            text-align: center;
+            width: 80%;
+            max-width: 400px;
         }
 
-        .vip-info p {
-            margin: 0 0 10px;
+        .modal-content p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .modal-content button {
+            margin-top: 10px;
+        }
+
+        .modal-close {
+            margin-top: 15px;
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+
+        /* Loading Animation */
+        .loader {
+            display: none;
+            margin: 20px auto;
+            border: 4px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 4px solid var(--primary-color);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Timer Display */
+        .timer {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        /* CAPTCHA */
+        .captcha {
+            margin: 20px 0;
+        }
+
+        .captcha input {
+            padding: 8px;
+            margin-right: 5px;
         }
 
         footer {
             margin-top: 30px;
             font-size: 14px;
-            color: #8b949e;
-        }
-
-        footer a {
-            color: #58a6ff;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        .support-section {
-            margin-top: 30px;
-            background-color: #161b22;
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-        .support-section h3 {
-            margin-bottom: 10px;
-            font-size: 18px;
-            color: #58a6ff;
-        }
-
-        .support-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 10px;
-        }
-
-        .support-links a {
-            color: #58a6ff;
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.3s ease;
-        }
-
-        .support-links a:hover {
-            color: #1f6feb;
         }
     </style>
 </head>
 <body>
-    <!-- Header Section -->
     <header>
         <h1>D-TECH Crunchyroll Premium Accounts</h1>
         <p>Enjoy Premium Access for Free — Courtesy of D-TECH</p>
     </header>
 
-    <!-- Main Content -->
     <div class="content">
-        <button class="button" onclick="getAccount()">Get Account</button>
+        <button class="button" onclick="requestAccount()">Get Account</button>
+        <div class="captcha">
+            <input type="text" id="captchaInput" placeholder="Enter CAPTCHA">
+            <span id="captchaCode"></span>
+            <button class="button" onclick="generateCaptcha()">Refresh CAPTCHA</button>
+        </div>
+        <div class="loader" id="loader"></div>
+        <div class="timer" id="timer"></div>
+    </div>
 
-        <div id="account-info" class="account-info"></div>
+    <div class="theme-toggle">
+        <button class="button" onclick="toggleTheme()">Toggle Theme</button>
+    </div>
 
-        <div class="vip-info">
-            <p><strong>VIP Access:</strong> Reduce waiting time with VIP Access.</p>
-            <button class="button" onclick="enterVIPKey()">Activate VIP</button>
+    <div id="accountModal" class="modal">
+        <div class="modal-content">
+            <p><strong>Your Account:</strong></p>
+            <p id="accountDetails"></p>
+            <button class="button" onclick="copyToClipboard()">Copy to Clipboard</button>
+            <div class="modal-close" onclick="closeModal()">Close</div>
         </div>
     </div>
 
-    <!-- Support Section -->
-    <div class="support-section">
-        <h3>Support D-TECH</h3>
-        <p>If you enjoy our services, please visit and follow us on:</p>
-        <div class="support-links">
-            <a href="https://t.me/DTECHXPORT" target="_blank">Telegram Channel</a>
-            <a href="https://youtube.com/@d-tech_services?si=ZP4C9eK-FJza4BFk" target="_blank">YouTube Channel</a>
-        </div>
-    </div>
-
-    <!-- Footer -->
     <footer>
         <p>&copy; 2024 D-TECH. All Rights Reserved.</p>
     </footer>
 
     <script>
         let accounts = [];
-        const VIP_KEY = "DTECHVIPX24";
-        let isVIP = localStorage.getItem('isVIP') === 'true';
+        let isWaiting = false;
+        const CAPTCHA_LENGTH = 5;
+        let timerInterval;
 
-        // Fetch accounts
+        // Fetch Accounts
         async function fetchAccounts() {
             try {
                 const response = await fetch('https://raw.githubusercontent.com/Preasx24/D-TECH_CHAT/main/accounts.txt');
                 if (!response.ok) throw new Error('Failed to fetch accounts');
                 const data = await response.text();
                 accounts = data.split('\n').map(account => account.trim()).filter(account => account !== '');
-                loadUsedAccounts();
             } catch (error) {
-                document.getElementById("account-info").innerText = "Failed to load accounts. Try again later.";
+                alert("Failed to load accounts.");
             }
         }
 
         fetchAccounts();
 
-        function loadUsedAccounts() {
-            const used = JSON.parse(localStorage.getItem('usedAccounts')) || [];
-            accounts = accounts.filter(account => !used.includes(account));
+        // CAPTCHA
+        function generateCaptcha() {
+            const captcha = Math.random().toString(36).substring(2, 7).toUpperCase();
+            document.getElementById('captchaCode').textContent = captcha;
         }
 
-        function markAccountAsUsed(account) {
-            let used = JSON.parse(localStorage.getItem('usedAccounts')) || [];
-            used.push(account);
-            localStorage.setItem('usedAccounts', JSON.stringify(used));
-        }
+        generateCaptcha();
 
-        function getAccount() {
-            if (accounts.length > 0) {
-                const randomIndex = Math.floor(Math.random() * accounts.length);
-                const account = accounts.splice(randomIndex, 1)[0];
-                markAccountAsUsed(account);
-                document.getElementById("account-info").innerHTML = `<strong>Your Account:</strong> ${account}`;
-            } else {
-                document.getElementById("account-info").innerText = "No accounts available. Try again later.";
+        // Request Account
+        function requestAccount() {
+            const userCaptcha = document.getElementById('captchaInput').value;
+            const correctCaptcha = document.getElementById('captchaCode').textContent;
+
+            if (userCaptcha !== correctCaptcha) {
+                alert("CAPTCHA incorrect!");
+                return;
             }
+
+            if (isWaiting) {
+                alert("You must wait before requesting another account.");
+                return;
+            }
+
+            document.getElementById('loader').style.display = 'block';
+            setTimeout(() => {
+                if (accounts.length > 0) {
+                    const account = accounts.shift();
+                    document.getElementById('accountDetails').textContent = account;
+                    document.getElementById('accountModal').style.display = 'flex';
+                    startTimer(30); 
+                } else {
+                    alert("No accounts available.");
+                }
+                document.getElementById('loader').style.display = 'none';
+            }, 2000);
         }
 
-        function enterVIPKey() {
-            const userKey = prompt("Enter your VIP Key:");
-            if (userKey === VIP_KEY) {
-                isVIP = true;
-                localStorage.setItem('isVIP', 'true');
-                alert("VIP Access Activated!");
-            } else {
-                alert("Invalid VIP Key.");
-            }
+        // Timer
+        function startTimer(seconds) {
+            isWaiting = true;
+            let time = seconds;
+            timerInterval = setInterval(() => {
+                document.getElementById('timer').innerText = `Please wait ${time}s`;
+                time--;
+                if (time < 0) {
+                    clearInterval(timerInterval);
+                    isWaiting = false;
+                    document.getElementById('timer').innerText = '';
+                }
+            }, 1000);
+        }
+
+        // Theme Toggle
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
+
+        // Copy to Clipboard
+        function copyToClipboard() {
+            navigator.clipboard.writeText(document.getElementById('accountDetails').innerText);
+            alert("Copied to Clipboard!");
+        }
+
+        function closeModal() {
+            document.getElementById('accountModal').style.display = 'none';
         }
     </script>
 </body>
