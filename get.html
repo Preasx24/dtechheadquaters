@@ -36,12 +36,6 @@
             background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
             color: white;
             padding: 20px;
-            text-align: center;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 28px;
         }
 
         .content {
@@ -62,11 +56,6 @@
 
         .button:hover {
             background: var(--secondary-color);
-        }
-
-        /* Theme Toggle */
-        .theme-toggle {
-            margin: 20px;
         }
 
         /* Modal Popup */
@@ -107,42 +96,41 @@
             color: var(--primary-color);
         }
 
-        /* Loading Animation */
-        .loader {
-            display: none;
-            margin: 20px auto;
-            border: 4px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 4px solid var(--primary-color);
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
         /* Timer Display */
         .timer {
             margin-top: 20px;
             font-size: 16px;
         }
 
-        /* CAPTCHA */
-        .captcha {
-            margin: 20px 0;
+        /* VIP Section */
+        .vip-section {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
         }
 
-        .captcha input {
+        .vip-section input {
+            margin-top: 10px;
             padding: 8px;
-            margin-right: 5px;
+            width: 70%;
+            border-radius: 4px;
+            border: 1px solid var(--primary-color);
+        }
+
+        .vip-section button {
+            margin-top: 10px;
         }
 
         footer {
             margin-top: 30px;
             font-size: 14px;
+        }
+
+        .ad-message {
+            margin-top: 30px;
+            font-size: 14px;
+            color: var(--secondary-color);
         }
     </style>
 </head>
@@ -154,17 +142,13 @@
 
     <div class="content">
         <button class="button" onclick="requestAccount()">Get Account</button>
-        <div class="captcha">
-            <input type="text" id="captchaInput" placeholder="Enter CAPTCHA">
-            <span id="captchaCode"></span>
-            <button class="button" onclick="generateCaptcha()">Refresh CAPTCHA</button>
-        </div>
-        <div class="loader" id="loader"></div>
         <div class="timer" id="timer"></div>
-    </div>
-
-    <div class="theme-toggle">
-        <button class="button" onclick="toggleTheme()">Toggle Theme</button>
+        <div class="vip-section">
+            <h3>Have a VIP Key?</h3>
+            <input type="text" id="vipKeyInput" placeholder="Enter VIP Key">
+            <button class="button" onclick="applyVIPKey()">Apply Key</button>
+            <p>Need a VIP Key? <a href="https://t.me/PREASX24" target="_blank">Message Admin (R15)</a></p>
+        </div>
     </div>
 
     <div id="accountModal" class="modal">
@@ -176,17 +160,22 @@
         </div>
     </div>
 
+    <div class="ad-message">
+        <p>If you're enjoying our services, please let ads fully display before skipping. Your support keeps us going!</p>
+        <p>We appreciate all your help!</p>
+    </div>
+
     <footer>
         <p>&copy; 2024 D-TECH. All Rights Reserved.</p>
     </footer>
 
     <script>
         let accounts = [];
-        let isWaiting = false;
-        const CAPTCHA_LENGTH = 5;
-        let timerInterval;
+        let waitingTime = 6 * 60 * 60 * 1000; // 6 hours in milliseconds
+        let vipWaitingTime = 45 * 60 * 1000; // 45 minutes in milliseconds
+        let lastRequestTime = localStorage.getItem('lastRequestTime');
+        let vipKey = "DTECHVIP2024";
 
-        // Fetch Accounts
         async function fetchAccounts() {
             try {
                 const response = await fetch('https://raw.githubusercontent.com/Preasx24/D-TECH_CHAT/main/accounts.txt');
@@ -200,69 +189,38 @@
 
         fetchAccounts();
 
-        // CAPTCHA
-        function generateCaptcha() {
-            const captcha = Math.random().toString(36).substring(2, 7).toUpperCase();
-            document.getElementById('captchaCode').textContent = captcha;
-        }
-
-        generateCaptcha();
-
-        // Request Account
         function requestAccount() {
-            const userCaptcha = document.getElementById('captchaInput').value;
-            const correctCaptcha = document.getElementById('captchaCode').textContent;
+            const now = Date.now();
+            const timePassed = now - (lastRequestTime || 0);
+            const allowedTime = localStorage.getItem('isVIP') === 'true' ? vipWaitingTime : waitingTime;
 
-            if (userCaptcha !== correctCaptcha) {
-                alert("CAPTCHA incorrect!");
+            if (timePassed < allowedTime) {
+                const remainingTime = Math.ceil((allowedTime - timePassed) / 1000 / 60);
+                alert(`Please wait ${remainingTime} minutes before requesting another account.`);
                 return;
             }
 
-            if (isWaiting) {
-                alert("You must wait before requesting another account.");
-                return;
+            if (accounts.length > 0) {
+                const account = accounts.shift();
+                document.getElementById('accountDetails').textContent = account;
+                document.getElementById('accountModal').style.display = 'flex';
+                lastRequestTime = now;
+                localStorage.setItem('lastRequestTime', now);
+            } else {
+                alert("No accounts available at the moment.");
             }
-
-            document.getElementById('loader').style.display = 'block';
-            setTimeout(() => {
-                if (accounts.length > 0) {
-                    const account = accounts.shift();
-                    document.getElementById('accountDetails').textContent = account;
-                    document.getElementById('accountModal').style.display = 'flex';
-                    startTimer(30); 
-                } else {
-                    alert("No accounts available.");
-                }
-                document.getElementById('loader').style.display = 'none';
-            }, 2000);
         }
 
-        // Timer
-        function startTimer(seconds) {
-            isWaiting = true;
-            let time = seconds;
-            timerInterval = setInterval(() => {
-                document.getElementById('timer').innerText = `Please wait ${time}s`;
-                time--;
-                if (time < 0) {
-                    clearInterval(timerInterval);
-                    isWaiting = false;
-                    document.getElementById('timer').innerText = '';
-                }
-            }, 1000);
+        function applyVIPKey() {
+            const userKey = document.getElementById('vipKeyInput').value.trim();
+            if (userKey === vipKey) {
+                localStorage.setItem('isVIP', 'true');
+                alert("VIP Key applied! Your waiting time is now reduced to 45 minutes.");
+            } else {
+                alert("Invalid VIP Key!");
+            }
         }
 
-        // Theme Toggle
-        function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-        }
-
-        document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
-
-        // Copy to Clipboard
         function copyToClipboard() {
             navigator.clipboard.writeText(document.getElementById('accountDetails').innerText);
             alert("Copied to Clipboard!");
