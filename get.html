@@ -66,7 +66,7 @@
     <script>
         let lastRequestTime = localStorage.getItem('lastRequestTime');
         let firstAccess = localStorage.getItem('firstAccess') || 'true';
-        let vipKeyEntered = false;
+        let vipKeyEntered = localStorage.getItem('vipKeyEntered') === 'true';
         let vipKey = 'DTECHVIPX24';
         let cooldown = 6 * 60 * 60 * 1000; // 6 hours in milliseconds
         let timerInterval;
@@ -80,6 +80,10 @@
                 let remaining = cooldown - (now - lastRequestTime);
                 startTimer(remaining);
                 document.getElementById('getAccountBtn').disabled = true;
+            } else {
+                // If VIP key entered, set cooldown to 45 minutes
+                let remaining = vipKeyEntered ? 45 * 60 * 1000 - (now - lastRequestTime) : cooldown;
+                startTimer(remaining);
             }
         };
 
@@ -136,7 +140,7 @@
                 document.getElementById('accountDisplay').innerText = `Your Account: ${account}`;
                 lastRequestTime = new Date().getTime();
                 localStorage.setItem('lastRequestTime', lastRequestTime);
-                
+
                 if (firstAccess === 'true') {
                     firstAccess = 'false';
                     localStorage.setItem('firstAccess', 'false');
@@ -153,6 +157,7 @@
             let userKey = prompt('Enter your VIP Key:');
             if (userKey === vipKey) {
                 vipKeyEntered = true;
+                localStorage.setItem('vipKeyEntered', 'true');
                 cooldown = 45 * 60 * 1000; // 45 minutes in milliseconds
                 alert('VIP Key Accepted! Your cooldown is now reduced to 45 minutes.');
                 clearInterval(timerInterval);
