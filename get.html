@@ -1,189 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>D-TECH FREE CRUNCHYROLL PREMIUM ACCOUNTS</title>
-  <style>
-    /* General Styles */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #1a1a1a;
-      color: #fff;
-      text-align: center;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D-TECH FREE CRUNCHYROLL PREMIUM ACCOUNTS</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #1f1c2c, #928dab);
+            color: #fff;
+        }
 
-    /* Button Styling */
-    .btn {
-      background-color: #4CAF50;
-      border: none;
-      color: white;
-      padding: 15px 32px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 4px;
-      margin-top: 20px;
-    }
+        .container {
+            margin-top: 50px;
+        }
 
-    .btn-copy {
-      background-color: #1E88E5;
-    }
+        .btn {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
 
-    .btn-vip {
-      background-color: #f39c12;
-    }
+        .btn:hover {
+            background-color: #45a049;
+        }
 
-    /* Loading Spinner Styles */
-    .loader {
-      border: 16px solid #f3f3f3;
-      border-top: 16px solid #3498db;
-      border-radius: 50%;
-      width: 120px;
-      height: 120px;
-      animation: spin 2s linear infinite;
-      margin: 20px auto;
-      display: none;
-    }
+        .btn:disabled {
+            background-color: #888;
+            cursor: not-allowed;
+        }
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+        .timer {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
 
-    /* Popup Styling */
-    .popup {
-      display: none;
-      position: fixed;
-      z-index: 1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgb(0,0,0);
-      background-color: rgba(0,0,0,0.4);
-      padding-top: 60px;
-    }
+        .vip-section {
+            margin-top: 30px;
+        }
 
-    .popup-content {
-      background-color: #fefefe;
-      margin: 5% auto;
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%;
-      max-width: 400px;
-      text-align: center;
-    }
+        .ad-message {
+            margin-top: 30px;
+            font-style: italic;
+            font-size: 14px;
+        }
 
-    .popup-content p {
-      font-size: 18px;
-      color: #333;
-    }
+        .captcha {
+            margin-top: 20px;
+        }
 
-    .close {
-      color: #aaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-    }
+        /* Loading Animation */
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #3498db;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 2s linear infinite;
+            display: none;
+        }
 
-    .close:hover,
-    .close:focus {
-      color: black;
-      text-decoration: none;
-      cursor: pointer;
-    }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
-  </style>
+        /* Popup Styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            z-index: 999;
+        }
+
+        .popup button {
+            margin-top: 20px;
+        }
+
+        /* Dynamic Theme Toggle */
+        .theme-toggle {
+            margin: 20px;
+        }
+
+    </style>
+    <script>
+        let lastRequestTime = localStorage.getItem('lastRequestTime');
+        let firstAccess = localStorage.getItem('firstAccess') || 'true';
+        let vipKeyEntered = localStorage.getItem('vipKeyEntered') === 'true';
+        let vipKey = 'DTECHVIPX24';
+        let cooldown = 6 * 60 * 60 * 1000; // 6 hours in milliseconds
+        let timerInterval;
+
+        // Initialize cooldown on load
+        window.onload = () => {
+            let now = new Date().getTime();
+            if (firstAccess === 'true') {
+                document.getElementById('getAccountBtn').disabled = false;
+            } else if (lastRequestTime && now - lastRequestTime < cooldown && !vipKeyEntered) {
+                let remaining = cooldown - (now - lastRequestTime);
+                startTimer(remaining);
+                document.getElementById('getAccountBtn').disabled = true;
+            } else {
+                // If VIP key entered, set cooldown to 45 minutes
+                let remaining = vipKeyEntered ? 45 * 60 * 1000 - (now - lastRequestTime) : cooldown;
+                startTimer(remaining);
+            }
+        };
+
+        function checkCooldown() {
+            let now = new Date().getTime();
+            if (firstAccess === 'true') {
+                return true; // Allow first free access
+            }
+            if (lastRequestTime && now - lastRequestTime < cooldown && !vipKeyEntered) {
+                return false;
+            }
+            return true;
+        }
+
+        function startTimer(duration) {
+            let timerDisplay = document.getElementById('timer');
+            let getAccountBtn = document.getElementById('getAccountBtn');
+            let timer = duration / 1000;
+            getAccountBtn.disabled = true;
+
+            timerInterval = setInterval(() => {
+                let hours = Math.floor(timer / 3600);
+                let minutes = Math.floor((timer % 3600) / 60);
+                let seconds = timer % 60;
+                timerDisplay.innerText = `Next ACC available in: ${hours}h ${minutes}m ${seconds}s`;
+                timer--;
+                if (timer < 0) {
+                    clearInterval(timerInterval);
+                    timerDisplay.innerText = "You can now request a new account!";
+                    getAccountBtn.disabled = false;
+                }
+            }, 1000);
+        }
+
+        async function fetchAccount() {
+            if (!checkCooldown() && !vipKeyEntered) {
+                alert("You must wait for the cooldown period to end or enter a VIP key.");
+                return;
+            }
+
+            let captchaInput = document.getElementById('captchaInput').value;
+            if (captchaInput !== '1234') { // Simple CAPTCHA for example
+                alert('Invalid CAPTCHA!');
+                return;
+            }
+
+            document.getElementById('loader').style.display = 'inline-block'; // Show loader
+
+            try {
+                let response = await fetch('https://raw.githubusercontent.com/Preasx24/D-TECH_CHAT/main/accounts.txt');
+                let text = await response.text();
+                let accounts = text.split('\n').filter(account => account.trim() !== '');
+                let randomIndex = Math.floor(Math.random() * accounts.length);
+                let account = accounts[randomIndex];
+
+                // Hide loader
+                document.getElementById('loader').style.display = 'none';
+                
+                // Display account in popup
+                let popup = document.getElementById('accountPopup');
+                document.getElementById('accountText').innerText = `Your Account: ${account}`;
+                popup.style.display = 'block';
+
+                // Store last request time
+                lastRequestTime = new Date().getTime();
+                localStorage.setItem('lastRequestTime', lastRequestTime);
+
+                if (firstAccess === 'true') {
+                    firstAccess = 'false';
+                    localStorage.setItem('firstAccess', 'false');
+                }
+
+                let cooldownTime = vipKeyEntered ? 45 * 60 * 1000 : cooldown;
+                startTimer(cooldownTime);
+            } catch (error) {
+                console.error('Error fetching accounts:', error);
+                document.getElementById('loader').style.display = 'none';
+            }
+        }
+
+        function enterVIPKey() {
+            let userKey = prompt('Enter your VIP Key:');
+            if (userKey === vipKey) {
+                vipKeyEntered = true;
+                localStorage.setItem('vipKeyEntered', 'true');
+                cooldown = 45 * 60 * 1000; // 45 minutes in milliseconds
+                alert('VIP Key Accepted! Your cooldown is now reduced to 45 minutes.');
+                clearInterval(timerInterval);
+                startTimer(cooldown);
+            } else {
+                alert('Invalid VIP Key!');
+            }
+        }
+
+        function work() {
+            let currentTheme = document.body.style.background;
+            document.body.style.background = currentTheme.includes('1f1c2c') 
+                ? 'linear-gradient(to right, #000428, #004e92)' 
+                : 'linear-gradient(to right, #1f1c2c, #928dab)';
+        }
+
+        // Copy account to clipboard
+        function copyToClipboard() {
+            let accountText = document.getElementById('accountText').innerText;
+            navigator.clipboard.writeText(accountText).then(() => {
+                alert('Account copied to clipboard!');
+            }).catch(err => {
+                console.error('Error copying text: ', err);
+            });
+        }
+
+        // Close the popup
+        function closePopup() {
+            document.getElementById('accountPopup').style.display = 'none';
+        }
+    </script>
 </head>
 <body>
+    <div class="container">
+        <h1>D-TECH FREE CRUNCHYROLL PREMIUM ACCOUNTS</h1>
+        <div id="accountDisplay">Click below to get an account</div>
+        <button id="getAccountBtn" class="btn" onclick="fetchAccount()">Get Account</button>
+        <div class="captcha">
+            <label>Enter CAPTCHA (1234):</label>
+            <input type="text" id="captchaInput" placeholder="Enter CAPTCHA">
+        </div>
+        <div id="timer" class="timer">Timer will appear here.</div>
 
-  <h1>D-TECH Free Crunchyroll Premium Accounts</h1>
-  <p>Click the button below to get your free account.</p>
+        <div class="vip-section">
+            <button class="btn" onclick="enterVIPKey()">Enter VIP Key</button>
+            <button class="btn" onclick="window.location.href='https://t.me/PREASX24'">Get VIP Key (15 ZAR)</button>
+        </div>
 
-  <!-- Button to get Account -->
-  <button id="getAccountBtn" class="btn">Get Account</button>
+        <div class="theme-toggle">
+            <button class="btn" onclick="work()">Toggle Theme</button>
+        </div>
 
-  <!-- VIP Key Input (Optional) -->
-  <button id="vipBtn" class="btn btn-vip" onclick="promptVIP()">Enter VIP Key (DTECHVIPX24)</button>
+        <div id="loader" class="loader"></div>
 
-  <!-- Loading Spinner -->
-  <div id="loadingSpinner" class="loader"></div>
-
-  <!-- Popup for Account Display -->
-  <div id="accountPopup" class="popup">
-    <div class="popup-content">
-      <span class="close" onclick="closePopup()">&times;</span>
-      <p id="accountDisplay">Your Account will appear here.</p>
-      <button class="btn btn-copy" onclick="copyToClipboard()">Copy to Clipboard</button>
+        <div class="ad-message">
+            If you're enjoying our services, we’d really appreciate it if you let the pop-up ads fully display before skipping or stopping them. Every bit of support helps us grow!
+        </div>
     </div>
-  </div>
 
-  <script>
-    // Simulate fetching an account from your backend or file
-    let vipKeyEntered = false;
-    let lastFetched = localStorage.getItem('lastFetched') ? new Date(localStorage.getItem('lastFetched')) : null;
-
-    // Function to trigger fetching of account
-    document.getElementById('getAccountBtn').addEventListener('click', function() {
-      const currentTime = new Date();
-      const cooldownTime = vipKeyEntered ? 45 : 360; // 45 minutes for VIP, 6 hours for normal users
-      const cooldownEndTime = new Date(lastFetched.getTime() + cooldownTime * 60 * 1000);
-
-      // Check if the user can request an account or is in cooldown
-      if (lastFetched === null || currentTime >= cooldownEndTime) {
-        // Show the loading spinner
-        document.getElementById('loadingSpinner').style.display = 'block';
-        
-        // Simulate a delay for account fetching (3 seconds)
-        setTimeout(() => {
-          // Hide the loading spinner after the "fetching" is complete
-          document.getElementById('loadingSpinner').style.display = 'none';
-
-          // Get a random account (simulated here as a static example)
-          const account = "user" + Math.floor(Math.random() * 1000) + "@example.com";
-
-          // Display the account in the popup
-          document.getElementById('accountDisplay').textContent = account;
-          document.getElementById('accountPopup').style.display = 'block';
-
-          // Save the time this account was fetched
-          localStorage.setItem('lastFetched', currentTime.toString());
-        }, 3000);
-      } else {
-        alert("Please wait before requesting another account.");
-      }
-    });
-
-    // VIP Key entry logic
-    function promptVIP() {
-      const enteredKey = prompt("Enter your VIP Key to reduce cooldown to 45 minutes:");
-      if (enteredKey === "DTECHVIPX24") {
-        vipKeyEntered = true;
-        alert("VIP Key accepted! You can now request accounts every 45 minutes.");
-      } else {
-        alert("Invalid VIP Key.");
-      }
-    }
-
-    // Close the popup
-    function closePopup() {
-      document.getElementById('accountPopup').style.display = 'none';
-    }
-
-    // Copy account to clipboard
-    function copyToClipboard() {
-      const accountText = document.getElementById('accountDisplay').textContent;
-      navigator.clipboard.writeText(accountText).then(() => {
-        alert("Account copied to clipboard!");
-      });
-    }
-  </script>
-
+    <!-- Popup -->
+    <div id="accountPopup" class="popup">
+        <div id="accountText">Your Account: </div>
+        <button class="btn" onclick="copyToClipboard()">Copy to Clipboard</button>
+        <button class="btn" onclick="closePopup()">Close</button>
+    </div>
 </body>
 </html>
