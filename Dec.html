@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Account Fetcher</title>
+</head>
+<body>
+    <h1>Fetch Account</h1>
+    <button onclick="fetchAccount()">Get Account</button>
+    <p id="account"></p>
+
+    <script>
+        async function fetchAccount() {
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/your-username/account-storage-repo/main/accounts.json');
+                if (response.ok) {
+                    const accounts = await response.json();
+                    const account = accounts.shift(); // Get the first account and delete it
+                    document.getElementById('account').innerText = `User: ${account.username}, Pass: ${account.password}`;
+                } else {
+                    document.getElementById('account').innerText = 'No accounts available';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>
+</body>
+</html>
