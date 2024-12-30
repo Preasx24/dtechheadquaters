@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D-TECH Web Tools</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0e0e10;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            background: #1f1f24;
+            padding: 20px;
+        }
+        h1 {
+            margin: 0;
+        }
+        .container {
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 600px;
+            background: #1f1f24;
+            border-radius: 10px;
+        }
+        select, input, button {
+            margin: 10px 0;
+            padding: 10px;
+            width: 90%;
+            max-width: 400px;
+        }
+        #results {
+            margin-top: 20px;
+            text-align: left;
+            white-space: pre-wrap;
+            background: #2c2c34;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-y: auto;
+            max-height: 300px;
+        }
+        button {
+            background: #4caf50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #388e3c;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>👾 D-TECH Web Tools 👾</h1>
+        <p>Choose a tool and enter a website to analyze</p>
+    </header>
+    <div class="container">
+        <select id="tool">
+            <option value="whois">Whois Lookup</option>
+            <option value="dns">DNS Lookup</option>
+            <option value="geoip">GeoIP Lookup</option>
+            <option value="subnet">Subnet Lookup</option>
+            <option value="links">Get Page Links</option>
+            <option value="zone">Zone Transfer</option>
+            <option value="header">Get HTTP Headers</option>
+            <option value="host">Find Host</option>
+            <option value="ip">IP Locator</option>
+            <option value="shared">Find Shared DNS Servers</option>
+            <option value="robots">Get robots.txt</option>
+        </select>
+        <input type="text" id="website" placeholder="Enter website (e.g., example.com)">
+        <button onclick="analyzeWebsite()">🔍 Analyze</button>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        async function analyzeWebsite() {
+            const tool = document.getElementById('tool').value;
+            const website = document.getElementById('website').value;
+            const resultsDiv = document.getElementById('results');
+
+            if (!website) {
+                resultsDiv.innerHTML = '❌ Please enter a valid website.';
+                return;
+            }
+
+            resultsDiv.innerHTML = '⏳ Processing...';
+
+            let apiUrl = '';
+            switch (tool) {
+                case 'whois': apiUrl = `https://api.hackertarget.com/whois/?q=${website}`; break;
+                case 'dns': apiUrl = `https://api.hackertarget.com/dnslookup/?q=${website}`; break;
+                case 'geoip': apiUrl = `https://api.hackertarget.com/geoip/?q=${website}`; break;
+                case 'subnet': apiUrl = `https://api.hackertarget.com/subnetcalc/?q=${website}`; break;
+                case 'links': apiUrl = `https://api.hackertarget.com/pagelinks/?q=${website}`; break;
+                case 'zone': apiUrl = `https://api.hackertarget.com/zonetransfer/?q=${website}`; break;
+                case 'header': apiUrl = `https://api.hackertarget.com/httpheaders/?q=${website}`; break;
+                case 'host': apiUrl = `https://api.hackertarget.com/hostsearch/?q=${website}`; break;
+                case 'ip': 
+                    try {
+                        const ipResponse = await fetch(`https://ipinfo.io/${website}/json`);
+                        const ipData = await ipResponse.json();
+                        resultsDiv.innerHTML = JSON.stringify(ipData, null, 2);
+                        return;
+                    } catch (error) {
+                        resultsDiv.innerHTML = '❌ Error fetching IP data.';
+                        return;
+                    }
+                case 'shared': apiUrl = `https://api.hackertarget.com/findshareddns/?q=${website}`; break;
+                case 'robots': apiUrl = `http://${website}/robots.txt`; break;
+            }
+
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    resultsDiv.innerHTML = `❌ Error: ${response.statusText}`;
+                    return;
+                }
+                const data = await response.text();
+                resultsDiv.innerHTML = data;
+            } catch (error) {
+                resultsDiv.innerHTML = `❌ Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
