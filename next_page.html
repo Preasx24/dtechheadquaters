@@ -3,83 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D-TECH Exclusive Access</title>
+    <title>D-TECH Exclusive Hub</title>
     <style>
+        /* General Body Styling */
         body {
             font-family: 'Verdana', sans-serif;
-            background: linear-gradient(135deg, #001f3f, #003366, #004080);
+            background: linear-gradient(135deg, #1a1a1a, #0d0d0d);
             color: #ffffff;
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
         }
+
+        /* Header Section */
         header {
-            background-color: #00264d;
+            background: linear-gradient(90deg, #8a6c00, #d4af37, #8a6c00);
             text-align: center;
-            padding: 20px 0;
-            border-bottom: 2px solid #00aaff;
+            padding: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            border-bottom: 2px solid #d4af37;
         }
+
         header img {
-            width: 120px;
+            width: 150px;
             height: auto;
         }
+
         header h1 {
-            font-size: 2em;
+            font-size: 2.5em;
             margin: 10px 0;
-            color: #00aaff;
+            color: #fff;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
         }
+
+        /* Option Buttons */
         .options {
-            margin: 40px auto;
-            max-width: 500px;
+            margin: 50px auto;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
+
         .options a {
-            display: block;
-            background-color: #003366;
-            color: #ffffff;
             text-align: center;
-            margin: 15px auto;
-            padding: 15px;
-            border: 1px solid #00aaff;
-            border-radius: 8px;
-            font-size: 1.2em;
             text-decoration: none;
-            transition: background-color 0.3s, transform 0.2s;
+            color: #fff;
+            font-size: 1.2em;
+            padding: 15px 20px;
+            background: linear-gradient(90deg, #8a6c00, #d4af37);
+            border: 1px solid #d4af37;
+            border-radius: 8px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
+
         .options a:hover {
-            background-color: #00aaff;
-            color: #000000;
             transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(212, 175, 55, 0.7);
         }
+
         .options .coming-soon {
-            background-color: #00264d;
+            background: #3b3b3b;
             border: 1px solid #555;
-            color: #888;
+            color: #b8b8b8;
             pointer-events: none;
         }
+
+        /* Footer Section */
         footer {
             text-align: center;
             margin-top: 50px;
             font-size: 0.9em;
-            color: #ccc;
+            color: #b8b8b8;
+            padding: 10px 0;
+            border-top: 1px solid #444;
+        }
+
+        footer p {
+            margin: 5px;
+        }
+
+        /* Decorative Elements */
+        .glow {
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px #d4af37, 0 0 10px #d4af37;
+            }
+            to {
+                text-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700;
+            }
         }
     </style>
 </head>
 <body>
     <header>
         <img src="dtech-logo.png" alt="D-TECH Logo">
-        <h1>Welcome to D-TECH Hub</h1>
+        <h1 class="glow">D-TECH Exclusive Hub</h1>
     </header>
 
     <div class="options">
-        <a href="get.html">Free Crunchyroll Premium Account</a>
-        <a class="coming-soon">Coming Soon</a>
-        <a class="coming-soon">Coming Soon</a>
-        <a class="coming-soon">Coming Soon</a>
-        <a class="coming-soon">Coming Soon</a>
-        <a class="coming-soon">Coming Soon</a>
+        <a href="get.html">✨ Free Crunchyroll Premium Account</a>
+        <a class="coming-soon">🚧 Coming Soon</a>
+        <a class="coming-soon">🚧 Coming Soon</a>
+        <a class="coming-soon">🚧 Coming Soon</a>
+        <a class="coming-soon">🚧 Coming Soon</a>
+        <a class="coming-soon">🚧 Coming Soon</a>
     </div>
 
     <footer>
-        &copy; 2024 D-TECH. All Rights Reserved.
+        <p>&copy; 2024 D-TECH. All Rights Reserved.</p>
     </footer>
 </body>
 </html>
