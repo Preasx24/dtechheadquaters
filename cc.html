@@ -20,6 +20,10 @@
         .container {
             margin: 20px auto;
             max-width: 700px;
+            padding: 20px;
+            background: #161b22;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         select, button {
             margin: 10px;
@@ -29,6 +33,11 @@
             border: 1px solid #444;
             border-radius: 8px;
             color: #c9d1d9;
+            transition: background-color 0.3s ease-in-out;
+        }
+        select:hover, button:hover {
+            background-color: #58a6ff;
+            cursor: pointer;
         }
         #output {
             margin-top: 20px;
@@ -44,17 +53,18 @@
             display: inline-block;
             background: #58a6ff;
             color: white;
-            padding: 10px;
+            padding: 12px;
             margin: 8px;
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
             width: calc(100% - 40px);
             text-align: center;
-            transition: background 0.3s;
+            transition: background 0.3s ease, transform 0.2s ease;
         }
         .ip-button:hover {
             background: #1f76e2;
+            transform: scale(1.05);
         }
         .country-city {
             font-size: 18px;
@@ -64,6 +74,17 @@
         }
         .ip-container {
             margin-bottom: 15px;
+        }
+        .loading {
+            color: #58a6ff;
+            font-size: 18px;
+            margin-top: 20px;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
         }
     </style>
 </head>
@@ -87,6 +108,7 @@
         <br>
         <button onclick="fetchIPs()">Fetch IPs</button>
 
+        <div class="loading" id="loadingMessage" style="display: none;">Loading...</div>
         <div id="output"></div>
     </div>
 
@@ -106,23 +128,28 @@
         async function fetchIPs() {
             const country = document.getElementById('country').value;
             const output = document.getElementById('output');
+            const loadingMessage = document.getElementById('loadingMessage');
             output.innerHTML = '';
+            loadingMessage.style.display = 'block';
 
             if (!country) {
                 output.innerHTML = 'Please select a country!';
+                loadingMessage.style.display = 'none';
                 return;
             }
 
-            // Simulate delay between IPs fetching
             setTimeout(async () => {
                 try {
                     const response = await fetch(countryURLs[country]);
                     const data = await response.text();
+
+                    loadingMessage.style.display = 'none';
                     displayIPData(country, data);
                 } catch (error) {
                     output.innerHTML = `Failed to fetch IPs: ${error.message}`;
+                    loadingMessage.style.display = 'none';
                 }
-            }, 500); // Delay before fetching IPs
+            }, 500); // Slight delay to simulate processing
         }
 
         function displayIPData(country, data) {
@@ -150,10 +177,10 @@
                     countryCityDiv.appendChild(ipButton);
                     output.appendChild(countryCityDiv);
 
-                    // Add delay between IP displays
+                    // Add delay between IP button displays for smoothness
                     setTimeout(() => {
                         ipButton.style.display = 'inline-block';
-                    }, index * 200);
+                    }, index * 300); // Slight delay between IP buttons
                 }
             });
         }
