@@ -89,27 +89,27 @@
             return today.toISOString().split('T')[0];
         }
 
-        // Check if today's date is new, and reset if it is
+        // Reset the voucher claims for a new day
         function resetDailyClaimsIfNewDay() {
             const lastClaimedDate = localStorage.getItem('lastClaimedDate');
             const today = getToday();
 
             if (lastClaimedDate !== today) {
-                // Reset the daily claims and store the new date
+                // Reset daily claims if it's a new day
                 localStorage.setItem('usedVouchers', JSON.stringify([])); // Clear used vouchers
                 localStorage.setItem('lastClaimedDate', today);
             }
         }
 
-        // Fetch Vouchers from GitHub
+        // Fetch vouchers from the raw URL
         async function fetchVouchers() {
             try {
-                const response = await fetch('https://raw.githubusercontent.com/Preasx24/D-TECH_CHAT/main/voucher.txt'); // Ensure this is the raw URL
+                const response = await fetch('https://raw.githubusercontent.com/Preasx24/D-TECH_CHAT/refs/heads/main/voucher.txt');
                 const text = await response.text();
-                vouchers = text.split('\n').filter(v => v.trim() !== ''); // This splits and removes any extra empty lines
-                console.log('Fetched vouchers:', vouchers); // Debug log for fetched vouchers
+                vouchers = text.split('\n').filter(v => v.trim() !== ''); // Filter out empty lines
+                console.log('Fetched vouchers:', vouchers); // Debug log
             } catch (error) {
-                console.error('Failed to fetch vouchers:', error);
+                console.error('Error fetching vouchers:', error);
             }
         }
 
@@ -118,11 +118,11 @@
             const dayOfWeek = new Date().getDay(); // 0 (Sunday) to 6 (Saturday)
             const startIndex = dayOfWeek * 1000;
             const endIndex = startIndex + 999;
-            console.log(`Fetching vouchers from index ${startIndex} to ${endIndex}`); // Debug log for voucher batch
+            console.log(`Fetching vouchers from index ${startIndex} to ${endIndex}`); // Debug log
             return vouchers.slice(startIndex, endIndex + 1);
         }
 
-        // Enable/Disable voucher button based on daily limit
+        // Enable/Disable the claim button based on daily limit
         function updateVoucherButton() {
             const vouchersClaimedToday = usedVouchers.filter(v => v.date === getToday()).length;
             if (vouchersClaimedToday >= dailyLimit) {
@@ -133,12 +133,12 @@
             }
         }
 
-        // Claim Voucher
+        // Claim the voucher
         document.getElementById('voucherButton').addEventListener('click', () => {
             const vouchersClaimedToday = usedVouchers.filter(v => v.date === getToday()).length;
             if (vouchersClaimedToday < dailyLimit) {
                 const availableVouchers = getVoucherBatch();
-                console.log('Available vouchers for today:', availableVouchers); // Debug log for available vouchers
+                console.log('Available vouchers for today:', availableVouchers); // Debug log
                 const unclaimedVouchers = availableVouchers.filter(v => !usedVouchers.some(u => u.voucher === v));
 
                 if (unclaimedVouchers.length === 0) {
@@ -159,9 +159,9 @@
             }
         });
 
-        // Initial Voucher Fetch and Setup
+        // Initial fetch and setup
         fetchVouchers().then(() => {
-            resetDailyClaimsIfNewDay(); // Ensure to reset the voucher claims if it's a new day
+            resetDailyClaimsIfNewDay(); // Reset claims if it's a new day
             updateVoucherButton();
         });
     </script>
