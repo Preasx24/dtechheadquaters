@@ -81,7 +81,7 @@
     <script>
         let vouchers = [];
         let usedVouchers = JSON.parse(localStorage.getItem('usedVouchers')) || [];
-        let dailyLimit = 3; // Max number of vouchers a user can claim per day
+        const dailyLimit = 3; // Max number of vouchers a user can claim per day
 
         // Get today's date in 'YYYY-MM-DD' format
         function getToday() {
@@ -89,13 +89,13 @@
             return today.toISOString().split('T')[0];
         }
 
-        // Check if today's date is new
+        // Check if today's date is new, and reset if it is
         function resetDailyClaimsIfNewDay() {
             const lastClaimedDate = localStorage.getItem('lastClaimedDate');
             const today = getToday();
 
             if (lastClaimedDate !== today) {
-                // It's a new day, reset the claim count
+                // Reset the daily claims and store the new date
                 localStorage.setItem('usedVouchers', JSON.stringify([])); // Clear used vouchers
                 localStorage.setItem('lastClaimedDate', today);
             }
