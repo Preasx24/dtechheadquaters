@@ -7,22 +7,45 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #0d1117;
-            color: #c9d1d9;
+            background-image: url('theme.png');
+            background-size: cover;
+            background-position: center;
+            color: #ffffff;
             text-align: center;
             margin: 0;
             padding: 0;
         }
         .container {
             margin-top: 50px;
+            background-color: rgba(0, 0, 0, 0.6); /* Dark overlay for readability */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #ff6f61;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+        }
+        #instructions {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #d0d0d0;
+            font-style: italic;
         }
         button {
-            background-color: #1f6feb;
+            background-color: #ff6f61;
             color: white;
-            padding: 10px 20px;
+            padding: 15px 30px;
             margin-top: 20px;
             border: none;
             cursor: pointer;
+            font-size: 1.2em;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #ff3d33;
         }
         button:disabled {
             background-color: #444;
@@ -30,32 +53,37 @@
         }
         #voucher {
             margin-top: 30px;
-            font-size: 1.2em;
+            font-size: 1.5em;
+            color: #f8f8f8;
+            font-weight: bold;
         }
-        #instructions {
+        #voucherButton {
             margin-top: 20px;
-            font-size: 1em;
-            color: #9ca3af;
+        }
+        #logo {
+            width: 200px;
+            margin-top: 20px;
+        }
+        .emoji {
+            font-size: 2em;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>D-TECH Voucher System</h1>
-        <p id="instructions">Tap anywhere on the screen repeatedly. A popup ad will appear. Let it fully display before returning.</p>
-        <button id="voucherButton" disabled>Claim Voucher</button>
+        <img id="logo" src="dtech-logo.png" alt="D-TECH Logo">
+        <h1>D-TECH Voucher System 🌟</h1>
+        <p id="instructions">Claim your daily voucher! 🌹 You can claim up to 3 vouchers today. Make sure to come back tomorrow for more! 🎉</p>
+        <button id="voucherButton" disabled>Claim Voucher 🎁</button>
         <div id="voucher"></div>
     </div>
 
     <script>
         let vouchers = [];
-        let usedVouchers = [];
-        let adViewed = false;
-        let focusLost = false;
+        let usedVouchers = JSON.parse(localStorage.getItem('usedVouchers')) || [];
+        let dailyLimit = 3; // Max number of vouchers a user can claim per day
+        let vouchersClaimedToday = usedVouchers.filter(v => v.date === getToday()).length;
 
-        const maxVouchersPerDay = 3;
-        const vouchersPerRange = 1000;  // Number of vouchers per range (1000 per day)
-        
         // Fetch Vouchers from GitHub
         async function fetchVouchers() {
             try {
@@ -67,88 +95,59 @@
             }
         }
 
-        // Get the range of vouchers based on the current day
-        function getVoucherRange() {
-            const dayOfWeek = new Date().getDay(); // Get day of the week (0 = Sunday, 1 = Monday, etc.)
-            const startIdx = dayOfWeek * vouchersPerRange;
-            const endIdx = startIdx + vouchersPerRange;
-
-            return vouchers.slice(startIdx, endIdx);
+        // Get today's date in 'YYYY-MM-DD' format
+        function getToday() {
+            const today = new Date();
+            return today.toISOString().split('T')[0];
         }
 
-        // Check if the user has already claimed the maximum vouchers for today
-        function checkVoucherLimit() {
-            const today = new Date().toISOString().slice(0, 10); // Get today's date (yyyy-mm-dd)
-            const lastClaimDate = localStorage.getItem('lastClaimDate');
-
-            if (lastClaimDate !== today) {
-                // Reset the vouchers if it's a new day
-                localStorage.setItem('claimedVouchers', 0);
-                localStorage.setItem('lastClaimDate', today);
-            }
-
-            return localStorage.getItem('claimedVouchers') < maxVouchersPerDay;
+        // Determine the voucher batch for today
+        function getVoucherBatch() {
+            const dayOfWeek = new Date().getDay(); // 0 (Sunday) to 6 (Saturday)
+            const startIndex = dayOfWeek * 1000;
+            const endIndex = startIndex + 999;
+            return vouchers.slice(startIndex, endIndex + 1);
         }
 
-        // Detect focus loss (user switches tab or interacts with popup)
-        window.addEventListener('blur', () => {
-            focusLost = true;
-        });
-
-        window.addEventListener('focus', () => {
-            if (focusLost) {
-                adViewed = true;
+        // Enable/Disable voucher button based on daily limit
+        function updateVoucherButton() {
+            if (vouchersClaimedToday >= dailyLimit) {
+                document.getElementById('voucherButton').disabled = true;
+                document.getElementById('instructions').innerText = '🌸 You have reached your daily voucher limit! Come back tomorrow! 🌟';
+            } else {
                 document.getElementById('voucherButton').disabled = false;
-                document.getElementById('instructions').innerText = 'Ad detected! You can now claim your voucher.';
             }
-        });
-
-        // Track taps to ensure ad triggers
-        document.body.addEventListener('click', () => {
-            if (!adViewed) {
-                document.getElementById('instructions').innerText = 'Keep tapping until the popup ad appears!';
-            }
-        });
+        }
 
         // Claim Voucher
         document.getElementById('voucherButton').addEventListener('click', () => {
-            if (!adViewed) {
-                alert('Please interact with the popup ad fully before claiming your voucher!');
-                return;
+            if (vouchersClaimedToday < dailyLimit) {
+                const availableVouchers = getVoucherBatch();
+                const unclaimedVouchers = availableVouchers.filter(v => !usedVouchers.some(u => u.voucher === v));
+
+                if (unclaimedVouchers.length === 0) {
+                    document.getElementById('voucher').innerText = '🌸 No more vouchers available for today! Please check back tomorrow! 🌹';
+                    return;
+                }
+
+                const randomIndex = Math.floor(Math.random() * unclaimedVouchers.length);
+                const selectedVoucher = unclaimedVouchers[randomIndex];
+
+                usedVouchers.push({ voucher: selectedVoucher, date: getToday() });
+                localStorage.setItem('usedVouchers', JSON.stringify(usedVouchers));
+
+                document.getElementById('voucher').innerHTML = `🎉 Congratulations! Your Voucher: <strong>${selectedVoucher}</strong> 🎁`;
+                vouchersClaimedToday++;
+                updateVoucherButton();
+            } else {
+                document.getElementById('voucher').innerText = '🌸 You have already claimed the maximum number of vouchers today! 🎉';
             }
-
-            if (!checkVoucherLimit()) {
-                document.getElementById('voucher').innerText = 'You have reached your voucher limit for today.';
-                document.getElementById('voucherButton').disabled = true;
-                return;
-            }
-
-            const availableVouchers = getVoucherRange().filter(v => !usedVouchers.includes(v));
-            if (availableVouchers.length === 0) {
-                document.getElementById('voucher').innerText = 'No more vouchers available in this batch.';
-                return;
-            }
-
-            const randomIndex = Math.floor(Math.random() * availableVouchers.length);
-            const selectedVoucher = availableVouchers[randomIndex];
-            usedVouchers.push(selectedVoucher);
-
-            // Save the used vouchers to localStorage for the current batch
-            const currentRange = getVoucherRange();
-            const batchStartIdx = vouchers.indexOf(currentRange[0]);
-            const batchEndIdx = batchStartIdx + currentRange.length;
-            localStorage.setItem(`usedVouchers_${batchStartIdx}_${batchEndIdx}`, JSON.stringify(usedVouchers));
-
-            // Increment the claimed vouchers count for today
-            let claimedVouchers = parseInt(localStorage.getItem('claimedVouchers'), 10);
-            localStorage.setItem('claimedVouchers', claimedVouchers + 1);
-
-            document.getElementById('voucher').innerText = `Your Voucher: ${selectedVoucher}`;
-            document.getElementById('voucherButton').disabled = true;
         });
 
-        // Initial Voucher Fetch
-        fetchVouchers();
+        // Initial Voucher Fetch and Setup
+        fetchVouchers().then(() => {
+            updateVoucherButton();
+        });
     </script>
 </body>
 </html>
