@@ -82,7 +82,24 @@
         let vouchers = [];
         let usedVouchers = JSON.parse(localStorage.getItem('usedVouchers')) || [];
         let dailyLimit = 3; // Max number of vouchers a user can claim per day
-        let vouchersClaimedToday = usedVouchers.filter(v => v.date === getToday()).length;
+
+        // Get today's date in 'YYYY-MM-DD' format
+        function getToday() {
+            const today = new Date();
+            return today.toISOString().split('T')[0];
+        }
+
+        // Check if today's date is new
+        function resetDailyClaimsIfNewDay() {
+            const lastClaimedDate = localStorage.getItem('lastClaimedDate');
+            const today = getToday();
+
+            if (lastClaimedDate !== today) {
+                // It's a new day, reset the claim count
+                localStorage.setItem('usedVouchers', JSON.stringify([])); // Clear used vouchers
+                localStorage.setItem('lastClaimedDate', today);
+            }
+        }
 
         // Fetch Vouchers from GitHub
         async function fetchVouchers() {
@@ -96,12 +113,6 @@
             }
         }
 
-        // Get today's date in 'YYYY-MM-DD' format
-        function getToday() {
-            const today = new Date();
-            return today.toISOString().split('T')[0];
-        }
-
         // Determine the voucher batch for today
         function getVoucherBatch() {
             const dayOfWeek = new Date().getDay(); // 0 (Sunday) to 6 (Saturday)
@@ -113,6 +124,7 @@
 
         // Enable/Disable voucher button based on daily limit
         function updateVoucherButton() {
+            const vouchersClaimedToday = usedVouchers.filter(v => v.date === getToday()).length;
             if (vouchersClaimedToday >= dailyLimit) {
                 document.getElementById('voucherButton').disabled = true;
                 document.getElementById('instructions').innerText = '🌸 You have reached your daily voucher limit! Come back tomorrow! 🌟';
@@ -123,6 +135,7 @@
 
         // Claim Voucher
         document.getElementById('voucherButton').addEventListener('click', () => {
+            const vouchersClaimedToday = usedVouchers.filter(v => v.date === getToday()).length;
             if (vouchersClaimedToday < dailyLimit) {
                 const availableVouchers = getVoucherBatch();
                 console.log('Available vouchers for today:', availableVouchers); // Debug log for available vouchers
@@ -140,7 +153,6 @@
                 localStorage.setItem('usedVouchers', JSON.stringify(usedVouchers));
 
                 document.getElementById('voucher').innerHTML = `🎉 Congratulations! Your Voucher: <strong>${selectedVoucher}</strong> 🎁`;
-                vouchersClaimedToday++;
                 updateVoucherButton();
             } else {
                 document.getElementById('voucher').innerText = '🌸 You have already claimed the maximum number of vouchers today! 🎉';
@@ -149,6 +161,7 @@
 
         // Initial Voucher Fetch and Setup
         fetchVouchers().then(() => {
+            resetDailyClaimsIfNewDay(); // Ensure to reset the voucher claims if it's a new day
             updateVoucherButton();
         });
     </script>
