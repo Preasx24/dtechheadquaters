@@ -87,9 +87,10 @@
         // Fetch Vouchers from GitHub
         async function fetchVouchers() {
             try {
-                const response = await fetch('https://raw.githubusercontent.com/Preasx24/D-TECH_CHAT/refs/heads/main/voucher.txt');
+                const response = await fetch('https://raw.githubusercontent.com/Preasx24/D-TECH_CHAT/main/voucher.txt'); // Ensure this is the raw URL
                 const text = await response.text();
-                vouchers = text.split('\n').filter(v => v.trim() !== '');
+                vouchers = text.split('\n').filter(v => v.trim() !== ''); // This splits and removes any extra empty lines
+                console.log('Fetched vouchers:', vouchers); // Debug log for fetched vouchers
             } catch (error) {
                 console.error('Failed to fetch vouchers:', error);
             }
@@ -106,6 +107,7 @@
             const dayOfWeek = new Date().getDay(); // 0 (Sunday) to 6 (Saturday)
             const startIndex = dayOfWeek * 1000;
             const endIndex = startIndex + 999;
+            console.log(`Fetching vouchers from index ${startIndex} to ${endIndex}`); // Debug log for voucher batch
             return vouchers.slice(startIndex, endIndex + 1);
         }
 
@@ -123,6 +125,7 @@
         document.getElementById('voucherButton').addEventListener('click', () => {
             if (vouchersClaimedToday < dailyLimit) {
                 const availableVouchers = getVoucherBatch();
+                console.log('Available vouchers for today:', availableVouchers); // Debug log for available vouchers
                 const unclaimedVouchers = availableVouchers.filter(v => !usedVouchers.some(u => u.voucher === v));
 
                 if (unclaimedVouchers.length === 0) {
