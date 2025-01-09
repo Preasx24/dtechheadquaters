@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect Backend</title>
+    <script>
+        async function sendData() {
+            const response = await fetch('https://script.google.com/macros/s/AKfycbxozGQetJWf0HFAqy20INabPk7yN_t7K74_kWKtmTnSvPCDj5K9DPumVshnx8JZ1cso3Q/exec', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: 'Preasx24' })
+            });
+            const data = await response.json();
+            document.getElementById('response').innerText = data.message;
+        }
+    </script>
+</head>
+<body>
+    <h1>Test Backend Integration</h1>
+    <button onclick="sendData()">Send Data</button>
+    <p id="response"></p>
+</body>
+</html>
