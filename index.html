@@ -149,11 +149,53 @@
             }
         }
 
-        /* Stretch UPDATIONS and WEEKLY TUTORIALS links */
-        .updations-link,
-        .tutorials-link {
-            grid-column: span 3;
-            text-align: center;
+        /* Sliding Menu */
+        .menu-container {
+            position: relative;
+        }
+
+        .menu-toggle {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .menu-toggle .bar {
+            display: block;
+            width: 30px;
+            height: 4px;
+            margin: 5px 0;
+            background-color: #333;
+        }
+
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: #111;
+            transition: 0.3s;
+            padding-top: 60px;
+            color: white;
+        }
+
+        .side-menu a {
+            display: block;
+            padding: 15px;
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+        }
+
+        .side-menu a:hover {
+            background-color: #575757;
+        }
+
+        .side-menu.open {
+            left: 0;
         }
     </style>
 </head>
@@ -165,25 +207,29 @@
     <p>Explore our tools, projects, and cutting-edge resources. Whether you're looking to test your skills or explore new digital frontiers, D-TECH provides the resources and community for your growth.</p>
 </header>
 
-<!-- New Advertisement Code -->
-<script async="async" data-cfasync="false" src="//pl25452864.profitablecpmrate.com/17bdc3ff4d9e3bbe0f49799dd182c4c1/invoke.js"></script>
-<div id="container-17bdc3ff4d9e3bbe0f49799dd182c4c1"></div>
+<!-- Hamburger Menu Icon -->
+<div class="menu-container">
+    <div class="menu-toggle" onclick="toggleMenu()">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </div>
 
-<nav>
-    <a href="about.html">About Us</a>
-    <a href="bot-updates.html">Bot Updates</a>
-    <a href="files.html">Our Files</a>
-    <a href="youtube.html">Our YouTube</a>
-    <a href="telegram.html">Our Telegram</a>
-    <a href="faqs.html">FAQs</a>
-    <a href="giveaway.html">Giveaways</a>
-    <a href="host-finder.html">Host Finder</a>
-    <a href="etc.html">Etc</a>
-    <!-- New UPDATIONS link -->
-    <a class="updations-link" href="updates.html">UPDATIONS</a>
-    <!-- New WEEKLY TUTORIALS link -->
-    <a class="tutorials-link" href="tutorial.html">WEEKLY TUTORIALS</a>
-</nav>
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <a href="about.html">About Us</a>
+        <a href="bot-updates.html">Bot Updates</a>
+        <a href="files.html">Our Files</a>
+        <a href="youtube.html">Our YouTube</a>
+        <a href="telegram.html">Our Telegram</a>
+        <a href="faqs.html">FAQs</a>
+        <a href="giveaway.html">Giveaways</a>
+        <a href="host-finder.html">Host Finder</a>
+        <a href="etc.html">Etc</a>
+        <a href="updates.html">UPDATIONS</a>
+        <a href="tutorial.html">WEEKLY TUTORIALS</a>
+    </div>
+</div>
 
 <!-- New Advertisement Code -->
 <script async="async" data-cfasync="false" src="//pl25452864.profitablecpmrate.com/17bdc3ff4d9e3bbe0f49799dd182c4c1/invoke.js"></script>
@@ -200,6 +246,14 @@
    var wid = '731769';
    var pop_tag = document.createElement('script');pop_tag.src='//cdn.popcash.net/show.js';document.body.appendChild(pop_tag);
    pop_tag.onerror = function() {pop_tag = document.createElement('script');pop_tag.src='//cdn2.popcash.net/show.js';document.body.appendChild(pop_tag)};
+</script>
+
+<!-- JavaScript for the menu -->
+<script>
+    function toggleMenu() {
+        const sideMenu = document.getElementById('sideMenu');
+        sideMenu.classList.toggle('open');
+    }
 </script>
 
 </body>
