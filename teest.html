@@ -3,22 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connect Backend</title>
-    <script>
-        async function sendData() {
-            const response = await fetch('https://script.google.com/macros/s/AKfycbxozGQetJWf0HFAqy20INabPk7yN_t7K74_kWKtmTnSvPCDj5K9DPumVshnx8JZ1cso3Q/exec', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name: 'Preasx24' })
-            });
-            const data = await response.json();
-            document.getElementById('response').innerText = data.message;
-        }
-    </script>
+    <title>Google Apps Script Backend</title>
 </head>
 <body>
-    <h1>Test Backend Integration</h1>
+    <h1>Google Apps Script Backend Integration</h1>
     <button onclick="sendData()">Send Data</button>
     <p id="response"></p>
+
+    <script>
+        // Function to send data to Google Apps Script
+        async function sendData() {
+            try {
+                // Making a POST request to the Google Apps Script Web App URL
+                const response = await fetch('https://script.google.com/macros/s/AKfycbwfJAgeNXPYFlLZHYrRnIO3Lux6-mbfxtiNeEhpT8ZFRLnhWoBKx2TCL86wIh8kpYNC/exec', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: 'Preasx24' })  // Sending a sample data
+                });
+
+                // Check if the response is okay
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                
+                // Parse the JSON response
+                const data = await response.json();
+
+                // Display the message in the HTML page
+                document.getElementById('response').innerText = data.message;
+
+            } catch (error) {
+                // Catch errors and display an error message
+                console.error('Error:', error);
+                document.getElementById('response').innerText = "Failed to fetch response.";
+            }
+        }
+    </script>
 </body>
 </html>
