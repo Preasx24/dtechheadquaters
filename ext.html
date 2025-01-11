@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D-TECH Account Extractor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #00ff00;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        input[type="file"] {
+            margin: 20px 0;
+            padding: 10px;
+        }
+        button {
+            background-color: #00ff00;
+            color: #121212;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #00cc00;
+        }
+        pre {
+            text-align: left;
+            background-color: #1e1e1e;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>D-TECH Account Extractor</h1>
+    <p>Select a file to extract <strong>email:password</strong> pairs.</p>
+    <input type="file" id="fileInput" accept=".txt">
+    <br>
+    <button onclick="processFile()">Extract Accounts</button>
+    <br><br>
+    <h3>Extracted Accounts:</h3>
+    <pre id="output"></pre>
+    <br>
+    <button id="downloadBtn" style="display:none;" onclick="downloadFile()">Download Extracted File</button>
+
+    <script>
+        let extractedData = "";
+
+        function processFile() {
+            const fileInput = document.getElementById('fileInput');
+            const output = document.getElementById('output');
+            const downloadBtn = document.getElementById('downloadBtn');
+            output.textContent = "";
+
+            if (!fileInput.files.length) {
+                alert("Please select a file first!");
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                const content = event.target.result;
+                const pattern = /(\S+@\S+)\s*:\s*(\S+)/g;
+                let match;
+                extractedData = "";
+
+                while ((match = pattern.exec(content)) !== null) {
+                    extractedData += `${match[1]}:${match[2]}\n`;
+                }
+
+                if (extractedData) {
+                    output.textContent = extractedData;
+                    downloadBtn.style.display = "inline-block";
+                } else {
+                    output.textContent = "No valid email:password pairs found.";
+                    downloadBtn.style.display = "none";
+                }
+            };
+
+            reader.onerror = function() {
+                alert("Error reading file!");
+            };
+
+            reader.readAsText(file);
+        }
+
+        function downloadFile() {
+            const blob = new Blob([extractedData], { type: "text/plain" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "extracted_accounts.txt";
+            link.click();
+        }
+    </script>
+</body>
+</html>
