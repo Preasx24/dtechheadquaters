@@ -217,6 +217,16 @@ Connection: keep-alive
             <p class="note">Keep testing and refining your payload until you get the desired speed and stability.</p>
         </div>
     </section>
+   
+<!-- Universal Payload Section -->
+<section class="universal-payload">
+    <h2>Universal Payload</h2>
+    <pre>
+GET / HTTP/1.1[crlf]Host:sni/host:443
+[crlf][crlf]CF-RAY / HTTP/1.1[crlf]Host: [host][crlf]Upgrade: websocket[crlf]Connection: Keep-Alive[crlf]User-Agent: [ua][crlf]Upgrade: websocket[crlf][crlf]
+    </pre>
+    <button onclick="copyToClipboard()">Copy to Clipboard</button>
+</section>
 
     <!-- Advanced Payload Tools -->
     <section id="payload-tools">
