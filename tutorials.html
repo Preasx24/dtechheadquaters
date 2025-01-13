@@ -40,22 +40,21 @@
             font-size: 1.2em;
             line-height: 1.6;
         }
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* Aspect ratio for 16:9 */
-            overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+        .view-tutorial {
+            display: inline-block;
             margin-top: 20px;
-        }
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            color: #ffffff;
+            background-color: #00ff99;
             border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        .view-tutorial:hover {
+            background-color: #00cc77;
         }
     </style>
 </head>
@@ -75,25 +74,19 @@
             <br>pip install requests
             <br>python crunchyroll.py
         </p>
-        <div class="video-container">
-            <iframe src="https://drive.google.com/file/d/1FgTHyLHl0kT5LAOGpxJ48QEj_-l7qEhq/preview" allow="autoplay"></iframe>
-        </div>
+        <a href="https://drive.google.com/file/d/1FgTHyLHl0kT5LAOGpxJ48QEj_-l7qEhq/preview" class="view-tutorial" target="_blank">View Tutorial</a>
     </div>
 
     <div class="tutorial">
         <h2>Tutorial 2: Introduction to CSS</h2>
         <p>Enhance your website with CSS. Understand how to style elements, add colors, and layout pages effectively.</p>
-        <div class="video-container">
-            <iframe src="https://drive.google.com/file/d/1EXAMPLEVIDEOID2/preview" allow="autoplay"></iframe>
-        </div>
+        <a href="https://drive.google.com/file/d/1EXAMPLEVIDEOID2/preview" class="view-tutorial" target="_blank">View Tutorial</a>
     </div>
 
     <div class="tutorial">
         <h2>Tutorial 3: JavaScript Basics</h2>
         <p>Get started with JavaScript to add interactivity to your website. Learn variables, functions, and DOM manipulation.</p>
-        <div class="video-container">
-            <iframe src="https://drive.google.com/file/d/1EXAMPLEVIDEOID3/preview" allow="autoplay"></iframe>
-        </div>
+        <a href="https://drive.google.com/file/d/1EXAMPLEVIDEOID3/preview" class="view-tutorial" target="_blank">View Tutorial</a>
     </div>
 </body>
 </html>
