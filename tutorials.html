@@ -40,14 +40,22 @@
             font-size: 1.2em;
             line-height: 1.6;
         }
-        iframe {
+        .video-container {
+            position: relative;
             width: 100%;
-            max-width: 720px;
-            height: 405px; /* Aspect ratio for 16:9 */
-            border: none;
+            padding-bottom: 56.25%; /* Aspect ratio for 16:9 */
+            overflow: hidden;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
             margin-top: 20px;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
     </style>
 </head>
@@ -59,29 +67,33 @@
 
     <div class="tutorial">
         <h2>Tutorial 1: HOW TO USE THE CRUNCHYROLL CHECKER</h2>
-        <p>telegram channel: https://t.me/DTECHXPORT
-
-commands:
-
-git clone https://github.com/Preasx24/CRUNCHYROLL.git
-cd CRUNCHYROLL
-pip install requests
-python crunchyroll.py
-
-</p>
-        <iframe src="https://drive.google.com/file/d/1FgTHyLHl0kT5LAOGpxJ48QEj_-l7qEhq/preview" allow="autoplay"></iframe>
+        <p>Telegram channel: <a href="https://t.me/DTECHXPORT" style="color: #00ff99;">https://t.me/DTECHXPORT</a></p>
+        <p>
+            Commands:
+            <br>git clone https://github.com/Preasx24/CRUNCHYROLL.git
+            <br>cd CRUNCHYROLL
+            <br>pip install requests
+            <br>python crunchyroll.py
+        </p>
+        <div class="video-container">
+            <iframe src="https://drive.google.com/file/d/1FgTHyLHl0kT5LAOGpxJ48QEj_-l7qEhq/preview" allow="autoplay"></iframe>
+        </div>
     </div>
 
     <div class="tutorial">
         <h2>Tutorial 2: Introduction to CSS</h2>
         <p>Enhance your website with CSS. Understand how to style elements, add colors, and layout pages effectively.</p>
-        <iframe src="https://drive.google.com/file/d/1EXAMPLEVIDEOID2/preview" allow="autoplay"></iframe>
+        <div class="video-container">
+            <iframe src="https://drive.google.com/file/d/1EXAMPLEVIDEOID2/preview" allow="autoplay"></iframe>
+        </div>
     </div>
 
     <div class="tutorial">
         <h2>Tutorial 3: JavaScript Basics</h2>
         <p>Get started with JavaScript to add interactivity to your website. Learn variables, functions, and DOM manipulation.</p>
-        <iframe src="https://drive.google.com/file/d/1EXAMPLEVIDEOID3/preview" allow="autoplay"></iframe>
+        <div class="video-container">
+            <iframe src="https://drive.google.com/file/d/1EXAMPLEVIDEOID3/preview" allow="autoplay"></iframe>
+        </div>
     </div>
 </body>
 </html>
