@@ -3,79 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Viewer</title>
+    <title>D-TECH Combo Downloader</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #333;
-            color: white;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #2C3E50; /* D-TECH blue background */
+            color: #ffffff;
         }
         h1 {
             text-align: center;
+            margin-top: 20px;
+            font-size: 2.5em;
+            color: #3498db; /* D-TECH blue */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        .logo {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .logo img {
+            max-width: 150px;
+            border-radius: 10px;
+        }
+        table {
+            width: 90%;
+            margin: 30px auto;
+            border-collapse: collapse;
+            background-color: #34495E;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        thead {
+            background-color: #3498db;
+        }
+        th {
+            color: #ffffff;
+            font-size: 1.1em;
+            padding: 15px;
+            text-align: left;
+        }
+        tbody tr {
+            transition: all 0.3s ease;
+        }
+        tbody tr:hover {
+            background-color: #3E5C70;
+            cursor: pointer;
+        }
+        td {
+            padding: 15px;
+            text-align: left;
+            font-size: 1em;
+            border-bottom: 1px solid #2C3E50;
+        }
+        td:last-child a {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #fff;
+            text-decoration: none;
+            background-color: #3498db;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        td:last-child a:hover {
+            background-color: #2980b9;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #bdc3c7;
+        }
+        footer p {
+            margin: 0;
         }
     </style>
 </head>
 <body>
-    <h1>File Viewer</h1>
+
+    <!-- D-TECH Logo -->
+    <div class="logo">
+        <img src="dtech-logo.png" alt="D-TECH Logo">
+    </div>
+
+    <h1>D-TECH Combo Downloader</h1>
+
     <table>
         <thead>
             <tr>
                 <th>Title</th>
                 <th>Date</th>
                 <th>Number of Accounts</th>
-                <th>Action</th>
+                <th>Download</th>
             </tr>
         </thead>
         <tbody>
             <!-- Repeat this block for each file -->
             <tr>
                 <td>Netflix Accounts Dump</td>
-                <td>2025-01-13</td>
+                <td>2025</td> <!-- Updated to only show the year -->
                 <td>1000</td>
-                <td><a href="files/netflix-accounts.txt" download>View File</a></td>
+                <td><a href="files/netflix-accounts.txt" download>Download</a></td>
             </tr>
             <tr>
                 <td>Disney+ Accounts Dump</td>
-                <td>2025-01-10</td>
+                <td>2025</td> <!-- Updated to only show the year -->
                 <td>500</td>
-                <td><a href="files/disneyplus-accounts.txt" download>View File</a></td>
+                <td><a href="files/disneyplus-accounts.txt" download>Download</a></td>
             </tr>
             <tr>
                 <td>Hulu Accounts Dump</td>
-                <td>2025-01-05</td>
+                <td>2025</td> <!-- Updated to only show the year -->
                 <td>800</td>
-                <td><a href="files/hulu-accounts.txt" download>View File</a></td>
+                <td><a href="files/hulu-accounts.txt" download>Download</a></td>
             </tr>
             <!-- End repeat -->
         </tbody>
     </table>
+
+    <footer>
+        <p>&copy; 2025 D-TECH | All Rights Reserved</p>
+    </footer>
+
 </body>
 </html>
