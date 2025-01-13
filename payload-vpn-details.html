@@ -105,26 +105,7 @@
             margin-top: 20px;
         }
 
-        /* Prevent Text Selection */
-        body, html {
-            user-select: none;
-        }
-
-        /* Disable Right Click */
-        body {
-            -webkit-touch-callout: none;
-        }
-    </style>
-    <script>
-        // Disable Right-Click
-        document.addEventListener('contextmenu', function (e) {
-            e.preventDefault();
-        });
-
-        // Disable Keyboard Shortcuts for Copy
-        document.addEventListener('keydown', function (e) {
-            if (e.ctrlKey && (e.key === 'c' || e.key === 'x' || e.key === 'u')) {
-                e.preventDefault();
+    
             }
         });
     </script>
