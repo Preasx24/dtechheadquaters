@@ -3,22 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flowplayer with VAST Ad</title>
-    <script src="https://cdn.flowplayer.com/releases/7.2.5/flowplayer.min.js"></script>
+    <title>MediaElement.js with VAST Ad</title>
+    <script src="https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/mediaelement-and-player.min.js"></script>
 </head>
 <body>
 
-<div id="flowplayer"></div>
+<video id="media-element-player" width="640" height="360" controls>
+  <source src="your-main-video.mp4" type="video/mp4"> <!-- This is optional and only if you want to show a main video -->
+</video>
 
 <script>
-  flowplayer("#flowplayer", {
-    clip: {
-      sources: [
-        { type: "video/mp4", src: "your-main-video.mp4" }  <!-- Optional main video -->
-      ]
-    },
-    advertising: {
-      tag: "https://miserablenobody.com/dzm.Fwzdd-G/Nrv/ZIGTUK/UewmN9xuCZ/UylBkEPZTMYDwyMEThUh5/N/jaAttjN/jwAVxONiTckO2fMxQc" <!-- Replace with your VAST URL -->
+  var player = new MediaElementPlayer('#media-element-player', {
+    plugins: ['vast'],
+    vast: {
+      adTagUrl: "https://miserablenobody.com/dzm.Fwzdd-G/Nrv/ZIGTUK/UewmN9xuCZ/UylBkEPZTMYDwyMEThUh5/N/jaAttjN/jwAVxONiTckO2fMxQc" <!-- This is the VAST URL you provided -->
     }
   });
 </script>
