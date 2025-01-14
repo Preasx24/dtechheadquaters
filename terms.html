@@ -1,50 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HilltopAdT Ad Example</title>
-  <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet">
-  <script src="https://vjs.zencdn.net/7.11.4/video.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-ads@6.9.0/dist/videojs.ads.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/videojs-ima@1.11.0/dist/videojs.ima.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediaElement.js with VAST Ad</title>
+    <script src="https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/mediaelement-and-player.min.js"></script>
 </head>
 <body>
-  <h1>HilltopAds VAST Ad Integration</h1>
 
-  <!-- Button to trigger ad -->
-  <button id="adButton">Click to Watch Ad</button>
+<video id="media-element-player" width="640" height="360" controls>
+  <source src="your-main-video.mp4" type="video/mp4"> <!-- This is optional and only if you want to show a main video -->
+</video>
 
-  <!-- Video Player -->
-  <video id="video-player" class="video-js vjs-default-skin" controls width="640" height="360" style="display:none;"></video>
+<script>
+  var player = new MediaElementPlayer('#media-element-player', {
+    plugins: ['vast'],
+    vast: {
+      adTagUrl: "https://miserablenobody.com/dzm.Fwzdd-G/Nrv/ZIGTUK/UewmN9xuCZ/UylBkEPZTMYDwyMEThUh5/N/jaAttjN/jwAVxONiTckO2fMxQc" <!-- This is the VAST URL you provided -->
+    }
+  });
+</script>
 
-  <div id="content" style="display:none;">
-    <p>Thanks for watching the ad! Here's your content.</p>
-    <!-- Additional content can go here -->
-  </div>
-
-  <script>
-    var player = videojs('video-player');
-
-    // Configure the IMA plugin with the HilltopAds VAST URL
-    player.ima({
-      adTagUrl: 'https://miserablenobody.com/dzm.FYzpdOGkN/vRZBGSUD/_eqmU9RuKZMU_lTkkPlTnYwwAMGTgU_5oNAjRAst/N/j/AVxqNsT/k/2YMNQh'
-    });
-
-    // Button click to trigger the ad
-    document.getElementById('adButton').addEventListener('click', function() {
-      document.getElementById('adButton').style.display = 'none';  // Hide the button
-      player.ready(function() {
-        player.ima.requestAds();  // Request the ad to show up when the button is clicked
-        player.play();  // Start playing the ad
-      });
-    });
-
-    // Event listener for ad completion (to show content after ad finishes)
-    player.ima.addEventListener('ads-ad-complete', function() {
-      // Show the content after the ad finishes
-      document.getElementById('content').style.display = 'block';
-    });
-  </script>
 </body>
 </html>
