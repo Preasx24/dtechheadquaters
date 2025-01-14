@@ -3,23 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plyr Video Player with VAST Ad</title>
-    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css">
-    <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
+    <title>Flowplayer with VAST Ad</title>
+    <script src="https://cdn.flowplayer.com/releases/7.2.5/flowplayer.min.js"></script>
 </head>
 <body>
 
-<video id="player" controls>
-  <source src="your-main-video.mp4" type="video/mp4"> <!-- Optional main video -->
-</video>
+<div id="flowplayer"></div>
 
 <script>
-  const player = new Plyr('#player', {
-    controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen']
+  flowplayer("#flowplayer", {
+    clip: {
+      sources: [
+        { type: "video/mp4", src: "your-main-video.mp4" }  <!-- Optional main video -->
+      ]
+    },
+    advertising: {
+      tag: "https://miserablenobody.com/dzm.Fwzdd-G/Nrv/ZIGTUK/UewmN9xuCZ/UylBkEPZTMYDwyMEThUh5/N/jaAttjN/jwAVxONiTckO2fMxQc" <!-- Replace with your VAST URL -->
+    }
   });
-
-  // Here, you might need a custom implementation for VAST ads (not natively supported)
-  // Look for external VAST libraries or build logic to inject ads using VAST XML URL.
 </script>
 
 </body>
