@@ -9,14 +9,14 @@
 <body>
 
 <video id="media-element-player" width="640" height="360" controls>
-  <source src="your-main-video.mp4" type="video/mp4"> <!-- This is optional and only if you want to show a main video -->
+  <source src="your-main-video.mp4" type="video/mp4"> <!-- Optional main video -->
 </video>
 
 <script>
   var player = new MediaElementPlayer('#media-element-player', {
     plugins: ['vast'],
     vast: {
-      adTagUrl: "https://miserablenobody.com/dzm.Fwzdd-G/Nrv/ZIGTUK/UewmN9xuCZ/UylBkEPZTMYDwyMEThUh5/N/jaAttjN/jwAVxONiTckO2fMxQc" <!-- This is the VAST URL you provided -->
+      adTagUrl: "https://miserablenobody.com/dzm.Fwzdd-G/Nrv/ZIGTUK/UewmN9xuCZ/UylBkEPZTMYDwyMEThUh5/N/jaAttjN/jwAVxONiTckO2fMxQc" <!-- Replace with your VAST URL -->
     }
   });
 </script>
