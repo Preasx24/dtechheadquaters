@@ -24,7 +24,8 @@
     });
 
     player.ready(function() {
-      player.ima.requestAds(); // Load and display the ad
+      player.ima.requestAds(); // Request the ad to show up immediately
+      player.play(); // Start playing the video after ad
     });
   </script>
 </body>
