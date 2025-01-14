@@ -1,147 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HilltopAds VAST Ad Integration</title>
-  <style>
-    #videoplayer {
-      position: relative;
-      width: 640px;
-      height: 360px;
-      margin: auto;
-    }
-    #content {
-      width: 100%;
-      height: 100%;
-    }
-    #adcontainer {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 10;
-    }
-  </style>
-  <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms and Conditions - D-TECH Headquarters</title>
+<!-- Include Video.js -->
+<link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
+<script src="https://vjs.zencdn.net/7.11.4/video.js"></script>
+
+<!-- Video Player Setup -->
+<video id="my-video" class="video-js vjs-default-skin" controls>
+  <source src="YOUR_MAIN_VIDEO.mp4" type="video/mp4" />
+</video>
+
+<script>
+  var player = videojs('my-video');
+
+  // Enable ads support
+  player.ads();
+
+  // Use the VAST URL for the ad
+  player.src({
+    type: "application/x-mpegURL", // VAST type
+    src: "https://miserablenobody.com/dam/F/zZd.GTNqv-Z/GQUh/ReAmT9wulZYUUlSk/PFT/YcwzM/TYUf5zN-jjAUtlNTjHAnxPNjTlkv2WMQQW" // Your VAST URL
+  });
+
+  player.play();  // Optionally play the main video after the ad
+</script>
+    <!-- Google Adsense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3388101872497899"
+     crossorigin="anonymous"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            text-align: center;
+            background-color: #2c3e50;
+            color: white;
+            padding: 50px 5%;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+        }
+
+        header p {
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+
+        main {
+            flex-grow: 1;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        main h2 {
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            color: #2c3e50;
+        }
+
+        main p {
+            margin-bottom: 15px;
+        }
+
+        main ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        main ul li {
+            margin-bottom: 10px;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 5%;
+        }
+
+        footer a {
+            color: #00d9ff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #1affff;
+        }
+    </style>
 </head>
 <body>
-  <h1 style="text-align: center;">HilltopAds VAST Ad Test</h1>
 
-  <div id="videoplayer">
-    <video id="content" controls>
-      <source src="your-main-video.mp4" type="video/mp4">
-    </video>
-    <div id="adcontainer"></div>
-  </div>
+<header>
+    <h1>Terms and Conditions</h1>
+    <p>Read carefully to understand your rights and responsibilities when using D-TECH Headquarters resources.</p>
+</header>
 
-  <script>
-    // VAST URL from HilltopAds
-    const vastUrl = "https://miserablenobody.com/dzm.Fwzdd-G/Nrv/ZIGTUK/UewmN9xuCZ/UylBkEPZTMYDwyMEThUh5/N/jaAttjN/jwAVxONiTckO2fMxQc";
+<script>
+(function(ozgy){
+var d = document,
+    s = d.createElement('script'),
+    l = d.scripts[d.scripts.length - 1];
+s.settings = ozgy || {};
+s.src = "\/\/deafeningphone.com\/bZXjV.sAdUGslb0IY_WUcD\/zeumR9JunZnUWlJkRPLT_YOwJMwT\/Yl0iM\/DZEUtsNpj\/AnxFNRj\/QdwlMAgu";
+s.async = true;
+s.referrerPolicy = 'no-referrer-when-downgrade';
+l.parentNode.insertBefore(s, l);
+})({})
+</script>
 
-    /**
-     * Handles video player functionality.
-     */
-    const VideoPlayer = function() {
-      this.contentPlayer = document.getElementById('content');
-      this.adContainer = document.getElementById('adcontainer');
-      this.videoPlayerContainer_ = document.getElementById('videoplayer');
-      this.width = 640;
-      this.height = 360;
-    };
+<script type="text/javascript" data-cfasync="false">
+/*<![CDATA[/* */
+(function(){var j=window,e="b76527a5c53827910401af2fe2b13921",x=[["siteId",916+450+297+360+5159252],["minBid",0],["popundersPerIP","0"],["delayBetween",60],["default",false],["defaultPerDay",0],["topmostLayer","auto"]],p=["d3d3LmNkbjRhZHMuY29tL2RleGlmLm1pbi5jc3M=","ZDNnNW92Zm5nanc5YncuY2xvdWRmcm9udC5uZXQvS3EvYmpzLWpvZGEubWluLmpz"],r=-1,a,v,t=function(){clearTimeout(v);r++;if(p[r]&&!(1762769007000<(new Date).getTime()&&1<r)){a=j.document.createElement("script");a.type="text/javascript";a.async=!0;var g=j.document.getElementsByTagName("script")[0];a.src="https://"+atob(p[r]);a.crossOrigin="anonymous";a.onerror=t;a.onload=function(){clearTimeout(v);j[e.slice(0,16)+e.slice(0,16)]||t()};v=setTimeout(t,5E3);g.parentNode.insertBefore(a,g)}};if(!j[e]){try{Object.freeze(j[e]=x)}catch(e){}t()}})();
+/*]]>/* */
+</script>
 
-    VideoPlayer.prototype.preloadContent = function(contentLoadedAction) {
-      if (this.isMobilePlatform()) {
-        this.preloadListener_ = contentLoadedAction;
-        this.contentPlayer.addEventListener(
-            'loadedmetadata', contentLoadedAction, false);
-        this.contentPlayer.load();
-      } else {
-        contentLoadedAction();
-      }
-    };
+<main>
+    <h2>1. Acceptance of Terms</h2>
+    <p>By accessing and using D-TECH Headquarters' tools, files, or any resources, you agree to comply with these Terms and Conditions. If you do not agree, please refrain from using our services.</p>
 
-    VideoPlayer.prototype.removePreloadListener = function() {
-      if (this.preloadListener_) {
-        this.contentPlayer.removeEventListener(
-            'loadedmetadata', this.preloadListener_, false);
-        this.preloadListener_ = null;
-      }
-    };
+<script type="text/javascript" data-cfasync="false">
+/*<![CDATA[/* */
+(function(){var j=window,e="b76527a5c53827910401af2fe2b13921",x=[["siteId",916+450+297+360+5159252],["minBid",0],["popundersPerIP","0"],["delayBetween",60],["default",false],["defaultPerDay",0],["topmostLayer","auto"]],p=["d3d3LmNkbjRhZHMuY29tL2RleGlmLm1pbi5jc3M=","ZDNnNW92Zm5nanc5YncuY2xvdWRmcm9udC5uZXQvS3EvYmpzLWpvZGEubWluLmpz"],r=-1,a,v,t=function(){clearTimeout(v);r++;if(p[r]&&!(1762769007000<(new Date).getTime()&&1<r)){a=j.document.createElement("script");a.type="text/javascript";a.async=!0;var g=j.document.getElementsByTagName("script")[0];a.src="https://"+atob(p[r]);a.crossOrigin="anonymous";a.onerror=t;a.onload=function(){clearTimeout(v);j[e.slice(0,16)+e.slice(0,16)]||t()};v=setTimeout(t,5E3);g.parentNode.insertBefore(a,g)}};if(!j[e]){try{Object.freeze(j[e]=x)}catch(e){}t()}})();
+/*]]>/* */
+</script>
 
-    VideoPlayer.prototype.play = function() {
-      this.contentPlayer.play();
-    };
+    <h2>2. Usage Guidelines</h2>
+    <ul>
+        <li>Our tools and resources are provided for personal and educational purposes only.</li>
+        <li>You must not use our tools for illegal or malicious activities.</li>
+        <li>Distribution of our resources is authorized and allowed, but selling our services, tools, or resources is strictly prohibited.</li>
+    </ul>
 
-    VideoPlayer.prototype.pause = function() {
-      this.contentPlayer.pause();
-    };
+<script type="text/javascript" data-cfasync="false">
+/*<![CDATA[/* */
+(function(){var j=window,e="b76527a5c53827910401af2fe2b13921",x=[["siteId",916+450+297+360+5159252],["minBid",0],["popundersPerIP","0"],["delayBetween",60],["default",false],["defaultPerDay",0],["topmostLayer","auto"]],p=["d3d3LmNkbjRhZHMuY29tL2RleGlmLm1pbi5jc3M=","ZDNnNW92Zm5nanc5YncuY2xvdWRmcm9udC5uZXQvS3EvYmpzLWpvZGEubWluLmpz"],r=-1,a,v,t=function(){clearTimeout(v);r++;if(p[r]&&!(1762769007000<(new Date).getTime()&&1<r)){a=j.document.createElement("script");a.type="text/javascript";a.async=!0;var g=j.document.getElementsByTagName("script")[0];a.src="https://"+atob(p[r]);a.crossOrigin="anonymous";a.onerror=t;a.onload=function(){clearTimeout(v);j[e.slice(0,16)+e.slice(0,16)]||t()};v=setTimeout(t,5E3);g.parentNode.insertBefore(a,g)}};if(!j[e]){try{Object.freeze(j[e]=x)}catch(e){}t()}})();
+/*]]>/* */
+</script>
 
-    VideoPlayer.prototype.isMobilePlatform = function() {
-      return this.contentPlayer.paused &&
-          (navigator.userAgent.match(/(iPod|iPhone|iPad)/) ||
-           navigator.userAgent.toLowerCase().indexOf('android') > -1);
-    };
 
-    VideoPlayer.prototype.resize = function(position, top, left, width, height) {
-      this.videoPlayerContainer_.style.position = position;
-      this.videoPlayerContainer_.style.top = top + 'px';
-      this.videoPlayerContainer_.style.left = left + 'px';
-      this.videoPlayerContainer_.style.width = width + 'px';
-      this.videoPlayerContainer_.style.height = height + 'px';
-      this.contentPlayer.style.width = width + 'px';
-      this.contentPlayer.style.height = height + 'px';
-    };
+    <h2>3. Liability</h2>
+    <p>D-TECH Headquarters is not responsible for any damages, losses, or legal issues arising from the misuse of our tools and resources. Users assume full responsibility for their actions.</p>
 
-    VideoPlayer.prototype.registerVideoEndedCallback = function(callback) {
-      this.contentPlayer.addEventListener('ended', callback, false);
-    };
+<script type="text/javascript" data-cfasync="false">
+/*<![CDATA[/* */
+(function(){var j=window,e="b76527a5c53827910401af2fe2b13921",x=[["siteId",916+450+297+360+5159252],["minBid",0],["popundersPerIP","0"],["delayBetween",60],["default",false],["defaultPerDay",0],["topmostLayer","auto"]],p=["d3d3LmNkbjRhZHMuY29tL2RleGlmLm1pbi5jc3M=","ZDNnNW92Zm5nanc5YncuY2xvdWRmcm9udC5uZXQvS3EvYmpzLWpvZGEubWluLmpz"],r=-1,a,v,t=function(){clearTimeout(v);r++;if(p[r]&&!(1762769007000<(new Date).getTime()&&1<r)){a=j.document.createElement("script");a.type="text/javascript";a.async=!0;var g=j.document.getElementsByTagName("script")[0];a.src="https://"+atob(p[r]);a.crossOrigin="anonymous";a.onerror=t;a.onload=function(){clearTimeout(v);j[e.slice(0,16)+e.slice(0,16)]||t()};v=setTimeout(t,5E3);g.parentNode.insertBefore(a,g)}};if(!j[e]){try{Object.freeze(j[e]=x)}catch(e){}t()}})();
+/*]]>/* */
+</script>
 
-    VideoPlayer.prototype.removeVideoEndedCallback = function(callback) {
-      this.contentPlayer.removeEventListener('ended', callback, false);
-    };
 
-    // Initialize the VideoPlayer
-    const videoPlayer = new VideoPlayer();
+    <h2>4. Privacy</h2>
+    <p>We respect your privacy and do not collect personal data without your consent. However, third-party services integrated into our platform may have their own policies.</p>
 
-    // Initialize the IMA SDK
-    const adDisplayContainer = new google.ima.AdDisplayContainer(
-      videoPlayer.adContainer,
-      videoPlayer.contentPlayer
-    );
-    const adsLoader = new google.ima.AdsLoader(adDisplayContainer);
-    const adsRequest = new google.ima.AdsRequest();
+<script type="text/javascript" data-cfasync="false">
+/*<![CDATA[/* */
+(function(){var j=window,e="b76527a5c53827910401af2fe2b13921",x=[["siteId",916+450+297+360+5159252],["minBid",0],["popundersPerIP","0"],["delayBetween",60],["default",false],["defaultPerDay",0],["topmostLayer","auto"]],p=["d3d3LmNkbjRhZHMuY29tL2RleGlmLm1pbi5jc3M=","ZDNnNW92Zm5nanc5YncuY2xvdWRmcm9udC5uZXQvS3EvYmpzLWpvZGEubWluLmpz"],r=-1,a,v,t=function(){clearTimeout(v);r++;if(p[r]&&!(1762769007000<(new Date).getTime()&&1<r)){a=j.document.createElement("script");a.type="text/javascript";a.async=!0;var g=j.document.getElementsByTagName("script")[0];a.src="https://"+atob(p[r]);a.crossOrigin="anonymous";a.onerror=t;a.onload=function(){clearTimeout(v);j[e.slice(0,16)+e.slice(0,16)]||t()};v=setTimeout(t,5E3);g.parentNode.insertBefore(a,g)}};if(!j[e]){try{Object.freeze(j[e]=x)}catch(e){}t()}})();
+/*]]>/* */
+</script>
 
-    adsRequest.adTagUrl = vastUrl;
-    adsRequest.linearAdSlotWidth = videoPlayer.width;
-    adsRequest.linearAdSlotHeight = videoPlayer.height;
-    adsRequest.nonLinearAdSlotWidth = videoPlayer.width;
-    adsRequest.nonLinearAdSlotHeight = videoPlayer.height;
 
-    adsLoader.addEventListener(
-      google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
-      function(event) {
-        const adsManager = event.getAdsManager(videoPlayer.contentPlayer);
-        adsManager.init(videoPlayer.width, videoPlayer.height, google.ima.ViewMode.NORMAL);
-        adsManager.start();
-      },
-      false
-    );
+    <h2>5. Modifications</h2>
+    <p>D-TECH Headquarters reserves the right to update these terms at any time without prior notice. Continued use of our platform constitutes acceptance of the revised terms.</p>
+</main>
 
-    adsLoader.addEventListener(
-      google.ima.AdErrorEvent.Type.AD_ERROR,
-      function(error) {
-        console.error("Ad error:", error.getError());
-      },
-      false
-    );
+<script type="text/javascript" data-cfasync="false">
+/*<![CDATA[/* */
+(function(){var j=window,e="b76527a5c53827910401af2fe2b13921",x=[["siteId",916+450+297+360+5159252],["minBid",0],["popundersPerIP","0"],["delayBetween",60],["default",false],["defaultPerDay",0],["topmostLayer","auto"]],p=["d3d3LmNkbjRhZHMuY29tL2RleGlmLm1pbi5jc3M=","ZDNnNW92Zm5nanc5YncuY2xvdWRmcm9udC5uZXQvS3EvYmpzLWpvZGEubWluLmpz"],r=-1,a,v,t=function(){clearTimeout(v);r++;if(p[r]&&!(1762769007000<(new Date).getTime()&&1<r)){a=j.document.createElement("script");a.type="text/javascript";a.async=!0;var g=j.document.getElementsByTagName("script")[0];a.src="https://"+atob(p[r]);a.crossOrigin="anonymous";a.onerror=t;a.onload=function(){clearTimeout(v);j[e.slice(0,16)+e.slice(0,16)]||t()};v=setTimeout(t,5E3);g.parentNode.insertBefore(a,g)}};if(!j[e]){try{Object.freeze(j[e]=x)}catch(e){}t()}})();
+/*]]>/* */
+</script>
 
-    // Request ads when the page is ready
-    videoPlayer.preloadContent(function() {
-      adDisplayContainer.initialize();
-      adsLoader.requestAds(adsRequest);
-    });
-  </script>
+
+<!-- AdSense Placement -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3388101872497899"
+     data-ad-slot="your-ad-slot"
+     data-ad-format="auto"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<footer>
+    <p>&copy; 2024 D-TECH Headquarters. All rights reserved.</p>
+    <p><a href="index.html">Back to Home</a></p>
+</footer>
+
 </body>
 </html>
