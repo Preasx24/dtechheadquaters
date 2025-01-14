@@ -3,21 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediaElement.js with VAST Ad</title>
-    <script src="https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/mediaelement-and-player.min.js"></script>
+    <title>Video.js VAST Test</title>
+    <link href="https://vjs.zencdn.net/7.21.0/video-js.css" rel="stylesheet">
+    <script src="https://vjs.zencdn.net/7.21.0/video.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-ads@6/videojs-contrib-ads.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/videojs-ima@1.10.0/dist/videojs.ima.min.js"></script>
 </head>
 <body>
 
-<video id="media-element-player" width="640" height="360" controls>
-  <source src="your-main-video.mp4" type="video/mp4"> <!-- This is optional and only if you want to show a main video -->
+<video id="video-player" class="video-js" controls preload="auto" width="640" height="360">
+  <source src="your-main-video.mp4" type="video/mp4">
 </video>
 
 <script>
-  var player = new MediaElementPlayer('#media-element-player', {
-    plugins: ['vast'],
-    vast: {
-      adTagUrl: "https://miserablenobody.com/dzm.Fwzdd-G/Nrv/ZIGTUK/UewmN9xuCZ/UylBkEPZTMYDwyMEThUh5/N/jaAttjN/jwAVxONiTckO2fMxQc" <!-- This is the VAST URL you provided -->
-    }
+  var player = videojs('video-player');
+  
+  player.ima({
+    adTagUrl: "https://miserablenobody.com/dzm.Fwzdd-G/Nrv/ZIGTUK/UewmN9xuCZ/UylBkEPZTMYDwyMEThUh5/N/jaAttjN/jwAVxONiTckO2fMxQc" // Replace with your VAST URL
+  });
+  
+  player.ready(function() {
+    player.ima.initializeAdDisplayContainer();
+    player.ima.requestAds();
   });
 </script>
 
