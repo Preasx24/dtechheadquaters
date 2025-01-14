@@ -4,9 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terms and Conditions - D-TECH Headquarters</title>
+<!-- Include Video.js -->
+<link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
+<script src="https://vjs.zencdn.net/7.11.4/video.js"></script>
 
-https://miserablenobody.com/dam/F/zZd.GTNqv-Z/GQUh/ReAmT9wulZYUUlSk/PFT/YcwzM/TYUf5zN-jjAUtlNTjHAnxPNjTlkv2WMQQW
-    
+<!-- Video Player Setup -->
+<video id="my-video" class="video-js vjs-default-skin" controls>
+  <source src="YOUR_MAIN_VIDEO.mp4" type="video/mp4" />
+</video>
+
+<script>
+  var player = videojs('my-video');
+
+  // Enable ads support
+  player.ads();
+
+  // Use the VAST URL for the ad
+  player.src({
+    type: "application/x-mpegURL", // VAST type
+    src: "https://miserablenobody.com/dam/F/zZd.GTNqv-Z/GQUh/ReAmT9wulZYUUlSk/PFT/YcwzM/TYUf5zN-jjAUtlNTjHAnxPNjTlkv2WMQQW" // Your VAST URL
+  });
+  
+  player.play();  // Optionally play the main video after the ad
+</script>
     <!-- Google Adsense Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3388101872497899"
      crossorigin="anonymous"></script>
