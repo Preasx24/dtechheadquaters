@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HilltopAds VAST Ad Example</title>
+  <title>HilltopAdT Ad Example</title>
   <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet">
   <script src="https://vjs.zencdn.net/7.11.4/video.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-ads@6.9.0/dist/videojs.ads.min.js"></script>
@@ -12,8 +12,16 @@
 <body>
   <h1>HilltopAds VAST Ad Integration</h1>
 
+  <!-- Button to trigger ad -->
+  <button id="adButton">Click to Watch Ad</button>
+
   <!-- Video Player -->
-  <video id="video-player" class="video-js vjs-default-skin" controls width="640" height="360"></video>
+  <video id="video-player" class="video-js vjs-default-skin" controls width="640" height="360" style="display:none;"></video>
+
+  <div id="content" style="display:none;">
+    <p>Thanks for watching the ad! Here's your content.</p>
+    <!-- Additional content can go here -->
+  </div>
 
   <script>
     var player = videojs('video-player');
@@ -23,9 +31,19 @@
       adTagUrl: 'https://miserablenobody.com/dzm.FYzpdOGkN/vRZBGSUD/_eqmU9RuKZMU_lTkkPlTnYwwAMGTgU_5oNAjRAst/N/j/AVxqNsT/k/2YMNQh'
     });
 
-    player.ready(function() {
-      player.ima.requestAds(); // Request the ad to show up immediately
-      player.play(); // Start playing the video after ad
+    // Button click to trigger the ad
+    document.getElementById('adButton').addEventListener('click', function() {
+      document.getElementById('adButton').style.display = 'none';  // Hide the button
+      player.ready(function() {
+        player.ima.requestAds();  // Request the ad to show up when the button is clicked
+        player.play();  // Start playing the ad
+      });
+    });
+
+    // Event listener for ad completion (to show content after ad finishes)
+    player.ima.addEventListener('ads-ad-complete', function() {
+      // Show the content after the ad finishes
+      document.getElementById('content').style.display = 'block';
     });
   </script>
 </body>
