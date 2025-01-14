@@ -1,32 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video.js VAST Test</title>
-    <link href="https://vjs.zencdn.net/7.21.0/video-js.css" rel="stylesheet">
-    <script src="https://vjs.zencdn.net/7.21.0/video.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-ads@6/videojs-contrib-ads.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/videojs-ima@1.10.0/dist/videojs.ima.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HilltopAds VAST Ad Integration</title>
+  <style>
+    #videoplayer {
+      position: relative;
+      width: 640px;
+      height: 360px;
+      margin: auto;
+    }
+    #content {
+      width: 100%;
+      height: 100%;
+    }
+    #adcontainer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+    }
+  </style>
+  <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
 </head>
 <body>
+  <h1 style="text-align: center;">HilltopAds VAST Ad Test</h1>
 
-<video id="video-player" class="video-js" controls preload="auto" width="640" height="360">
-  <source src="your-main-video.mp4" type="video/mp4">
-</video>
+  <div id="videoplayer">
+    <video id="content" controls>
+      <source src="your-main-video.mp4" type="video/mp4">
+    </video>
+    <div id="adcontainer"></div>
+  </div>
 
-<script>
-  var player = videojs('video-player');
-  
-  player.ima({
-    adTagUrl: "https://miserablenobody.com/dzm.Fwzdd-G/Nrv/ZIGTUK/UewmN9xuCZ/UylBkEPZTMYDwyMEThUh5/N/jaAttjN/jwAVxONiTckO2fMxQc" // Replace with your VAST URL
-  });
-  
-  player.ready(function() {
-    player.ima.initializeAdDisplayContainer();
-    player.ima.requestAds();
-  });
-</script>
+  <script>
+    // VAST URL from HilltopAds
+    const vastUrl = "https://miserablenobody.com/dzm.Fwzdd-G/Nrv/ZIGTUK/UewmN9xuCZ/UylBkEPZTMYDwyMEThUh5/N/jaAttjN/jwAVxONiTckO2fMxQc";
 
+    /**
+     * Handles video player functionality.
+     */
+    const VideoPlayer = function() {
+      this.contentPlayer = document.getElementById('content');
+      this.adContainer = document.getElementById('adcontainer');
+      this.videoPlayerContainer_ = document.getElementById('videoplayer');
+      this.width = 640;
+      this.height = 360;
+    };
+
+    VideoPlayer.prototype.preloadContent = function(contentLoadedAction) {
+      if (this.isMobilePlatform()) {
+        this.preloadListener_ = contentLoadedAction;
+        this.contentPlayer.addEventListener(
+            'loadedmetadata', contentLoadedAction, false);
+        this.contentPlayer.load();
+      } else {
+        contentLoadedAction();
+      }
+    };
+
+    VideoPlayer.prototype.removePreloadListener = function() {
+      if (this.preloadListener_) {
+        this.contentPlayer.removeEventListener(
+            'loadedmetadata', this.preloadListener_, false);
+        this.preloadListener_ = null;
+      }
+    };
+
+    VideoPlayer.prototype.play = function() {
+      this.contentPlayer.play();
+    };
+
+    VideoPlayer.prototype.pause = function() {
+      this.contentPlayer.pause();
+    };
+
+    VideoPlayer.prototype.isMobilePlatform = function() {
+      return this.contentPlayer.paused &&
+          (navigator.userAgent.match(/(iPod|iPhone|iPad)/) ||
+           navigator.userAgent.toLowerCase().indexOf('android') > -1);
+    };
+
+    VideoPlayer.prototype.resize = function(position, top, left, width, height) {
+      this.videoPlayerContainer_.style.position = position;
+      this.videoPlayerContainer_.style.top = top + 'px';
+      this.videoPlayerContainer_.style.left = left + 'px';
+      this.videoPlayerContainer_.style.width = width + 'px';
+      this.videoPlayerContainer_.style.height = height + 'px';
+      this.contentPlayer.style.width = width + 'px';
+      this.contentPlayer.style.height = height + 'px';
+    };
+
+    VideoPlayer.prototype.registerVideoEndedCallback = function(callback) {
+      this.contentPlayer.addEventListener('ended', callback, false);
+    };
+
+    VideoPlayer.prototype.removeVideoEndedCallback = function(callback) {
+      this.contentPlayer.removeEventListener('ended', callback, false);
+    };
+
+    // Initialize the VideoPlayer
+    const videoPlayer = new VideoPlayer();
+
+    // Initialize the IMA SDK
+    const adDisplayContainer = new google.ima.AdDisplayContainer(
+      videoPlayer.adContainer,
+      videoPlayer.contentPlayer
+    );
+    const adsLoader = new google.ima.AdsLoader(adDisplayContainer);
+    const adsRequest = new google.ima.AdsRequest();
+
+    adsRequest.adTagUrl = vastUrl;
+    adsRequest.linearAdSlotWidth = videoPlayer.width;
+    adsRequest.linearAdSlotHeight = videoPlayer.height;
+    adsRequest.nonLinearAdSlotWidth = videoPlayer.width;
+    adsRequest.nonLinearAdSlotHeight = videoPlayer.height;
+
+    adsLoader.addEventListener(
+      google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
+      function(event) {
+        const adsManager = event.getAdsManager(videoPlayer.contentPlayer);
+        adsManager.init(videoPlayer.width, videoPlayer.height, google.ima.ViewMode.NORMAL);
+        adsManager.start();
+      },
+      false
+    );
+
+    adsLoader.addEventListener(
+      google.ima.AdErrorEvent.Type.AD_ERROR,
+      function(error) {
+        console.error("Ad error:", error.getError());
+      },
+      false
+    );
+
+    // Request ads when the page is ready
+    videoPlayer.preloadContent(function() {
+      adDisplayContainer.initialize();
+      adsLoader.requestAds(adsRequest);
+    });
+  </script>
 </body>
 </html>
