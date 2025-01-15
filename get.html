@@ -1,65 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Support Us</title>
-    <style>
-        #timerBox {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 16px;
-            z-index: 9999;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Free Crunchyroll Account</title>
+</head>
+<body>
+    <h1>Welcome to Free Crunchyroll Premium Accounts!</h1>
+    <p>Get access to a free Crunchyroll premium account after watching a 10-second compilation of ads.</p>
+    <button onclick="redirectToAdsPage()">Get Free Account</button>
 
-        .ads {
-            margin: 20px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            text-align: center;
-        }
-    </style>
+    <p>If you face issues with inactive accounts, please contact us via Telegram: <strong>@PREASX24</strong></p>
+
     <script>
-        let timer = 10;
-
-        function startTimer() {
-            const countdown = document.getElementById("timer");
-
-            const interval = setInterval(() => {
-                timer--;
-                countdown.textContent = `Time Remaining: ${timer} seconds`;
-
-                if (timer <= 0) {
-                    clearInterval(interval);
-                    // Mark user as eligible for the Crunchyroll account
-                    localStorage.setItem("eligibleForAccount", "true");
-                    // Redirect after 10 seconds
-                    window.location.href = "crunchyroll_page.html"; // URL to your Crunchyroll account page
-                }
-            }, 1000);
+        function redirectToAdsPage() {
+            // Mark that the user has agreed to get a free account
+            localStorage.setItem("agreedToGetAccount", "true");
+            // Redirect to the ads page
+            window.location.href = "ads_page.html";
         }
     </script>
-</head>
-<body onload="startTimer()">
-    <div id="timerBox">
-        <span id="timer">Time Remaining: 10 seconds</span>
-    </div>
-
-    <div class="ads">
-        <h2>Ad 1</h2>
-        <p>Your ad content goes here.</p>
-    </div>
-    <div class="ads">
-        <h2>Ad 2</h2>
-        <p>Your ad content goes here.</p>
-    </div>
-    <div class="ads">
-        <h2>Ad 3</h2>
-        <p>Your ad content goes here.</p>
-    </div>
 </body>
 </html>
