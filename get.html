@@ -30,7 +30,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
 
-        .ads, .content {
+        .ads {
             margin: 20px;
             padding: 20px;
             border: 1px solid #ccc;
@@ -81,72 +81,30 @@
     <!-- Ads Page -->
     <div id="adsPage" class="hidden">
         <div id="timerBox">
-            <span id="timer">Time Remaining: 10 seconds</span>
+            <span id="timer">Loading...</span>
         </div>
-
-<script type='text/javascript' src='//pl25454862.profitablecpmrate.com/06/70/0a/06700ae74ed6d9035f7f071031360cf5.js'></script>
-
-<!-- New Script Added Here -->
-    <script type='text/javascript' src='//pl25455369.profitablecpmrate.com/61/51/71/61517150132ff41edb773555ec988118.js'></script>
 
         <!-- Place your ad code here -->
-        <div class="ads">
-            <!-- Ad Code 1 goes here -->
-<script async="async" data-cfasync="false" src="//pl25452864.profitablecpmrate.com/17bdc3ff4d9e3bbe0f49799dd182c4c1/invoke.js"></script>
-<div id="container-17bdc3ff4d9e3bbe0f49799dd182c4c1"></div>
-
-<script>
-(function(lohj){
-var d = document,
-    s = d.createElement('script'),
-    l = d.scripts[d.scripts.length - 1];
-s.settings = lohj || {};
-s.src = "\/\/miserablenobody.com\/cRDs9V6Nb.2H5fl-S\/WIQV9BNyjtA\/xVNETYkpwzOXCY0\/2kM\/DQEq1-OYTcAO5w";
-s.async = true;
-s.referrerPolicy = 'no-referrer-when-downgrade';
-l.parentNode.insertBefore(s, l);
-})({})
-</script>
-
-        </div>
-        <div class="ads">
-            <!-- Ad Code 2 goes here -->
-
-<script>
-(function(lohj){
-var d = document,
-    s = d.createElement('script'),
-    l = d.scripts[d.scripts.length - 1];
-s.settings = lohj || {};
-s.src = "\/\/miserablenobody.com\/cRDs9V6Nb.2H5fl-S\/WIQV9BNyjtA\/xVNETYkpwzOXCY0\/2kM\/DQEq1-OYTcAO5w";
-s.async = true;
-s.referrerPolicy = 'no-referrer-when-downgrade';
-l.parentNode.insertBefore(s, l);
-})({})
-</script>
-
-<!-- Native Ads -->
-<script async="async" data-cfasync="false" src="//pl25452864.profitablecpmrate.com/17bdc3ff4d9e3bbe0f49799dd182c4c1/invoke.js"></script>
-<div id="container-17bdc3ff4d9e3bbe0f49799dd182c4c1"></div>
-
-        </div>
-        <div class="ads">
-            <!-- Ad Code 3 goes here -->
-
-<script>
-(function(lohj){
-var d = document,
-    s = d.createElement('script'),
-    l = d.scripts[d.scripts.length - 1];
-s.settings = lohj || {};
-s.src = "\/\/miserablenobody.com\/cRDs9V6Nb.2H5fl-S\/WIQV9BNyjtA\/xVNETYkpwzOXCY0\/2kM\/DQEq1-OYTcAO5w";
-s.async = true;
-s.referrerPolicy = 'no-referrer-when-downgrade';
-l.parentNode.insertBefore(s, l);
-})({})
-</script>
-
-        </div>
+        <div class="ads">Ad Placeholder 1</div>
+        <div class="ads">Ad Placeholder 2</div>
+        <div class="ads">Ad Placeholder 3</div>
+        <div class="ads">Ad Placeholder 4</div>
+        <div class="ads">Ad Placeholder 5</div>
+        <div class="ads">Ad Placeholder 6</div>
+        <div class="ads">Ad Placeholder 7</div>
+        <div class="ads">Ad Placeholder 8</div>
+        <div class="ads">Ad Placeholder 9</div>
+        <div class="ads">Ad Placeholder 10</div>
+        <div class="ads">Ad Placeholder 11</div>
+        <div class="ads">Ad Placeholder 12</div>
+        <div class="ads">Ad Placeholder 13</div>
+        <div class="ads">Ad Placeholder 14</div>
+        <div class="ads">Ad Placeholder 15</div>
+        <div class="ads">Ad Placeholder 16</div>
+        <div class="ads">Ad Placeholder 17</div>
+        <div class="ads">Ad Placeholder 18</div>
+        <div class="ads">Ad Placeholder 19</div>
+        <div class="ads">Ad Placeholder 20</div>
     </div>
 
     <!-- Crunchyroll Account Page -->
@@ -159,7 +117,7 @@ l.parentNode.insertBefore(s, l);
     </div>
 
     <script>
-        let timer = 10;
+        let timer;
         let accounts = [];
         let usedAccounts = JSON.parse(localStorage.getItem("usedAccounts")) || [];
 
@@ -174,13 +132,16 @@ l.parentNode.insertBefore(s, l);
         // Start the ad timer
         function startTimer() {
             const countdown = document.getElementById("timer");
+            timer = Math.floor(Math.random() * (60 - 10 + 1)) + 10; // Random time between 10s and 60s
+            countdown.textContent = `Time Remaining: ${timer} seconds`;
+
             const interval = setInterval(() => {
                 timer--;
                 countdown.textContent = `Time Remaining: ${timer} seconds`;
 
                 if (timer <= 0) {
                     clearInterval(interval);
-                    // Redirect to Crunchyroll account page after 10 seconds
+                    // Redirect to Crunchyroll account page after timer ends
                     showCrunchyrollAccountPage();
                 }
             }, 1000);
@@ -188,7 +149,6 @@ l.parentNode.insertBefore(s, l);
 
         // Show the Crunchyroll account page
         function showCrunchyrollAccountPage() {
-            // Get a random account from the list (that hasn't been used yet)
             let availableAccounts = accounts.filter(account => !usedAccounts.includes(account));
             if (availableAccounts.length === 0) {
                 alert("No more available accounts. Please try again later.");
@@ -205,11 +165,9 @@ l.parentNode.insertBefore(s, l);
                 <li>${randomAccount}</li>
             `;
 
-            // Hide the ads page and show the Crunchyroll page
             document.getElementById("adsPage").classList.add("hidden");
             document.getElementById("crunchyrollPage").classList.remove("hidden");
 
-            // Close the window after 30 seconds
             setTimeout(() => {
                 window.close();
             }, 30000);
