@@ -1,271 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D-TECH FREE CRUNCHYROLL PREMIUM ACCOUNTS</title>
-<script type='text/javascript' src='//pl25454862.profitablecpmrate.com/06/70/0a/06700ae74ed6d9035f7f071031360cf5.js'></script>
-
-
-    <!-- PopAds Script -->
-    <script type="text/javascript" data-cfasync="false">
-    /*<![CDATA[/* */
-    (function(){var b=window,n="b76527a5c53827910401af2fe2b13921",g=[["siteId",160-244+152+46+5161161],["minBid",0],["popundersPerIP","0"],["delayBetween",0],["default",false],["defaultPerDay",0],["topmostLayer","auto"]],t=["d3d3LmNkbjRhZHMuY29tL3JzdHJpbmcubWluLmNzcw==","ZDNnNW92Zm5nanc5YncuY2xvdWRmcm9udC5uZXQvVnlIL3Jib290c3RyYXAtbWF0ZXJpYWwtZGF0ZXRpbWVpa2VyLm1pbi5qc3"],f=-1,i,q,j=function(){clearTimeout(q);f++;if(t[f]&&!(1761206581000<(new Date).getTime()&&1<f)){i=b.document.createElement("script");i.type="text/javascript";i.async=!0;var o=b.document.getElementsByTagName("script")[0];i.src="https://"+atob(t[f]);i.crossOrigin="anonymous";i.onerror=j;i.onload=function(){clearTimeout(q);b[n.slice(0,16)+n.slice(0,16)]||j()};q=setTimeout(j,5E3);o.parentNode.insertBefore(i,o)}};if(!b[n]){try{Object.freeze(b[n]=g)}catch(e){}j()}})();
-    /*]]>/* */
-    </script>
-    <!-- End of PopAds Script -->
-
+    <title>Support Us</title>
     <style>
-        /* General Styles */
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to right, #1f1c2c, #928dab);
-            color: #fff;
-        }
-
-        .container {
-            margin-top: 50px;
-        }
-
-        .btn {
-            background-color: #4caf50;
+        #timerBox {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.8);
             color: white;
             padding: 10px 20px;
-            margin: 10px;
-            border: none;
-            cursor: pointer;
             border-radius: 5px;
-        }
-
-        .btn:hover {
-            background-color: #45a049;
-        }
-
-        .btn:disabled {
-            background-color: #888;
-            cursor: not-allowed;
-        }
-
-        .timer {
-            margin-top: 20px;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .vip-section {
-            margin-top: 30px;
-        }
-
-        .ad-message {
-            margin-top: 30px;
-            font-style: italic;
-            font-size: 14px;
-        }
-
-        .captcha {
-            margin-top: 20px;
-        }
-
-        /* Dynamic Theme Toggle */
-        .theme-toggle {
-            margin: 20px;
-        }
-
-        /* Support Section Styles */
-        .support-section {
-            margin-top: 40px;
             font-size: 16px;
+            z-index: 9999;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
 
-        .support-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
+        .ads {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            text-align: center;
         }
     </style>
     <script>
-        let lastRequestTime = localStorage.getItem('lastRequestTime');
-        let firstAccess = localStorage.getItem('firstAccess') || 'true';
-        let vipKeyEntered = localStorage.getItem('vipKeyEntered') === 'true';
-        let vipKey = 'DTECHVIPX24';
-        let cooldown = 6 * 60 * 60 * 1000; // 6 hours in milliseconds
-        let timerInterval;
+        let timer = 10;
 
-        // Initialize cooldown on load
-        window.onload = () => {
-            let now = new Date().getTime();
-            if (firstAccess === 'true') {
-                document.getElementById('getAccountBtn').disabled = false;
-            } else if (lastRequestTime && now - lastRequestTime < cooldown && !vipKeyEntered) {
-                let remaining = cooldown - (now - lastRequestTime);
-                startTimer(remaining);
-                document.getElementById('getAccountBtn').disabled = true;
-            } else {
-                // If VIP key entered, set cooldown to 45 minutes
-                let remaining = vipKeyEntered ? 45 * 60 * 1000 - (now - lastRequestTime) : cooldown;
-                startTimer(remaining);
-            }
-        };
+        function startTimer() {
+            const countdown = document.getElementById("timer");
 
-        function checkCooldown() {
-            let now = new Date().getTime();
-            if (firstAccess === 'true') {
-                return true; // Allow first free access
-            }
-            if (lastRequestTime && now - lastRequestTime < cooldown && !vipKeyEntered) {
-                return false;
-            }
-            return true;
-        }
-
-        function startTimer(duration) {
-            let timerDisplay = document.getElementById('timer');
-            let getAccountBtn = document.getElementById('getAccountBtn');
-            let timer = duration / 1000;
-            getAccountBtn.disabled = true;
-
-            timerInterval = setInterval(() => {
-                let hours = Math.floor(timer / 3600);
-                let minutes = Math.floor((timer % 3600) / 60);
-                let seconds = timer % 60;
-                timerDisplay.innerText = `Next ACC available in: ${hours}h ${minutes}m ${seconds}s`;
+            const interval = setInterval(() => {
                 timer--;
-                if (timer < 0) {
-                    clearInterval(timerInterval);
-                    timerDisplay.innerText = "You can now request a new account!";
-                    getAccountBtn.disabled = false;
+                countdown.textContent = `Time Remaining: ${timer} seconds`;
+
+                if (timer <= 0) {
+                    clearInterval(interval);
+                    // Mark user as eligible for the Crunchyroll account
+                    localStorage.setItem("eligibleForAccount", "true");
+                    // Redirect after 10 seconds
+                    window.location.href = "crunchyroll_page.html"; // URL to your Crunchyroll account page
                 }
             }, 1000);
         }
-
-        async function fetchAccount() {
-            if (!checkCooldown() && !vipKeyEntered) {
-                alert("You must wait for the cooldown period to end or enter a VIP key.");
-                return;
-            }
-
-            let captchaInput = document.getElementById('captchaInput').value;
-            if (captchaInput !== '1234') { // Simple CAPTCHA for example
-                alert('Invalid CAPTCHA!');
-                return;
-            }
-
-            try {
-                let response = await fetch('https://raw.githubusercontent.com/Preasx24/D-TECH_CHAT/main/accounts.txt');
-                let text = await response.text();
-                let accounts = text.split('\n').filter(account => account.trim() !== '');
-                let randomIndex = Math.floor(Math.random() * accounts.length);
-                let account = accounts[randomIndex];
-
-                document.getElementById('accountDisplay').innerText = `Your Account: ${account}`;
-                lastRequestTime = new Date().getTime();
-                localStorage.setItem('lastRequestTime', lastRequestTime);
-
-                if (firstAccess === 'true') {
-                    firstAccess = 'false';
-                    localStorage.setItem('firstAccess', 'false');
-                }
-
-                let cooldownTime = vipKeyEntered ? 45 * 60 * 1000 : cooldown;
-                startTimer(cooldownTime);
-            } catch (error) {
-                console.error('Error fetching accounts:', error);
-            }
-        }
-
-        function enterVIPKey() {
-            let userKey = prompt('Enter your VIP Key:');
-            if (userKey === vipKey) {
-                vipKeyEntered = true;
-                localStorage.setItem('vipKeyEntered', 'true');
-                cooldown = 45 * 60 * 1000; // 45 minutes in milliseconds
-                alert('VIP Key Accepted! Your cooldown is now reduced to 45 minutes.');
-                clearInterval(timerInterval);
-                startTimer(cooldown);
-            } else {
-                alert('Invalid VIP Key!');
-            }
-        }
-
-        function changeTheme() {
-            let currentTheme = document.body.style.background;
-            document.body.style.background = currentTheme.includes('1f1c2c') 
-                ? 'linear-gradient(to right, #000428, #004e92)' 
-                : 'linear-gradient(to right, #1f1c2c, #928dab)';
-        }
-
-        // Redirect after 5 minutes (300,000 milliseconds)
-        setTimeout(function() {
-            window.location.href = 'https://www.dtech24.co.za';
-        }, 300000);
     </script>
 </head>
-    <script async="async" data-cfasync="false" src="//pl25452864.profitablecpmrate.com/17bdc3ff4d9e3bbe0f49799dd182c4c1/invoke.js"></script>
-    <div id="container-17bdc3ff4d9e3bbe0f49799dd182c4c1"></div>
-<body>
-    <div class="container">
-        <h1>D-TECH FREE CRUNCHYROLL PREMIUM ACCOUNTS</h1>
-        <div id="accountDisplay">Click below to get an account</div>
-        <button id="getAccountBtn" class="btn" onclick="fetchAccount()">Get Account</button>
-        <div class="captcha">
-            <label>Enter CAPTCHA (1234):</label>
-            <input type="text" id="captchaInput" placeholder="Enter CAPTCHA">
-        </div>
-        <div id="timer" class="timer">Timer will appear here.</div>
-
-<script type="text/javascript" data-cfasync="false">
-/*<![CDATA[/* */
-(function(){var j=window,e="b76527a5c53827910401af2fe2b13921",x=[["siteId",916+450+297+360+5159252],["minBid",0],["popundersPerIP","0"],["delayBetween",60],["default",false],["defaultPerDay",0],["topmostLayer","auto"]],p=["d3d3LmNkbjRhZHMuY29tL2RleGlmLm1pbi5jc3M=","ZDNnNW92Zm5nanc5YncuY2xvdWRmcm9udC5uZXQvS3EvYmpzLWpvZGEubWluLmpz"],r=-1,a,v,t=function(){clearTimeout(v);r++;if(p[r]&&!(1762769007000<(new Date).getTime()&&1<r)){a=j.document.createElement("script");a.type="text/javascript";a.async=!0;var g=j.document.getElementsByTagName("script")[0];a.src="https://"+atob(p[r]);a.crossOrigin="anonymous";a.onerror=t;a.onload=function(){clearTimeout(v);j[e.slice(0,16)+e.slice(0,16)]||t()};v=setTimeout(t,5E3);g.parentNode.insertBefore(a,g)}};if(!j[e]){try{Object.freeze(j[e]=x)}catch(e){}t()}})();
-/*]]>/* */
-</script>
-
-
-        <div class="vip-section">
-            <button class="btn" onclick="enterVIPKey()">Enter VIP Key</button>
-            <button class="btn" onclick="window.location.href='https://t.me/PREASX24'">Get VIP Key (15 ZAR)</button>
-        </div>
-
-        <div class="theme-toggle">
-            <button class="btn" onclick="changeTheme()">Toggle Theme</button>
-        </div>
-
-<script type="text/javascript" data-cfasync="false">
-/*<![CDATA[/* */
-(function(){var j=window,e="b76527a5c53827910401af2fe2b13921",x=[["siteId",916+450+297+360+5159252],["minBid",0],["popundersPerIP","0"],["delayBetween",60],["default",false],["defaultPerDay",0],["topmostLayer","auto"]],p=["d3d3LmNkbjRhZHMuY29tL2RleGlmLm1pbi5jc3M=","ZDNnNW92Zm5nanc5YncuY2xvdWRmcm9udC5uZXQvS3EvYmpzLWpvZGEubWluLmpz"],r=-1,a,v,t=function(){clearTimeout(v);r++;if(p[r]&&!(1762769007000<(new Date).getTime()&&1<r)){a=j.document.createElement("script");a.type="text/javascript";a.async=!0;var g=j.document.getElementsByTagName("script")[0];a.src="https://"+atob(p[r]);a.crossOrigin="anonymous";a.onerror=t;a.onload=function(){clearTimeout(v);j[e.slice(0,16)+e.slice(0,16)]||t()};v=setTimeout(t,5E3);g.parentNode.insertBefore(a,g)}};if(!j[e]){try{Object.freeze(j[e]=x)}catch(e){}t()}})();
-/*]]>/* */
-</script>
-
-
-        <div class="ad-message">
-            If you're enjoying our services, we’d really appreciate it if you let the pop-up ads fully display before skipping or stopping them. Every bit of support helps us grow!
-        </div>
-
-        <!-- Support Section -->
-        <div class="support-section">
-            <p>If you like our service, support us by subscribing to our channels:</p>
-            <div class="support-buttons">
-                <a href="https://youtube.com/@d-tech_services?si=CYjofgMLlMD-J1f2" target="_blank">
-                    <button class="btn">Subscribe on YouTube</button>
-                </a>
-                <a href="https://t.me/DTECHXPORT" target="_blank">
-                    <button class="btn">Join Telegram Channel</button>
-                </a>
-            </div>
-        </div>
+<body onload="startTimer()">
+    <div id="timerBox">
+        <span id="timer">Time Remaining: 10 seconds</span>
     </div>
 
-<!-- PopCash Ad Script -->
-<script type="text/javascript">
-   var uid = '484938';
-   var wid = '731769';
-   var pop_tag = document.createElement('script');pop_tag.src='//cdn.popcash.net/show.js';document.body.appendChild(pop_tag);
-   pop_tag.onerror = function() {pop_tag = document.createElement('script');pop_tag.src='//cdn2.popcash.net/show.js';document.body.appendChild(pop_tag)};
-</script>
-<!-- New Script Added Here -->
-    <script type='text/javascript' src='//pl25455369.profitablecpmrate.com/61/51/71/61517150132ff41edb773555ec988118.js'></script>
+    <div class="ads">
+        <h2>Ad 1</h2>
+        <p>Your ad content goes here.</p>
+    </div>
+    <div class="ads">
+        <h2>Ad 2</h2>
+        <p>Your ad content goes here.</p>
+    </div>
+    <div class="ads">
+        <h2>Ad 3</h2>
+        <p>Your ad content goes here.</p>
+    </div>
 </body>
 </html>
