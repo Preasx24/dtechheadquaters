@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Us with Ads</title>
+    <style>
+        #timerBox {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            z-index: 9999;
+        }
+
+        .ads {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+    </style>
+    <script>
+        let timer = 10;
+
+        function startTimer() {
+            const countdown = document.getElementById("timer");
+            const interval = setInterval(() => {
+                timer--;
+                countdown.textContent = `Time Remaining: ${timer} seconds`;
+
+                if (timer <= 0) {
+                    clearInterval(interval);
+                    // Redirect to the Crunchyroll account page after 10 seconds
+                    window.location.href = "crunchyroll_account.html";
+                }
+            }, 1000);
+        }
+
+        // Ensure the user came from the Introduction page
+        if (localStorage.getItem("agreedToGetAccount") !== "true") {
+            alert("You must agree to get the free account from the Introduction page!");
+            window.location.href = "index.html";  // Redirect back if accessed directly
+        } else {
+            // Remove flag to prevent reuse
+            localStorage.removeItem("agreedToGetAccount");
+        }
+
+        // Start the timer when the page loads
+        window.onload = startTimer;
+    </script>
+</head>
+<body>
+    <div id="timerBox">
+        <span id="timer">Time Remaining: 10 seconds</span>
+    </div>
+
+    <div class="ads">
+        <h2>Ad 1</h2>
+        <p>Your ad content goes here.</p>
+    </div>
+    <div class="ads">
+        <h2>Ad 2</h2>
+        <p>Your ad content goes here.</p>
+    </div>
+    <div class="ads">
+        <h2>Ad 3</h2>
+        <p>Your ad content goes here.</p>
+    </div>
+</body>
+</html>
