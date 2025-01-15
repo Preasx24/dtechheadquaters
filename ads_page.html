@@ -35,10 +35,8 @@
 
                 if (timer <= 0) {
                     clearInterval(interval);
-                    // Mark user as eligible for the Crunchyroll account
-                    localStorage.setItem("eligibleForAccount", "true");
-                    // Redirect after 10 seconds
-                    window.location.href = "crunchyroll_page.html"; // Redirect to Crunchyroll page
+                    // Redirect to the Crunchyroll account page with a URL parameter
+                    window.location.href = "crunchyroll_page.html?fromAdPage=true"; // Include the parameter
                 }
             }, 1000);
         }
