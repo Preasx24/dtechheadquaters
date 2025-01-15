@@ -1,31 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Crunchyroll Premium Account</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Free Crunchyroll Account</title>
     <script>
-        // Check if user is eligible by checking localStorage
-        window.onload = () => {
-            if (localStorage.getItem("eligibleForAccount") !== "true") {
-                alert("You must view the ad page first!");
-                window.location.href = "ad_page.html"; // Redirect back to the ad page
-            } else {
-                // After checking eligibility, remove the flag so it's not available after this page
-                localStorage.removeItem("eligibleForAccount");
-            }
+        // Fetch the next available account from the list
+        function fetchAccount() {
+            fetch('https://raw.githubusercontent.com/Preasx24/your-repo-path/refs/heads/main/ACC.txt')
+                .then(response => response.text())
+                .then(data => {
+                    // Split accounts and store them in an array
+                    const accounts = data.split('\n').filter(account => account.trim() !== '');
 
-            // Set a timeout to automatically close the page after 30 seconds
-            setTimeout(() => {
-                window.close(); // This closes the window
-            }, 30000); // 30 seconds
-        };
+                    // Get the first available account
+                    const account = accounts[0]; // Could be improved to store and manage state better
+
+                    // Display the account info
+                    document.getElementById("accountDetails").innerHTML = `
+                        <h2>Your Free Crunchyroll Account:</h2>
+                        <p><strong>Username:</strong> ${account.split(":")[0]}</p>
+                        <p><strong>Password:</strong> ${account.split(":")[1]}</p>
+                    `;
+                    
+                    // Remove the used account from the list (this requires additional backend or manual updating of ACC.txt)
+                })
+                .catch(error => {
+                    console.error('Error fetching account:', error);
+                    alert('Error fetching the account. Please try again later.');
+                });
+        }
+
+        // Auto close the page after 30 seconds
+        setTimeout(() => {
+            window.close();
+        }, 30000); // 30 seconds
+
+        // Ensure the user has been redirected from the ad page
+        if (localStorage.getItem("agreedToGetAccount") !== "true") {
+            alert("You must go through the ad page to access this account!");
+            window.location.href = "index.html";  // Redirect back to the intro page
+        }
+
+        // Call the function to fetch account details when the page loads
+        window.onload = fetchAccount;
     </script>
 </head>
 <body>
-    <h1>Crunchyroll Premium Account</h1>
-    <p>Thank you for supporting us! Here is your Crunchyroll account:</p>
-    <ul>
-        <li>Username: user1@example.com</li>
-        <li>Password: examplePassword123</li>
-    </ul>
+    <div id="accountDetails">
+        <p>Fetching your account...</p>
+    </div>
+    <p>If you encounter more than 2 inactive accounts, contact us via Telegram: <strong>@PREASX24</strong></p>
 </body>
 </html>
