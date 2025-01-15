@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Support Us with Ads</title>
+    <title>Support Us</title>
     <style>
         #timerBox {
             position: fixed;
@@ -15,6 +13,7 @@
             border-radius: 5px;
             font-size: 16px;
             z-index: 9999;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
 
         .ads {
@@ -29,32 +28,23 @@
 
         function startTimer() {
             const countdown = document.getElementById("timer");
+
             const interval = setInterval(() => {
                 timer--;
                 countdown.textContent = `Time Remaining: ${timer} seconds`;
 
                 if (timer <= 0) {
                     clearInterval(interval);
-                    // After 10 seconds, redirect to the Crunchyroll account page
-                    window.location.href = "crunchyroll_account.html";
+                    // Mark user as eligible for the Crunchyroll account
+                    localStorage.setItem("eligibleForAccount", "true");
+                    // Redirect after 10 seconds
+                    window.location.href = "crunchyroll_page.html"; // Redirect to Crunchyroll page
                 }
             }, 1000);
         }
-
-        // Check if the user came from the Introduction page
-        if (localStorage.getItem("agreedToGetAccount") !== "true") {
-            alert("You must agree to get the free account from the Introduction page!");
-            window.location.href = "index.html";  // Redirect back if accessed directly
-        } else {
-            // Remove the flag to prevent reuse on next page
-            localStorage.removeItem("agreedToGetAccount");
-        }
-
-        // Start the timer when the page loads
-        window.onload = startTimer;
     </script>
 </head>
-<body>
+<body onload="startTimer()">
     <div id="timerBox">
         <span id="timer">Time Remaining: 10 seconds</span>
     </div>
