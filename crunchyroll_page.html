@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crunchyroll Premium Account</title>
+    <script>
+        // Check if user is eligible by checking localStorage
+        window.onload = () => {
+            if (localStorage.getItem("eligibleForAccount") !== "true") {
+                alert("You must view the ad page first!");
+                window.location.href = "ad_page.html"; // Redirect back to the ad page
+            } else {
+                // After checking eligibility, remove the flag so it's not available after this page
+                localStorage.removeItem("eligibleForAccount");
+            }
+
+            // Set a timeout to automatically close the page after 30 seconds
+            setTimeout(() => {
+                window.close(); // This closes the window
+            }, 30000); // 30 seconds
+        };
+    </script>
+</head>
+<body>
+    <h1>Crunchyroll Premium Account</h1>
+    <p>Thank you for supporting us! Here is your Crunchyroll account:</p>
+    <ul>
+        <li>Username: user1@example.com</li>
+        <li>Password: examplePassword123</li>
+    </ul>
+</body>
+</html>
