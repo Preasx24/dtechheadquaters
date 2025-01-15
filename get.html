@@ -3,22 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Free Crunchyroll Account</title>
+    <title>Free Crunchyroll Premium Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        #intro, #adsPage, #crunchyrollPage {
+            text-align: center;
+            padding: 20px;
+        }
+
+        #timerBox {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            z-index: 9999;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .ads, .content {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: white;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .content ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .content li {
+            margin: 10px 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome tooll Premium Accounts!</h1>
-    <p>Get acyroll premium account after watching a 10-second compilation of ads.</p>
-    <button onclick="redirectToAdsPage()">Get Free Account</button>
+    <!-- Introduction -->
+    <div id="intro">
+        <h1>Welcome to our site!</h1>
+        <p>Get a Free Crunchyroll Premium Account by following these steps.</p>
+        <button id="getAccountBtn">Get Free Account</button>
+    </div>
 
-    <p>If you face issues with inactive accounts, please contact us via Telegram: <strong>@PREASX24</strong></p>
+    <!-- Ads Page -->
+    <div id="adsPage" class="hidden">
+        <div id="timerBox">
+            <span id="timer">Time Remaining: 10 seconds</span>
+        </div>
+        <div class="ads">
+            <h2>Ad 1</h2>
+            <p>Your ad content goes here.</p>
+        </div>
+        <div class="ads">
+            <h2>Ad 2</h2>
+            <p>Your ad content goes here.</p>
+        </div>
+        <div class="ads">
+            <h2>Ad 3</h2>
+            <p>Your ad content goes here.</p>
+        </div>
+    </div>
+
+    <!-- Crunchyroll Account Page -->
+    <div id="crunchyrollPage" class="hidden content">
+        <h1>Crunchyroll Premium Account</h1>
+        <p>Thank you for supporting us! Here is your Crunchyroll account:</p>
+        <ul id="accountDetails">
+            <!-- Account details will be displayed here -->
+        </ul>
+    </div>
 
     <script>
-        function redirectToAdsPage() {
-            // Mark that the user has agreed to get a free account
-            localStorage.setItem("agreedToGetAccount", "true");
-            // Redirect to the ads page
-            window.location.href = "ads_page.html";
+        let timer = 10;
+        let accounts = [];
+        let usedAccounts = JSON.parse(localStorage.getItem("usedAccounts")) || [];
+
+        // Fetch the list of accounts from the raw GitHub file
+        fetch("https://raw.githubusercontent.com/Preasx24/...../refs/heads/main/ACC.txt")
+            .then(response => response.text())
+            .then(data => {
+                accounts = data.split("\n").filter(line => line.trim() !== "");
+            })
+            .catch(error => console.error("Error fetching accounts:", error));
+
+        // Start the ad timer
+        function startTimer() {
+            const countdown = document.getElementById("timer");
+            const interval = setInterval(() => {
+                timer--;
+                countdown.textContent = `Time Remaining: ${timer} seconds`;
+
+                if (timer <= 0) {
+                    clearInterval(interval);
+                    // Redirect to Crunchyroll account page after 10 seconds
+                    showCrunchyrollAccountPage();
+                }
+            }, 1000);
         }
+
+        // Show the Crunchyroll account page
+        function showCrunchyrollAccountPage() {
+            // Get a random account from the list (that hasn't been used yet)
+            let availableAccounts = accounts.filter(account => !usedAccounts.includes(account));
+            if (availableAccounts.length === 0) {
+                alert("No more available accounts. Please try again later.");
+                return;
+            }
+
+            let randomAccount = availableAccounts[Math.floor(Math.random() * availableAccounts.length)];
+            usedAccounts.push(randomAccount);
+            localStorage.setItem("usedAccounts", JSON.stringify(usedAccounts));
+
+            const accountDetails = document.getElementById("accountDetails");
+
+            accountDetails.innerHTML = `
+                <li>${randomAccount}</li>
+            `;
+
+            // Hide the ads page and show the Crunchyroll page
+            document.getElementById("adsPage").classList.add("hidden");
+            document.getElementById("crunchyrollPage").classList.remove("hidden");
+
+            // Close the window after 30 seconds
+            setTimeout(() => {
+                window.close();
+            }, 30000);
+        }
+
+        // Button to start the process
+        document.getElementById("getAccountBtn").addEventListener("click", () => {
+            document.getElementById("intro").classList.add("hidden");
+            document.getElementById("adsPage").classList.remove("hidden");
+            startTimer();
+        });
     </script>
 </body>
 </html>
