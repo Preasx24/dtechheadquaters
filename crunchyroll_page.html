@@ -3,14 +3,14 @@
 <head>
     <title>Crunchyroll Premium Account</title>
     <script>
-        // Check if user is eligible by checking localStorage
         window.onload = () => {
-            if (localStorage.getItem("eligibleForAccount") !== "true") {
+            // Get the URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const fromAdPage = urlParams.get("fromAdPage");
+
+            if (fromAdPage !== "true") {
                 alert("You must view the ad page first!");
-                window.location.href = "ad_page.html"; // Redirect back to the ad page
-            } else {
-                // After checking eligibility, remove the flag so it's not available after this page
-                localStorage.removeItem("eligibleForAccount");
+                window.location.href = "ad_page.html"; // Redirect back to the ad page if the user hasn't come from it
             }
 
             // Set a timeout to automatically close the page after 30 seconds
