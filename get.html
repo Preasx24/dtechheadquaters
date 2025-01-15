@@ -9,12 +9,22 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
+            background-color: #f4f4f9;
         }
 
         #intro, #adsPage, #crunchyrollPage {
             text-align: center;
             padding: 20px;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        p {
+            color: #555;
+            font-size: 16px;
+            line-height: 1.6;
         }
 
         #timerBox {
@@ -59,6 +69,7 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
+            transition: background-color 0.3s;
         }
 
         button:hover {
@@ -68,65 +79,67 @@
         .hidden {
             display: none;
         }
+
+        .ad-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .ads {
+            width: 45%;
+            margin: 10px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .ads h3 {
+            color: #4CAF50;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
     <!-- Introduction -->
     <div id="intro">
         <h1>Welcome to our site!</h1>
-        <p>Get a Free Crunchyroll Premium Account by following these steps.</p>
+        <p>Get a Free Crunchyroll Premium Account by following these simple steps.</p>
         <button id="getAccountBtn">Get Free Account</button>
     </div>
 
     <!-- Ads Page -->
     <div id="adsPage" class="hidden">
+        <h2>To unlock your free account, you must watch these ads for a random duration between 10 and 30 seconds.</h2>
         <div id="timerBox">
             <span id="timer">Loading...</span>
         </div>
 
-        <!-- Place your ad code here -->
-        <div class="ads"><script>
-(function(ygxbhz){
-var d = document,
-    s = d.createElement('script'),
-    l = d.scripts[d.scripts.length - 1];
-s.settings = ygxbhz || {};
-s.src = "\/\/deafeningphone.com\/b.XlVKssdwGSlY0zYbWKcB\/Ye\/ms9JuzZDUEluk\/P\/T\/YLwNMaTdYW0jM\/D\/ESt\/NQj\/ANxLNfjsQMwDM\/gH";
-s.async = true;
-s.referrerPolicy = 'no-referrer-when-downgrade';
-l.parentNode.insertBefore(s, l);
-})({})
-</script></div>
-        <div class="ads"><script>
-(function(ykmk){
-var d = document,
-    s = d.createElement('script'),
-    l = d.scripts[d.scripts.length - 1];
-s.settings = ykmk || {};
-s.src = "\/\/deafeningphone.com\/byXOVas.d\/GilQ0FY\/W\/dsi-YuWY5PuKZEXJIi\/MeIm\/9duZZkUzlAk\/PbT\/YvwoMgTQUz2FMTjvEIt\/NLjRA\/xnN\/TPYVyVMMgH";
-s.async = true;
-s.referrerPolicy = 'no-referrer-when-downgrade';
-l.parentNode.insertBefore(s, l);
-})({})
-</script></div>
-        <div class="ads">Ad Placeholder 3</div>
-        <div class="ads">Ad Placeholder 4</div>
-        <div class="ads">Ad Placeholder 5</div>
-        <div class="ads">Ad Placeholder 6</div>
-        <div class="ads">Ad Placeholder 7</div>
-        <div class="ads">Ad Placeholder 8</div>
-        <div class="ads">Ad Placeholder 9</div>
-        <div class="ads">Ad Placeholder 10</div>
-        <div class="ads">Ad Placeholder 11</div>
-        <div class="ads">Ad Placeholder 12</div>
-        <div class="ads">Ad Placeholder 13</div>
-        <div class="ads">Ad Placeholder 14</div>
-        <div class="ads">Ad Placeholder 15</div>
-        <div class="ads">Ad Placeholder 16</div>
-        <div class="ads">Ad Placeholder 17</div>
-        <div class="ads">Ad Placeholder 18</div>
-        <div class="ads">Ad Placeholder 19</div>
-        <div class="ads">Ad Placeholder 20</div>
+        <!-- Ad Containers -->
+        <div class="ad-container">
+            <div class="ads">Ad Placeholder 1</div>
+            <div class="ads">Ad Placeholder 2</div>
+            <div class="ads">Ad Placeholder 3</div>
+            <div class="ads">Ad Placeholder 4</div>
+            <div class="ads">Ad Placeholder 5</div>
+            <div class="ads">Ad Placeholder 6</div>
+            <div class="ads">Ad Placeholder 7</div>
+            <div class="ads">Ad Placeholder 8</div>
+            <div class="ads">Ad Placeholder 9</div>
+            <div class="ads">Ad Placeholder 10</div>
+            <div class="ads">Ad Placeholder 11</div>
+            <div class="ads">Ad Placeholder 12</div>
+            <div class="ads">Ad Placeholder 13</div>
+            <div class="ads">Ad Placeholder 14</div>
+            <div class="ads">Ad Placeholder 15</div>
+            <div class="ads">Ad Placeholder 16</div>
+            <div class="ads">Ad Placeholder 17</div>
+            <div class="ads">Ad Placeholder 18</div>
+            <div class="ads">Ad Placeholder 19</div>
+            <div class="ads">Ad Placeholder 20</div>
+        </div>
     </div>
 
     <!-- Crunchyroll Account Page -->
@@ -151,10 +164,10 @@ l.parentNode.insertBefore(s, l);
             })
             .catch(error => console.error("Error fetching accounts:", error));
 
-        // Start the ad timer
+        // Start the ad timer with a random number between 10 and 30 seconds
         function startTimer() {
             const countdown = document.getElementById("timer");
-            timer = Math.floor(Math.random() * (60 - 10 + 1)) + 10; // Random time between 10s and 60s
+            timer = Math.floor(Math.random() * (30 - 10 + 1)) + 10; // Random time between 10s and 30s
             countdown.textContent = `Time Remaining: ${timer} seconds`;
 
             const interval = setInterval(() => {
