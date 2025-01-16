@@ -3,232 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Crunchyroll Premium Account</title>
+    <title>FREE CRUNCHYROLL PREMIUM ACCOUNTS 🌹</title>
+    <script>
+        const WAIT_TIME = 8; // Countdown time in seconds
+        const AD_URL = "https://www.profitablecpmrate.com/spymr251ew?key=ce76edf7e5c6e4907177e712dc143365";
+        const ACC_URL = "https://raw.githubusercontent.com/Preasx24/...../refs/heads/main/ACC.txt";
+        let accounts = [];
+        let usedAccounts = new Set();
+
+        async function fetchAccounts() {
+            try {
+                const response = await fetch(ACC_URL);
+                const text = await response.text();
+                accounts = text.trim().split("\n");
+            } catch (error) {
+                alert("Failed to fetch accounts. Please try again later.");
+                console.error(error);
+            }
+        }
+
+        function showAdButton() {
+            document.getElementById('ad-instructions').style.display = 'block';
+            document.getElementById('get-acc-btn').style.display = 'none';
+            localStorage.setItem('adClickedTime', Date.now());
+        }
+
+        function startCountdown() {
+            window.open(AD_URL, '_blank');
+        }
+
+        function checkCountdown() {
+            const adClickedTime = localStorage.getItem('adClickedTime');
+
+            if (!adClickedTime) {
+                alert('You need to click the ad button first!');
+                return;
+            }
+
+            const elapsedTime = (Date.now() - adClickedTime) / 1000;
+
+            if (elapsedTime < WAIT_TIME) {
+                alert(`You didn't wait for ${WAIT_TIME} seconds. Please try again.`);
+            } else {
+                revealAccount();
+                document.getElementById('ad-instructions').style.display = 'none';
+            }
+        }
+
+        function revealAccount() {
+            if (accounts.length === usedAccounts.size) {
+                alert("No more accounts available. Please try again later.");
+                return;
+            }
+
+            let accountIndex;
+            do {
+                accountIndex = Math.floor(Math.random() * accounts.length);
+            } while (usedAccounts.has(accountIndex));
+
+            usedAccounts.add(accountIndex);
+
+            const account = accounts[accountIndex];
+            document.getElementById('account-info').innerHTML = `
+                <h2>Your Free Crunchyroll Premium Account:</h2>
+                <div class="account-details">
+                    ${account}
+                </div>
+            `;
+            document.getElementById('account-info').style.display = 'block';
+        }
+
+        window.onload = fetchAccounts;
+    </script>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-        }
-
-        #intro, #adsPage, #crunchyrollPage {
             text-align: center;
-            padding: 20px;
-        }
-
-        h1, h2 {
-            color: #333;
-        }
-
-        p {
-            color: #555;
-            font-size: 16px;
-            line-height: 1.6;
-        }
-
-        #timerBox {
-            position: fixed;
-            top: 10px; /* Adjusted to pull the timer up */
-            left: 20px;
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 16px;
-            z-index: 9999;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
-
-        .ads {
             margin: 20px;
-            padding: 20px;
-            background-color: transparent;  /* Blank space for ads */
-        }
-
-        .content ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .content li {
-            margin: 10px 0;
-            font-size: 18px;
+            background-color: #f4f4f9;
             color: #333;
         }
-
+        .logo {
+            width: 150px;
+            margin: 20px auto;
+        }
+        h1 {
+            color: #FF6347;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        .instructions {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            text-align: left;
+        }
         button {
-            background-color: #28a745;
-            color: white;
             padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #FF6347;
+            color: #fff;
             border: none;
             border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
+            margin: 10px;
         }
-
         button:hover {
-            background-color: #218838;
+            background-color: #FF4500;
         }
-
-        .hidden {
+        #ad-instructions {
             display: none;
+            margin-top: 20px;
         }
-
-        .ad-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin: 20px 0;
+        #account-info {
+            display: none;
+            margin-top: 20px;
         }
-
-        /* Adjusted margin to prevent overlap of timer and instructions */
-        #intro {
-            margin-top: 80px;  /* Increased space to push instructions down */
+        .account-details {
+            background-color: #FFFAF0;
+            border: 1px solid #FF6347;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <!-- Introduction -->
-    <div id="intro">
-        <h1>Welcome to our site!</h1>
-        <p>Get a Free Crunchyroll Premium Account by following these simple steps.</p>
-        <button id="getAccountBtn">Get Free Account</button>
+    <!-- Logo -->
+    <img src="dtech-logo.png" alt="D-TECH Logo" class="logo">
+    <h1>FREE CRUNCHYROLL PREMIUM ACCOUNTS 🌹</h1>
+    <p>Support us by viewing an ad! Follow the steps below to unlock your account:</p>
+    
+    <div class="instructions">
+        <ol>
+            <li>Click the "Get Free Account" button to start.</li>
+            <li>Click "View Ad" and wait **8 seconds** or until the ad fully displays.</li>
+            <li>Return here and click "I've Viewed the Ad" to reveal your free account.</li>
+        </ol>
     </div>
 
-    <!-- Ads Page -->
-    <div id="adsPage" class="hidden">
-        <h2>To unlock your free account, you must watch these ads for a random duration between 10 and 30 seconds.</h2>
-        <div id="timerBox">
-            <span id="timer">Loading...</span>
-        </div>
+    <!-- Get Account Button -->
+    <button id="get-acc-btn" onclick="showAdButton()">Get Free Account</button>
 
-        <!-- Blank Ad Containers (no borders or background) -->
-        <div class="ad-container">
-            <div class="ads"><script>
-(function(vgnf){
-var d = document,
-    s = d.createElement('script'),
-    l = d.scripts[d.scripts.length - 1];
-s.settings = vgnf || {};
-s.src = "\/\/deafeningphone.com\/bTXnVTsBd.GWlO0cYOWVdciZYCW\/5EuGZZXlIU\/heNmi9\/uCZ\/UJl\/kmP\/TgYgweMXTjU\/2WMhjpEWt-NEjFAAx-NlTpY\/y\/Mogb";
-s.async = true;
-s.referrerPolicy = 'no-referrer-when-downgrade';
-l.parentNode.insertBefore(s, l);
-})({})
-</script></div>
-            <div class="ads"><script>
-(function(jytgka){
-var d = document,
-    s = d.createElement('script'),
-    l = d.scripts[d.scripts.length - 1];
-s.settings = jytgka || {};
-s.src = "\/\/deafeningphone.com\/b.XuVHs\/drG\/li0aYfWdcP\/fepmR9GupZXUyl\/kUPITlYUwnM\/TyY\/0\/MQD\/EWtnNYj\/ALxVNxjqQbwKMdgO";
-s.async = true;
-s.referrerPolicy = 'no-referrer-when-downgrade';
-l.parentNode.insertBefore(s, l);
-})({})
-</script></div>
-            <div class="ads"><script type='text/javascript' src='//pl25455369.profitablecpmrate.com/61/51/71/61517150132ff41edb773555ec988118.js'></script></div>
-            <div class="ads"><script async="async" data-cfasync="false" src="//pl25452864.profitablecpmrate.com/17bdc3ff4d9e3bbe0f49799dd182c4c1/invoke.js"></script>
-<div id="container-17bdc3ff4d9e3bbe0f49799dd182c4c1"></div></div>
-            <div class="ads"></div>
-
-<a href="https://www.profitablecpmrate.com/spymr251ew?key=ce76edf7e5c6e4907177e712dc143365" target="_blank">
-    Click here for a special offer!
-</a>
-
-            <div class="ads"></div>
-            <div class="ads"></div>
-            <div class="ads"></div>
-            <div class="ads"></div>
-            <div class="ads"></div>
-            <div class="ads"></div>
-            <div class="ads"></div>
-            <div class="ads"></div>
-            <div class="ads"></div>
-            <div class="ads"></div>
-            <div class="ads"></div>
-            <div class="ads"></div>
-            <div class="ads"></div>
-            <div class="ads"></div>
-            <div class="ads"></div>
-        </div>
+    <!-- Ad Button and Instructions -->
+    <div id="ad-instructions">
+        <p>Click the button below to view the ad. Wait **8 seconds** or until the ad fully displays before returning here.</p>
+        <button onclick="startCountdown()">View Ad</button>
+        <p>After viewing the ad, return here and click the button below:</p>
+        <button onclick="checkCountdown()">I've Viewed the Ad</button>
     </div>
 
-    <!-- Crunchyroll Account Page -->
-    <div id="crunchyrollPage" class="hidden content">
-        <h1>Crunchyroll Premium Account</h1>
-        <p>Thank you for supporting us! Here is your Crunchyroll account:</p>
-        <ul id="accountDetails">
-            <!-- Account details will be displayed here -->
-        </ul>
-    </div>
-
-    <script>
-        let timer;
-        let accounts = [];
-        let usedAccounts = JSON.parse(localStorage.getItem("usedAccounts")) || [];
-
-        // Fetch the list of accounts from the raw GitHub file
-        fetch("https://raw.githubusercontent.com/Preasx24/...../refs/heads/main/ACC.txt")
-            .then(response => response.text())
-            .then(data => {
-                accounts = data.split("\n").filter(line => line.trim() !== "");
-            })
-            .catch(error => console.error("Error fetching accounts:", error));
-
-        // Start the ad timer with a random number between 10 and 30 seconds
-        function startTimer() {
-            const countdown = document.getElementById("timer");
-            timer = Math.floor(Math.random() * (30 - 10 + 1)) + 10; // Random time between 10s and 30s
-            countdown.textContent = `Time Remaining: ${timer} seconds`;
-
-            const interval = setInterval(() => {
-                timer--;
-                countdown.textContent = `Time Remaining: ${timer} seconds`;
-
-                if (timer <= 0) {
-                    clearInterval(interval);
-                    // Redirect to Crunchyroll account page after timer ends
-                    showCrunchyrollAccountPage();
-                }
-            }, 1000);
-        }
-
-        // Show the Crunchyroll account page
-        function showCrunchyrollAccountPage() {
-            let availableAccounts = accounts.filter(account => !usedAccounts.includes(account));
-            if (availableAccounts.length === 0) {
-                alert("No more available accounts. Please try again later.");
-                return;
-            }
-
-            let randomAccount = availableAccounts[Math.floor(Math.random() * availableAccounts.length)];
-            usedAccounts.push(randomAccount);
-            localStorage.setItem("usedAccounts", JSON.stringify(usedAccounts));
-
-            const accountDetails = document.getElementById("accountDetails");
-
-            accountDetails.innerHTML = `
-                <li>${randomAccount}</li>
-            `;
-
-            document.getElementById("adsPage").classList.add("hidden");
-            document.getElementById("crunchyrollPage").classList.remove("hidden");
-
-            setTimeout(() => {
-                window.close();
-            }, 30000);
-        }
-
-        // Button to start the process
-        document.getElementById("getAccountBtn").addEventListener("click", () => {
-            document.getElementById("intro").classList.add("hidden");
-            document.getElementById("adsPage").classList.remove("hidden");
-            startTimer();
-        });
-    </script>
+    <!-- Account Information -->
+    <div id="account-info"></div>
 </body>
 </html>
